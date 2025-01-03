@@ -185,6 +185,12 @@
             <DependentOn>main_unit.h</DependentOn>
             <BuildOrder>2</BuildOrder>
         </CppCompile>
+        <CppCompile Include="OpticalDevice.cpp">
+            <BuildOrder>3</BuildOrder>
+        </CppCompile>
+        <None Include="OpticalDevice.h">
+            <BuildOrder>4</BuildOrder>
+        </None>
         <CppCompile Include="ray_modeling.cpp">
             <BuildOrder>0</BuildOrder>
         </CppCompile>
@@ -192,6 +198,12 @@
             <BuildOrder>1</BuildOrder>
             <PCH>true</PCH>
         </PCHCompile>
+        <CppCompile Include="UI.cpp">
+            <BuildOrder>5</BuildOrder>
+        </CppCompile>
+        <None Include="UI.h">
+            <BuildOrder>6</BuildOrder>
+        </None>
         <FormResources Include="main_unit.dfm"/>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
