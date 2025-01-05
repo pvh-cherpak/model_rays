@@ -33,7 +33,7 @@ UI_t::UI_t(std::vector<std::unique_ptr<VirtualOpticalDevice_t>>& opticalDevices,
          TLabeledEdit *LabeledEditX, TLabeledEdit *LabeledEditY,
          TButton *ButtonAccept,
          TButton *ButtonReject,
-	     TLabeledEdit *LabeledEdit1, TLabeledEdit *LabeledEdit2)
+	     TLabeledEdit *LabeledEdit1, TLabeledEdit *LabeledEdit2);
 {
     this.rays_ = rays;
     this.devices_ = opticalDevices;

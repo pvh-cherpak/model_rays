@@ -28,7 +28,6 @@ __published:	// IDE-managed Components
 	TButton *ButtonReject;
 	TLabeledEdit *LabeledEdit1;
 	TLabeledEdit *LabeledEdit2;
-	TLabeledEdit *LabeledEdit5;
 	void __fastcall Image1Click(TObject *Sender);
 	void __fastcall Image1MouseDown(TObject *Sender, TMouseButton Button, TShiftState Shift,
 		  int X, int Y);

@@ -1,23 +1,25 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <BorlandProject>
-  <Transactions>
-    <Transaction>2025.01.03 23:02:06.345,=C:\Users\pvh cherpak\Documents\Embarcadero\Studio\Projects\Project1PCH1.h</Transaction>
-    <Transaction>2025.01.03 23:02:07.018,=C:\Users\pvh cherpak\Documents\Embarcadero\Studio\Projects\Unit1.cpp</Transaction>
-    <Transaction>2025.01.03 23:02:34.897,D:\git_rep\model_rays\ray_modelingPCH1.h=C:\Users\pvh cherpak\Documents\Embarcadero\Studio\Projects\Project1PCH1.h</Transaction>
-    <Transaction>2025.01.03 23:02:34.915,D:\git_rep\model_rays\Unit1.h=C:\Users\pvh cherpak\Documents\Embarcadero\Studio\Projects\Unit1.h</Transaction>
-    <Transaction>2025.01.03 23:02:34.915,D:\git_rep\model_rays\Unit1.cpp=C:\Users\pvh cherpak\Documents\Embarcadero\Studio\Projects\Unit1.cpp</Transaction>
-    <Transaction>2025.01.03 23:02:34.915,D:\git_rep\model_rays\Unit1.dfm=C:\Users\pvh cherpak\Documents\Embarcadero\Studio\Projects\Unit1.dfm</Transaction>
-    <Transaction>2025.01.03 23:02:34.933,D:\git_rep\model_rays\ray_modeling.cbproj=C:\Users\pvh cherpak\Documents\Embarcadero\Studio\Projects\Project1.cbproj</Transaction>
-    <Transaction>2025.01.03 23:02:40.946,D:\git_rep\model_rays\main_unit.cpp=D:\git_rep\model_rays\Unit1.cpp</Transaction>
-    <Transaction>2025.01.03 23:02:40.946,D:\git_rep\model_rays\main_unit.dfm=D:\git_rep\model_rays\Unit1.dfm</Transaction>
-    <Transaction>2025.01.03 23:02:40.946,D:\git_rep\model_rays\main_unit.h=D:\git_rep\model_rays\Unit1.h</Transaction>
-    <Transaction>2025.01.03 23:02:43.992,D:\git_rep\model_rays\ray_modeling.cbproj=D:\git_rep\model_rays\ray_modeling.cbproj</Transaction>
-    <Transaction>2025.01.03 23:21:17.354,=D:\git_rep\model_rays\OpticalDevice.cpp</Transaction>
-    <Transaction>2025.01.03 23:21:17.378,=D:\git_rep\model_rays\OpticalDevice.h</Transaction>
-    <Transaction>2025.01.03 23:21:17.431,=D:\git_rep\model_rays\UI.cpp</Transaction>
-    <Transaction>2025.01.03 23:21:17.483,=D:\git_rep\model_rays\UI.h</Transaction>
+	<Transactions>
+    <Transaction>1899.12.30 00:00:00.000.992,D:\git_rep\model_rays\ray_modeling.cbproj=D:\git_rep\model_rays\ray_modeling.cbproj</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.915,C:\Users\pvh cherpak\Documents\Embarcadero\Studio\Projects\Unit1.dfm=D:\git_rep\model_rays\Unit1.dfm</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.946,D:\git_rep\model_rays\Unit1.h=D:\git_rep\model_rays\main_unit.h</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.915,C:\Users\pvh cherpak\Documents\Embarcadero\Studio\Projects\Unit1.h=D:\git_rep\model_rays\Unit1.h</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.915,C:\Users\pvh cherpak\Documents\Embarcadero\Studio\Projects\Unit1.cpp=D:\git_rep\model_rays\Unit1.cpp</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.018,=C:\Users\pvh cherpak\Documents\Embarcadero\Studio\Projects\Unit1.cpp</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.483,=D:\git_rep\model_rays\UI.h</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.431,=D:\git_rep\model_rays\UI.cpp</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.378,=D:\git_rep\model_rays\OpticalDevice.h</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.354,=D:\git_rep\model_rays\OpticalDevice.cpp</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.946,D:\git_rep\model_rays\Unit1.dfm=D:\git_rep\model_rays\main_unit.dfm</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.946,D:\git_rep\model_rays\Unit1.cpp=D:\git_rep\model_rays\main_unit.cpp</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.345,=C:\Users\pvh cherpak\Documents\Embarcadero\Studio\Projects\Project1PCH1.h</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.897,C:\Users\pvh cherpak\Documents\Embarcadero\Studio\Projects\Project1PCH1.h=D:\git_rep\model_rays\ray_modelingPCH1.h</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.933,C:\Users\pvh cherpak\Documents\Embarcadero\Studio\Projects\Project1.cbproj=D:\git_rep\model_rays\ray_modeling.cbproj</Transaction>
+    <Transaction>2025.01.05 20:51:41.376,D:\git_rep\model_rays\UI.h=</Transaction>
+    <Transaction>2025.01.05 20:51:46.548,D:\git_rep\model_rays\UI.cpp=</Transaction>
   </Transactions>
-  <ProjectSortOrder AutoSort="0" SortType="0">
+	<ProjectSortOrder AutoSort="0" SortType="0">
     <File Path="main_unit.cpp"/>
     <File Path="main_unit.cpp"/>
     <File Path="main_unit.dfm"/>
@@ -26,7 +28,5 @@
     <File Path="OpticalDevice.h"/>
     <File Path="ray_modeling.cpp"/>
     <File Path="ray_modelingPCH1.h"/>
-    <File Path="UI.cpp"/>
-    <File Path="UI.h"/>
   </ProjectSortOrder>
 </BorlandProject>

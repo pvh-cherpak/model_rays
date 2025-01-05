@@ -1,0 +1,29 @@
+#include "OpticalDevice.h"
+#include <vector>
+
+class UI_t
+{
+private:
+    int pixels_per_meter = 1000;
+    std::vector<std::unique_ptr<VirtualOpticalDevice_t>>& devices_; 
+    std::vector<ray_t>& rays_;
+    TImage *Image;
+private:
+    int selected_divice_ = -1;
+public:
+    UI_t(std::vector<std::unique_ptr<VirtualOpticalDevice_t>>& opticalDevices,
+         std::vector<ray_t>& rays);
+
+    ~UI_t();
+};
+
+UI_t::UI_t(std::vector<std::unique_ptr<VirtualOpticalDevice_t>>& opticalDevices,
+         std::vector<ray_t>& rays)
+{
+    rays_ = rays;
+    devices_ = opticalDevices;
+}
+
+UI_t::~UI_t()
+{
+}

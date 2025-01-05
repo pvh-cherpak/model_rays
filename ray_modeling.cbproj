@@ -198,12 +198,6 @@
             <BuildOrder>1</BuildOrder>
             <PCH>true</PCH>
         </PCHCompile>
-        <CppCompile Include="UI.cpp">
-            <BuildOrder>5</BuildOrder>
-        </CppCompile>
-        <None Include="UI.h">
-            <BuildOrder>6</BuildOrder>
-        </None>
         <FormResources Include="main_unit.dfm"/>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>

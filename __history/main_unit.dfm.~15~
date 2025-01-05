@@ -32,9 +32,8 @@ object Form1: TForm1
     Top = 101
     Width = 136
     Height = 23
-    ItemIndex = 1
     TabOrder = 1
-    Text = #1069#1083#1080#1087#1089
+    Text = 'ComboBox1'
     Items.Strings = (
       #1053#1080#1095#1077#1075#1086
       #1069#1083#1080#1087#1089)
@@ -65,7 +64,7 @@ object Form1: TForm1
   end
   object LabeledEdit3: TLabeledEdit
     Left = 905
-    Top = 403
+    Top = 347
     Width = 121
     Height = 23
     EditLabel.Width = 67
@@ -77,7 +76,7 @@ object Form1: TForm1
   end
   object LabeledEdit4: TLabeledEdit
     Left = 905
-    Top = 448
+    Top = 392
     Width = 121
     Height = 23
     EditLabel.Width = 67
@@ -89,7 +88,7 @@ object Form1: TForm1
   end
   object ButtonAccept: TButton
     Left = 904
-    Top = 485
+    Top = 429
     Width = 57
     Height = 25
     Caption = #1055#1088#1080#1085#1103#1090#1100
@@ -98,17 +97,16 @@ object Form1: TForm1
   end
   object ButtonReject: TButton
     Left = 967
-    Top = 485
+    Top = 429
     Width = 73
     Height = 25
     Caption = #1054#1090#1082#1083#1086#1085#1080#1090#1100
     TabOrder = 7
     Visible = False
-    OnClick = ButtonRejectClick
   end
   object LabeledEdit1: TLabeledEdit
     Left = 905
-    Top = 317
+    Top = 261
     Width = 121
     Height = 23
     EditLabel.Width = 67
@@ -120,7 +118,7 @@ object Form1: TForm1
   end
   object LabeledEdit2: TLabeledEdit
     Left = 904
-    Top = 360
+    Top = 304
     Width = 121
     Height = 23
     EditLabel.Width = 67
@@ -129,16 +127,5 @@ object Form1: TForm1
     TabOrder = 9
     Text = ''
     Visible = False
-  end
-  object LabeledEdit5: TLabeledEdit
-    Left = 905
-    Top = 264
-    Width = 121
-    Height = 23
-    EditLabel.Width = 9
-    EditLabel.Height = 15
-    EditLabel.Caption = 'N'
-    TabOrder = 10
-    Text = ''
   end
 end

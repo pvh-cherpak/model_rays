@@ -17,16 +17,11 @@ public:
 class ElipseOpticalDevice_t : public VirtualOpticalDevice_t {
 private:
 	float x0 = 0, y0 = 0;
-	float a = 1, b = 5;
+	float a = 5, b = 1;
 	float n = 2;
 public:
 	ElipseOpticalDevice_t(float x0, float y0, float a, float b, float n);
 	ElipseOpticalDevice_t(float x0, float y0);
-	ElipseOpticalDevice_t();
-	void setX0(float x0){this->x0 = x0;}
-	void setY0(float y0){this->y0 = y0;}
-	void setA(float b){this->a = a;}
-	void setB(float a){this->b = b;}
-	void setN(float n){this->n = n;}
+    ElipseOpticalDevice_t();
 	void display(Vcl::Graphics::TCanvas* Canvas, int pixels_per_meter) override;
 };
