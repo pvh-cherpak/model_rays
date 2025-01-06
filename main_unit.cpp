@@ -58,6 +58,8 @@ void __fastcall TForm1::Image1MouseDown(
 					(float)X / pixels_per_meter, -(float)Y / pixels_per_meter)));
 			OpticalDevices.front()->display(Image1->Canvas, pixels_per_meter);
             break;
+	    case 0:
+	    	is_new_device = true;
         default:;
     }
     if (is_new_device) {
