@@ -130,7 +130,7 @@ object Form1: TForm1
     Text = ''
     Visible = False
   end
-  object LabeledEdit5: TLabeledEdit
+  object LabeledEditN: TLabeledEdit
     Left = 905
     Top = 264
     Width = 121

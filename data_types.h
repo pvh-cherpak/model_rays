@@ -1,0 +1,4 @@
+struct ray_t
+{
+    
+};
