@@ -23,8 +23,8 @@ object Form1: TForm1
     OnMouseMove = Image1MouseMove
   end
   object LabelPosition: TLabel
-    Left = 905
-    Top = 538
+    Left = 904
+    Top = 530
     Width = 71
     Height = 15
     Caption = 'LabelPosition'
@@ -49,6 +49,13 @@ object Form1: TForm1
     Width = 85
     Height = 15
     Caption = 'LabelTimeScene'
+  end
+  object LabelVersion: TLabel
+    Left = 585
+    Top = 565
+    Width = 66
+    Height = 15
+    Caption = 'LabelVersion'
   end
   object Button1: TButton
     Left = 895

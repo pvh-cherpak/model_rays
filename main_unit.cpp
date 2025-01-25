@@ -99,8 +99,8 @@ void __fastcall TForm1::ButtonAcceptClick(TObject* Sender)
     //                StrToFloat(menu_LE[i]->Text);
     //        }
     //    }
-    //       hide_menu();
-    //       selected_device = -1;
+    //    hide_menu();
+    //    selected_device = -1;
     reDraw();
 }
 //---------------------------------------------------------------------------
@@ -229,6 +229,27 @@ void __fastcall TForm1::Button1Click(TObject* Sender)
 
 void __fastcall TForm1::FormCreate(TObject* Sender)
 {
+LabelVersion->Caption = "math: " ;
+#ifdef EXPRTK
+	LabelVersion->Caption += "exprtk";
+#else
+	LabelVersion->Caption += "compiled";
+#endif
+
+LabelVersion->Caption += "\t multitreading: ";
+#ifdef multitreading
+	LabelVersion->Caption += "TRUE";
+#else
+	LabelVersion->Caption += "FALSE";
+#endif
+
+LabelVersion->Caption += "\t GPU: ";
+#ifdef GPU_HEAT_MAP
+	LabelVersion->Caption += "TRUE";
+#else
+	LabelVersion->Caption += "FALSE";
+#endif
+
     Virtual_Image->Width = VI_size;
     Virtual_Image->Height = VI_size;
     user_rect = Bounds(VI_centre - Image1->Width, VI_centre - Image1->Height,
@@ -238,7 +259,7 @@ void __fastcall TForm1::FormCreate(TObject* Sender)
     Heat_map->Width = VI_size;
     Heat_map->Height = VI_size;
 
-//    calculate_heat_map();
+    //    calculate_heat_map();
 
     DrawCoordinates(Heat_map->Canvas, pixels_per_meter);
     reDraw();

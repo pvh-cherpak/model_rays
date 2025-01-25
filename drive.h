@@ -1,5 +1,5 @@
 #pragma once
-#define EXPRTK
+//#define EXPRTK
 
 #ifdef EXPRTK
     #include "exprtk.hpp"
@@ -13,11 +13,6 @@ typedef exprtk::parser<double> parser_t;
 #include "vector.h"
 #include <math.h>
 #include <string>
-
-//typedef exprtk::symbol_table<double> symbol_table_t;
-//typedef exprtk::expression<double> expression_t;
-//typedef exprtk::parser<double> parser_t;
-//typedef exprtk::derivative<double> derivative_t;
 
 using namespace std;
 

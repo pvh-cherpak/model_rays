@@ -42,6 +42,7 @@ class TForm1 : public TForm
 	TLabel *LabelN;
 	TLabel *LabelTimeHeatMap;
 	TLabel *LabelTimeScene;
+	TLabel *LabelVersion;
     void __fastcall Image1Click(TObject* Sender);
     void __fastcall Image1MouseDown(
         TObject* Sender, TMouseButton Button, TShiftState Shift, int X, int Y);

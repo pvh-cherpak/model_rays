@@ -12,7 +12,7 @@ basicDrive_t::basicDrive_t(vector<vector<point_t> > &points_v,
 
     n_expression.register_symbol_table(symbol_table);
 
-	string str = "y*0.1+1";
+    string str = "y*0.1+1";
     set_new_n_expression(str);
 #endif
 }
@@ -67,14 +67,16 @@ double basicDrive_t::n(double x, double y)
     EXPRTK_x = x;
     EXPRTK_y = y;
     return n_expression.value();
-#endif
-    //    double t = y - 2 * sin(x / 6);
-    //	return exp(-t * t) + 1;
+#else
+
+    double t = y - 2 * sin(x / 6);
+    return exp(-t * t) + 1;
 
     //    return 2 - 0.1*y;
     //    	if (x > 0)
     //			return 1;
     //	return exp
+#endif
 }
 
 bool basicDrive_t::set_new_n_expression(string &epr_str)
@@ -83,10 +85,12 @@ bool basicDrive_t::set_new_n_expression(string &epr_str)
     if (!n_parser.compile(epr_str, n_expression)) {
         ShowMessage("Error: " + AnsiString(n_parser.error().c_str()));
         return false;
-	}
+    }
     expression_str = epr_str;
     return true;
+#else
+    ShowMessage("Приложение скомпилировано со статичиски заданным выражением");
+    return false;
 #endif
 }
-
 
