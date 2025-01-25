@@ -231,8 +231,8 @@ void __fastcall TForm1::FormCreate(TObject* Sender)
         for (int x = VI_size / 4; x < VI_size; x++) {
 			double value = drive.n((x - VI_centre) / ppm,
 								(VI_centre - y) / ppm) - 1;
-            value = std::max(
-                0.0, std::min(1.0, value)); // огрничьте значение между 0 и 1
+			value = max(
+                0.0, min(1.0, value)); // огрничьте значение между 0 и 1
 
             // Определите цвет (например, градиент от синего к красному)
             BYTE red = static_cast<BYTE>(255 * value);

@@ -2,7 +2,6 @@
 #include "data_types.h"
 #include "vector.h"
 #include <math.h>
-#include "exprtk.hpp"
 #include <string>
 
 

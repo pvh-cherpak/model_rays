@@ -160,7 +160,6 @@
         <BCC_LanguageCompliance>GNU</BCC_LanguageCompliance>
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
         <VerInfo_Locale>1033</VerInfo_Locale>
-        <BCC_UserSuppliedOptions>/openmp</BCC_UserSuppliedOptions>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_1_Win64)'!=''">
         <AppDPIAwarenessMode>PerMonitorV2</AppDPIAwarenessMode>
@@ -191,9 +190,6 @@
         </CppCompile>
         <None Include="drive.h">
             <BuildOrder>9</BuildOrder>
-        </None>
-        <None Include="exprtk.hpp">
-            <BuildOrder>10</BuildOrder>
         </None>
         <CppCompile Include="main_unit.cpp">
             <Form>Form1</Form>

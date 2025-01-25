@@ -16,9 +16,7 @@
 #include "data_types.h"
 #include "drive.h"
 #include "vector.h"
-#include "exprtk.hpp"
-
-#include <omp.h>
+#include <algorithm>
 
 using namespace std;
 //---------------------------------------------------------------------------
