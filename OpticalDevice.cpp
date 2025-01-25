@@ -44,7 +44,7 @@ void ElipseOpticalDevice_t::display(
     Vcl::Graphics::TCanvas* Canvas, int pixels_per_meter)
 {
     int X = x0 * pixels_per_meter;
-    int Y = y0 * pixels_per_meter;
+    int Y = -y0 * pixels_per_meter;
     int A = a * pixels_per_meter;
 	int B = b * pixels_per_meter;
 

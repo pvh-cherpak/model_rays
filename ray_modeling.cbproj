@@ -157,6 +157,10 @@
         <LinkPackageImports>rtl.bpi;vcl.bpi</LinkPackageImports>
         <BCC_UseClassicCompiler>false</BCC_UseClassicCompiler>
         <ILINK_LibraryPath>$(BDSLIB)\$(PLATFORM)$(CC_SUFFIX)\debug;$(ILINK_LibraryPath)</ILINK_LibraryPath>
+        <BCC_LanguageCompliance>GNU</BCC_LanguageCompliance>
+        <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
+        <VerInfo_Locale>1033</VerInfo_Locale>
+        <BCC_UserSuppliedOptions>/openmp</BCC_UserSuppliedOptions>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_1_Win64)'!=''">
         <AppDPIAwarenessMode>PerMonitorV2</AppDPIAwarenessMode>
@@ -179,6 +183,18 @@
         <AppDPIAwarenessMode>PerMonitorV2</AppDPIAwarenessMode>
     </PropertyGroup>
     <ItemGroup>
+        <None Include="data_types.h">
+            <BuildOrder>5</BuildOrder>
+        </None>
+        <CppCompile Include="drive.cpp">
+            <BuildOrder>8</BuildOrder>
+        </CppCompile>
+        <None Include="drive.h">
+            <BuildOrder>9</BuildOrder>
+        </None>
+        <None Include="exprtk.hpp">
+            <BuildOrder>10</BuildOrder>
+        </None>
         <CppCompile Include="main_unit.cpp">
             <Form>Form1</Form>
             <FormType>dfm</FormType>
@@ -198,6 +214,12 @@
             <BuildOrder>1</BuildOrder>
             <PCH>true</PCH>
         </PCHCompile>
+        <CppCompile Include="vector.cpp">
+            <BuildOrder>6</BuildOrder>
+        </CppCompile>
+        <None Include="vector.h">
+            <BuildOrder>7</BuildOrder>
+        </None>
         <FormResources Include="main_unit.dfm"/>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
@@ -225,6 +247,10 @@
                 <Source>
                     <Source Name="MainSource">ray_modeling.cpp</Source>
                 </Source>
+                <Excluded_Packages>
+                    <Excluded_Packages Name="$(BDSBIN)\bcboffice2k290.bpl">Embarcadero C++Builder Office 2000 Servers Package</Excluded_Packages>
+                    <Excluded_Packages Name="$(BDSBIN)\bcbofficexp290.bpl">Embarcadero C++Builder Office XP Servers Package</Excluded_Packages>
+                </Excluded_Packages>
             </CPlusPlusBuilder.Personality>
             <Deployment Version="4">
                 <DeployFile Condition="'$(DynamicRTL)'=='true'" LocalName="$(BDS)\Redist\osx32\libcgcrtl.dylib" Class="DependencyModule">

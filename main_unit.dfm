@@ -10,6 +10,8 @@ object Form1: TForm1
   Font.Height = -12
   Font.Name = 'Segoe UI'
   Font.Style = []
+  OnCreate = FormCreate
+  OnKeyDown = FormKeyDown
   TextHeight = 15
   object Image1: TImage
     Left = 8
@@ -18,6 +20,14 @@ object Form1: TForm1
     Height = 545
     OnClick = Image1Click
     OnMouseDown = Image1MouseDown
+    OnMouseMove = Image1MouseMove
+  end
+  object Label1: TLabel
+    Left = 905
+    Top = 538
+    Width = 34
+    Height = 15
+    Caption = 'Label1'
   end
   object Button1: TButton
     Left = 895
@@ -26,6 +36,7 @@ object Form1: TForm1
     Height = 73
     Caption = 'Button1'
     TabOrder = 0
+    OnClick = Button1Click
   end
   object ComboBox1: TComboBox
     Left = 905
@@ -34,9 +45,10 @@ object Form1: TForm1
     Height = 23
     ItemIndex = 1
     TabOrder = 1
-    Text = #1069#1083#1080#1087#1089
+    Text = #1051#1091#1095
     Items.Strings = (
       #1053#1080#1095#1077#1075#1086
+      #1051#1091#1095
       #1069#1083#1080#1087#1089)
   end
   object LabeledEditX: TLabeledEdit
@@ -95,6 +107,7 @@ object Form1: TForm1
     Caption = #1055#1088#1080#1085#1103#1090#1100
     TabOrder = 6
     Visible = False
+    OnClick = ButtonAcceptClick
   end
   object ButtonReject: TButton
     Left = 967
@@ -140,5 +153,6 @@ object Form1: TForm1
     EditLabel.Caption = 'N'
     TabOrder = 10
     Text = ''
+    Visible = False
   end
 end
