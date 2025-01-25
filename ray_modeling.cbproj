@@ -93,8 +93,8 @@
         <Icon_MainIcon>$(BDS)\bin\cbuilder_PROJECTICON.ico</Icon_MainIcon>
         <UWP_CppLogo44>$(BDS)\bin\Artwork\Windows\UWP\cppreg_UwpDefault_44.png</UWP_CppLogo44>
         <UWP_CppLogo150>$(BDS)\bin\Artwork\Windows\UWP\cppreg_UwpDefault_150.png</UWP_CppLogo150>
-        <IncludePath>D:\git_rep\model_rays\;$(IncludePath)</IncludePath>
-        <ILINK_LibraryPath>D:\git_rep\model_rays\;$(ILINK_LibraryPath)</ILINK_LibraryPath>
+        <IncludePath>fparser\;D:\git_rep\model_rays\;$(IncludePath)</IncludePath>
+        <ILINK_LibraryPath>fparser\;D:\git_rep\model_rays\;$(ILINK_LibraryPath)</ILINK_LibraryPath>
         <SanitizedProjectName>ray_modeling</SanitizedProjectName>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Base_Win32)'!=''">
@@ -195,6 +195,20 @@
         <None Include="exprtk.hpp">
             <BuildOrder>10</BuildOrder>
         </None>
+        <None Include="fparser\extrasrc\fpaux.hh"/>
+        <None Include="fparser\extrasrc\fptypes.hh"/>
+        <None Include="fparser\extrasrc\fp_identifier_parser.inc"/>
+        <None Include="fparser\extrasrc\fp_opcode_add.inc"/>
+        <CppCompile Include="fparser\fparser.cc">
+            <BuildOrder>11</BuildOrder>
+        </CppCompile>
+        <None Include="fparser\fparser.hh"/>
+        <None Include="fparser\fparser_gmpint.hh"/>
+        <None Include="fparser\fparser_mpfr.hh"/>
+        <None Include="fparser\fpconfig.hh"/>
+        <CppCompile Include="fparser\fpoptimizer.cc">
+            <BuildOrder>16</BuildOrder>
+        </CppCompile>
         <CppCompile Include="main_unit.cpp">
             <Form>Form1</Form>
             <FormType>dfm</FormType>
@@ -309,9 +323,69 @@
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName=".\Win32\Debug\ray_modeling.tds" Configuration="Debug" Class="DebugSymbols">
-                    <Platform Name="Win32">
-                        <RemoteName>ray_modeling.tds</RemoteName>
+                <DeployFile LocalName=".\Win64x\Debug\ray_modeling.exe" Configuration="Debug" Class="ProjectOutput">
+                    <Platform Name="Win64x">
+                        <RemoteName>ray_modeling.exe</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="fparser\extrasrc\fp_identifier_parser.inc" Configuration="Debug" Class="ProjectFile">
+                    <Platform Name="Win64x">
+                        <RemoteDir>.\</RemoteDir>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="fparser\extrasrc\fp_opcode_add.inc" Configuration="Debug" Class="ProjectFile">
+                    <Platform Name="Win64x">
+                        <RemoteDir>.\</RemoteDir>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="fparser\extrasrc\fpaux.hh" Configuration="Debug" Class="ProjectFile">
+                    <Platform Name="Win64x">
+                        <RemoteDir>.\</RemoteDir>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="fparser\extrasrc\fptypes.hh" Configuration="Debug" Class="ProjectFile">
+                    <Platform Name="Win64x">
+                        <RemoteDir>.\</RemoteDir>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="fparser\fparser.cc" Configuration="Debug" Class="ProjectFile">
+                    <Platform Name="Win64x">
+                        <RemoteDir>.\</RemoteDir>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="fparser\fparser.hh" Configuration="Debug" Class="ProjectFile">
+                    <Platform Name="Win64x">
+                        <RemoteDir>.\</RemoteDir>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="fparser\fparser_gmpint.hh" Configuration="Debug" Class="ProjectFile">
+                    <Platform Name="Win64x">
+                        <RemoteDir>.\</RemoteDir>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="fparser\fparser_mpfr.hh" Configuration="Debug" Class="ProjectFile">
+                    <Platform Name="Win64x">
+                        <RemoteDir>.\</RemoteDir>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="fparser\fpconfig.hh" Configuration="Debug" Class="ProjectFile">
+                    <Platform Name="Win64x">
+                        <RemoteDir>.\</RemoteDir>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="fparser\fpoptimizer.cc" Configuration="Debug" Class="ProjectFile">
+                    <Platform Name="Win64x">
+                        <RemoteDir>.\</RemoteDir>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>

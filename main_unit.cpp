@@ -232,6 +232,8 @@ void __fastcall TForm1::FormCreate(TObject* Sender)
 LabelVersion->Caption = "math: " ;
 #ifdef EXPRTK
 	LabelVersion->Caption += "exprtk";
+#elif defined FPARSER
+    LabelVersion->Caption += "fparser";
 #else
 	LabelVersion->Caption += "compiled";
 #endif

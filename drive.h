@@ -1,11 +1,14 @@
 #pragma once
 //#define EXPRTK
+//#define FPARSER
 
 #ifdef EXPRTK
     #include "exprtk.hpp"
 typedef exprtk::symbol_table<double> symbol_table_t;
 typedef exprtk::expression<double> expression_t;
 typedef exprtk::parser<double> parser_t;
+#elif defined FPARSER
+    #include "fparser.hh"
 #endif
 
 #include <vector>
@@ -21,7 +24,7 @@ class basicDrive_t
   private:
     vector<vector<point_t> > &points;
     vector<ray_t> &rays;
-	vector<bool> &errors;
+    vector<bool> &errors;
     string expression_str;
 
 #ifdef EXPRTK
@@ -30,6 +33,8 @@ class basicDrive_t
     parser_t n_parser;
     double EXPRTK_x;
     double EXPRTK_y;
+#elif defined FPARSER
+    FunctionParser n_fparser;
 #endif
     //	double x_;
     //	double y_;

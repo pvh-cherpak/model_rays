@@ -66,7 +66,10 @@ double basicDrive_t::n(double x, double y)
 #ifdef EXPRTK
     EXPRTK_x = x;
     EXPRTK_y = y;
-    return n_expression.value();
+	return n_expression.value();
+#elif defined FPARSER
+	double vars[2] = {x, y};
+	return  n_fparser.Eval(vars);
 #else
 
     double t = y - 2 * sin(x / 6);
@@ -82,12 +85,20 @@ double basicDrive_t::n(double x, double y)
 bool basicDrive_t::set_new_n_expression(string &epr_str)
 {
 #ifdef EXPRTK
-    if (!n_parser.compile(epr_str, n_expression)) {
-        ShowMessage("Error: " + AnsiString(n_parser.error().c_str()));
-        return false;
-    }
-    expression_str = epr_str;
-    return true;
+	if (!n_parser.compile(epr_str, n_expression)) {
+		ShowMessage("Error: " + AnsiString(n_parser.error().c_str()));
+		return false;
+	}
+	expression_str = epr_str;
+	return true;
+#elif defined FPARSER
+	if (n_fparser.Parse(epr_str, "x, y") != -1){
+		ShowMessage("Error: " + AnsiString(n_fparser.ErrorMsg()));
+		return false;
+	}
+
+	expression_str = epr_str;
+	 return true;
 #else
     ShowMessage("Приложение скомпилировано со статичиски заданным выражением");
     return false;
