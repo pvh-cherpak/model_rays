@@ -11,12 +11,15 @@
 #include <Vcl.Mask.hpp>
 
 #include <vector>
+#include <algorithm>
+#include <chrono>
 
 #include "OpticalDevice.h"
 #include "data_types.h"
 #include "drive.h"
 #include "vector.h"
-#include <algorithm>
+
+
 
 using namespace std;
 //---------------------------------------------------------------------------
@@ -35,7 +38,10 @@ class TForm1 : public TForm
     TLabeledEdit* LabeledEdit1;
     TLabeledEdit* LabeledEdit2;
     TLabeledEdit* LabeledEditN;
-    TLabel* Label1;
+	TLabel *LabelPosition;
+	TLabel *LabelN;
+	TLabel *LabelTimeHeatMap;
+	TLabel *LabelTimeScene;
     void __fastcall Image1Click(TObject* Sender);
     void __fastcall Image1MouseDown(
         TObject* Sender, TMouseButton Button, TShiftState Shift, int X, int Y);
@@ -70,11 +76,13 @@ class TForm1 : public TForm
     void create_optecal_dev_menu();
     void reDraw();
     void draw_ray_source(ray_t &ray_source);
-    void show();
+	void show();
+
+    void calculate_heat_map();
 
     point_t scrin_to_global_metrs(int x, int y);
     pair<int, int> to_picsels(double x, double y);
-    //	std::vector<Ray_t>& Rays;
+	//	std::vector<Ray_t>& Rays;
     //	UI_t(OpticalDevices, Rays);
   public: // User declarations
     __fastcall TForm1(TComponent* Owner);

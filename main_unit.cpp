@@ -200,14 +200,28 @@ void TForm1::draw_ray_source(ray_t &ray_source)
 
 void __fastcall TForm1::Button1Click(TObject* Sender)
 {
+    // Захватываем текущее время перед выполнением функции
+    auto start = std::chrono::high_resolution_clock::now();
+
 	drive.calculate();
-	reDraw();
+
+     // Захватываем текущее время после выполнения функции
+    auto end = std::chrono::high_resolution_clock::now();
+
+    // Вычисляем разницу во времени
+    std::chrono::duration<double> elapsed = end - start;
+
+    LabelTimeScene->Caption =
+		"Время расчёта сцены: " + FloatToStr(elapsed.count());
+
+
+    reDraw();
 }
 //---------------------------------------------------------------------------
 
 void __fastcall TForm1::FormCreate(TObject* Sender)
 {
-	Virtual_Image->Width = VI_size;
+    Virtual_Image->Width = VI_size;
     Virtual_Image->Height = VI_size;
     user_rect = Bounds(VI_centre - Image1->Width, VI_centre - Image1->Height,
         Image1->Width, Image1->Height);
@@ -215,37 +229,11 @@ void __fastcall TForm1::FormCreate(TObject* Sender)
 
     Heat_map->Width = VI_size;
     Heat_map->Height = VI_size;
-    Heat_map->Canvas->Brush->Color = (TColor)RGB(0, 0, 255);
-    TRect rect = Rect(0, 0, Heat_map->Width, Heat_map->Height);
-    Heat_map->Canvas->FillRect(rect);
 
-	double ppm = pixels_per_meter;
+    calculate_heat_map();
 
-	vector <vector<double>> mass (VI_size, vector<double> (VI_size));
-//	#pragma omp parallel for
-//	for(int i = 0; i <  VI_size; i++)
-//		for (int j = 0; j <  VI_size; j++)
-//				mass[i][j] =
-
-	for (int y = VI_size / 4; y < VI_size / 2 + VI_size / 4; y++) {
-        for (int x = VI_size / 4; x < VI_size; x++) {
-			double value = drive.n((x - VI_centre) / ppm,
-								(VI_centre - y) / ppm) - 1;
-			value = max(
-                0.0, min(1.0, value)); // огрничьте значение между 0 и 1
-
-            // Определите цвет (например, градиент от синего к красному)
-            BYTE red = static_cast<BYTE>(255 * value);
-            BYTE green = 0;
-            BYTE blue = static_cast<BYTE>(255 * (1 - value));
-
-            // Закрасьте пиксель на Bitmap
-            TColor color = (TColor)RGB(red, green, blue);
-            Heat_map->Canvas->Pixels[x][y] = color;
-        }
-    }
-	DrawCoordinates(Heat_map->Canvas, pixels_per_meter);
-                   	reDraw();
+    DrawCoordinates(Heat_map->Canvas, pixels_per_meter);
+    reDraw();
 }
 //---------------------------------------------------------------------------
 
@@ -302,7 +290,9 @@ void __fastcall TForm1::Image1MouseMove(
     TObject* Sender, TShiftState Shift, int X, int Y)
 {
     point_t t = scrin_to_global_metrs(X, Y);
-    Label1->Caption = "X: " + FloatToStr(t.x) + "\n Y: " + FloatToStr(t.y);
+    LabelPosition->Caption =
+        "X: " + FloatToStr(t.x) + "\n Y: " + FloatToStr(t.y);
+    LabelN->Caption = "N: " + FloatToStr(drive.n(t.x, t.y));
 }
 //---------------------------------------------------------------------------
 
@@ -357,5 +347,39 @@ void TForm1::DrawCoordinates(TCanvas* Canvas, int unitPixels)
 
     // Восстанавливаем кисть
     Canvas->Brush->Style = bsSolid;
+}
+
+void TForm1::calculate_heat_map()
+{
+    double ppm = pixels_per_meter;
+
+    // Захватываем текущее время перед выполнением функции
+    auto start = std::chrono::high_resolution_clock::now();
+
+    for (int y = VI_size / 4; y < VI_size / 2 + VI_size / 4; y++) {
+        for (int x = VI_size / 4; x < VI_size; x++) {
+            double value =
+                drive.n((x - VI_centre) / ppm, (VI_centre - y) / ppm) - 1;
+            value = max(0.0, min(1.0, value)); // огрничьте значение между 0 и 1
+
+            // Определите цвет (например, градиент от синего к красному)
+            BYTE red = static_cast<BYTE>(255 * value);
+            BYTE green = 0;
+            BYTE blue = static_cast<BYTE>(255 * (1 - value));
+
+            // Закрасьте пиксель на Bitmap
+            TColor color = (TColor)RGB(red, green, blue);
+            Heat_map->Canvas->Pixels[x][y] = color;
+        }
+    }
+
+    // Захватываем текущее время после выполнения функции
+    auto end = std::chrono::high_resolution_clock::now();
+
+    // Вычисляем разницу во времени
+    std::chrono::duration<double> elapsed = end - start;
+
+    LabelTimeHeatMap->Caption =
+        "Время расчёта тепловой карты: " + FloatToStr(elapsed.count());
 }
 

@@ -22,12 +22,33 @@ object Form1: TForm1
     OnMouseDown = Image1MouseDown
     OnMouseMove = Image1MouseMove
   end
-  object Label1: TLabel
+  object LabelPosition: TLabel
     Left = 905
     Top = 538
-    Width = 34
+    Width = 71
     Height = 15
-    Caption = 'Label1'
+    Caption = 'LabelPosition'
+  end
+  object LabelN: TLabel
+    Left = 905
+    Top = 565
+    Width = 37
+    Height = 15
+    Caption = 'LabelN'
+  end
+  object LabelTimeHeatMap: TLabel
+    Left = 296
+    Top = 565
+    Width = 178
+    Height = 15
+    Caption = #1042#1088#1077#1084#1103' '#1088#1072#1089#1095#1105#1090#1072' '#1090#1077#1087#1083#1086#1074#1086#1081' '#1082#1072#1088#1090#1099': '
+  end
+  object LabelTimeScene: TLabel
+    Left = 24
+    Top = 565
+    Width = 85
+    Height = 15
+    Caption = 'LabelTimeScene'
   end
   object Button1: TButton
     Left = 895
@@ -43,11 +64,11 @@ object Form1: TForm1
     Top = 101
     Width = 136
     Height = 23
-    ItemIndex = 1
+    ItemIndex = 0
     TabOrder = 1
-    Text = #1051#1091#1095
+    Text = #1055#1086#1083#1077
     Items.Strings = (
-      #1053#1080#1095#1077#1075#1086
+      #1055#1086#1083#1077
       #1051#1091#1095
       #1069#1083#1080#1087#1089)
   end

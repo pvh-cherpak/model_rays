@@ -61,10 +61,6 @@ double basicDrive_t::n(double x, double y)
 //	return exp
 }
 
-vector_t basicDrive_t::grad_n(double x, double y)
-{
-    return vector_t(0, 10 / (y * y - 20 * y + 100));
+void basicDrive_t::set_new_x_expression(string &epr_str) {
 }
-
-void basicDrive_t::set_new_x_expression(string &epr_str) {}
 

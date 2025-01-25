@@ -1,9 +1,13 @@
+ #define EXPRTK
+
+#ifdef EXPRTK
+    #include "exprtk.h"
+
 #include <vector>
 #include "data_types.h"
 #include "vector.h"
 #include <math.h>
 #include <string>
-
 
 //typedef exprtk::symbol_table<double> symbol_table_t;
 //typedef exprtk::expression<double> expression_t;
