@@ -19,7 +19,7 @@
 #include "drive.h"
 #include "vector.h"
 
-
+enum class menu_type { ray_source, field, NONE};
 
 using namespace std;
 //---------------------------------------------------------------------------
@@ -53,7 +53,9 @@ class TForm1 : public TForm
     void __fastcall FormKeyDown(TObject* Sender, WORD &Key, TShiftState Shift);
     void __fastcall Image1MouseMove(
         TObject* Sender, TShiftState Shift, int X, int Y);
+	void __fastcall ComboBox1Change(TObject *Sender);
   private: // User declarations
+	menu_type selected_type = menu_type::NONE;
     Graphics::TBitmap* Virtual_Image = new Graphics::TBitmap();
     Graphics::TBitmap* Heat_map = new Graphics::TBitmap();
     int VI_size = 3000;
@@ -72,7 +74,7 @@ class TForm1 : public TForm
     vector<vector<point_t> > points;
 
     basicDrive_t drive = basicDrive_t(points, rays_soursec, errors);
-    void hide_menu();
+	void hide_menu();
     void create_optecal_dev_menu();
     void reDraw();
     void draw_ray_source(ray_t &ray_source);
@@ -90,5 +92,6 @@ class TForm1 : public TForm
 //---------------------------------------------------------------------------
 extern PACKAGE TForm1* Form1;
 //---------------------------------------------------------------------------
+
 #endif
 

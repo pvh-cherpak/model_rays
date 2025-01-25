@@ -13,7 +13,6 @@ __fastcall TForm1::TForm1(TComponent* Owner) : TForm(Owner) {}
 //---------------------------------------------------------------------------
 int pixels_per_meter = 50;
 int selected_device = -1;
-int selected_type = 0;
 
 //------------------------------------------------------------------------------------
 
@@ -30,7 +29,7 @@ void __fastcall TForm1::Image1MouseDown(
     switch (ComboBox1->ItemIndex) {
         case 1:
             selected_device = rays_soursec.size();
-            selected_type = 0;
+            selected_type = menu_type::ray_source;
             rays_soursec.push_back({ scrin_to_global_metrs(X, Y), 0 });
 
             ButtonAccept->Visible = true;
@@ -53,8 +52,6 @@ void __fastcall TForm1::Image1MouseDown(
             //                new ElipseOpticalDevice_t((float)X / pixels_per_meter,
             //                    -(float)Y / pixels_per_meter)));
             break;
-        case 0:
-            break;
         default:;
     }
     if (is_new_device) {
@@ -71,25 +68,37 @@ void __fastcall TForm1::ButtonRejectClick(TObject* Sender)
 
 void __fastcall TForm1::ButtonAcceptClick(TObject* Sender)
 {
-    if (selected_type) {
-        OpticalDevices[selected_device]->parametrs[0] =
-            StrToFloat(LabeledEditX->Text);
-        OpticalDevices[selected_device]->parametrs[1] =
-            StrToFloat(LabeledEditY->Text);
-        OpticalDevices[selected_device]->parametrs[2] =
-            StrToFloat(LabeledEditN->Text);
-        for (int i = 0;
-             i < OpticalDevices[selected_device]->parameter_names.size(); i++)
-        {
-            OpticalDevices[selected_device]->parametrs[i + 3] =
-                StrToFloat(menu_LE[i]->Text);
-        }
-    } else {
-        rays_soursec[selected_device].point.x = StrToFloat(LabeledEditX->Text);
-        rays_soursec[selected_device].point.y = StrToFloat(LabeledEditY->Text);
-        rays_soursec[selected_device].direction =
-            StrToFloat(LabeledEdit1->Text);
+    switch (selected_type) {
+        case menu_type::ray_source:
+            rays_soursec[selected_device].point.x =
+                StrToFloat(LabeledEditX->Text);
+            rays_soursec[selected_device].point.y =
+                StrToFloat(LabeledEditY->Text);
+            rays_soursec[selected_device].direction =
+                StrToFloat(LabeledEdit1->Text);
+            break;
+        case menu_type::field:
+            string formula = AnsiString(LabeledEdit1->Text).c_str();
+            if (drive.set_new_n_expression(formula)) {
+                calculate_heat_map();
+                reDraw();
+            }
+            break;
     }
+    //    if (selected_type) {
+    //        OpticalDevices[selected_device]->parametrs[0] =
+    //            StrToFloat(LabeledEditX->Text);
+    //        OpticalDevices[selected_device]->parametrs[1] =
+    //            StrToFloat(LabeledEditY->Text);
+    //        OpticalDevices[selected_device]->parametrs[2] =
+    //            StrToFloat(LabeledEditN->Text);
+    //        for (int i = 0;
+    //             i < OpticalDevices[selected_device]->parameter_names.size(); i++)
+    //        {
+    //            OpticalDevices[selected_device]->parametrs[i + 3] =
+    //                StrToFloat(menu_LE[i]->Text);
+    //        }
+    //    }
     //       hide_menu();
     //       selected_device = -1;
     reDraw();
@@ -203,17 +212,16 @@ void __fastcall TForm1::Button1Click(TObject* Sender)
     // Захватываем текущее время перед выполнением функции
     auto start = std::chrono::high_resolution_clock::now();
 
-	drive.calculate();
+    drive.calculate();
 
-     // Захватываем текущее время после выполнения функции
+    // Захватываем текущее время после выполнения функции
     auto end = std::chrono::high_resolution_clock::now();
 
     // Вычисляем разницу во времени
     std::chrono::duration<double> elapsed = end - start;
 
     LabelTimeScene->Caption =
-		"Время расчёта сцены: " + FloatToStr(elapsed.count());
-
+        "Время расчёта сцены: " + FloatToStr(elapsed.count());
 
     reDraw();
 }
@@ -230,7 +238,7 @@ void __fastcall TForm1::FormCreate(TObject* Sender)
     Heat_map->Width = VI_size;
     Heat_map->Height = VI_size;
 
-    calculate_heat_map();
+//    calculate_heat_map();
 
     DrawCoordinates(Heat_map->Canvas, pixels_per_meter);
     reDraw();
@@ -382,4 +390,23 @@ void TForm1::calculate_heat_map()
     LabelTimeHeatMap->Caption =
         "Время расчёта тепловой карты: " + FloatToStr(elapsed.count());
 }
+
+void __fastcall TForm1::ComboBox1Change(TObject* Sender)
+{
+    switch (ComboBox1->ItemIndex) {
+        case 0:
+            selected_type = menu_type::field;
+            LabeledEdit1->EditLabel->Caption = "формула n(x,y)";
+            LabeledEdit1->Text =
+                AnsiString(drive.get_n_expression_str().c_str());
+            LabeledEdit1->Visible = true;
+            ButtonAccept->Visible = true;
+            break;
+        default:
+            hide_menu();
+            selected_device = -1;
+            break;
+    }
+}
+//---------------------------------------------------------------------------
 

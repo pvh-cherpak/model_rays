@@ -64,9 +64,10 @@ object Form1: TForm1
     Top = 101
     Width = 136
     Height = 23
-    ItemIndex = 0
+    ItemIndex = 1
     TabOrder = 1
-    Text = #1055#1086#1083#1077
+    Text = #1051#1091#1095
+    OnChange = ComboBox1Change
     Items.Strings = (
       #1055#1086#1083#1077
       #1051#1091#1095

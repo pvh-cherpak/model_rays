@@ -1,29 +1,30 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <BorlandProject>
 	<Transactions>
-    <Transaction>1899.12.30 00:00:00.000.915,D:\git_rep\model_rays\Unit1.cpp=C:\Users\pvh cherpak\Documents\Embarcadero\Studio\Projects\Unit1.cpp</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.692,=D:\git_rep\model_rays\drive.cpp</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.946,D:\git_rep\model_rays\Unit1.cpp=D:\git_rep\model_rays\main_unit.cpp</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.345,=C:\Users\pvh cherpak\Documents\Embarcadero\Studio\Projects\Project1PCH1.h</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.897,C:\Users\pvh cherpak\Documents\Embarcadero\Studio\Projects\Project1PCH1.h=D:\git_rep\model_rays\ray_modelingPCH1.h</Transaction>
     <Transaction>1899.12.30 00:00:00.000.378,=D:\git_rep\model_rays\OpticalDevice.h</Transaction>
     <Transaction>1899.12.30 00:00:00.000.765,=D:\git_rep\model_rays\drive.h</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.354,=D:\git_rep\model_rays\OpticalDevice.cpp</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.345,=C:\Users\pvh cherpak\Documents\Embarcadero\Studio\Projects\Project1PCH1.h</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.915,D:\git_rep\model_rays\Unit1.h=C:\Users\pvh cherpak\Documents\Embarcadero\Studio\Projects\Unit1.h</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.897,D:\git_rep\model_rays\ray_modelingPCH1.h=C:\Users\pvh cherpak\Documents\Embarcadero\Studio\Projects\Project1PCH1.h</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.692,=D:\git_rep\model_rays\drive.cpp</Transaction>
     <Transaction>1899.12.30 00:00:00.000.376,D:\git_rep\model_rays\UI.h=</Transaction>
     <Transaction>1899.12.30 00:00:00.000.483,=D:\git_rep\model_rays\UI.h</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.946,D:\git_rep\model_rays\Unit1.h=D:\git_rep\model_rays\main_unit.h</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.915,C:\Users\pvh cherpak\Documents\Embarcadero\Studio\Projects\Unit1.dfm=D:\git_rep\model_rays\Unit1.dfm</Transaction>
     <Transaction>1899.12.30 00:00:00.000.124,=D:\git_rep\model_rays\data_types.h</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.915,D:\git_rep\model_rays\Unit1.dfm=C:\Users\pvh cherpak\Documents\Embarcadero\Studio\Projects\Unit1.dfm</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.946,D:\git_rep\model_rays\main_unit.h=D:\git_rep\model_rays\Unit1.h</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.548,D:\git_rep\model_rays\UI.cpp=</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.431,=D:\git_rep\model_rays\UI.cpp</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.508,=D:\git_rep\model_rays\vector.h</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.946,D:\git_rep\model_rays\main_unit.dfm=D:\git_rep\model_rays\Unit1.dfm</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.915,C:\Users\pvh cherpak\Documents\Embarcadero\Studio\Projects\Unit1.h=D:\git_rep\model_rays\Unit1.h</Transaction>
     <Transaction>1899.12.30 00:00:00.000.494,=D:\git_rep\model_rays\exprtk.hpp</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.018,=C:\Users\pvh cherpak\Documents\Embarcadero\Studio\Projects\Unit1.cpp</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.946,D:\git_rep\model_rays\main_unit.cpp=D:\git_rep\model_rays\Unit1.cpp</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.431,=D:\git_rep\model_rays\UI.cpp</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.548,D:\git_rep\model_rays\UI.cpp=</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.933,C:\Users\pvh cherpak\Documents\Embarcadero\Studio\Projects\Project1.cbproj=D:\git_rep\model_rays\ray_modeling.cbproj</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.508,=D:\git_rep\model_rays\vector.h</Transaction>
     <Transaction>1899.12.30 00:00:00.000.456,=D:\git_rep\model_rays\vector.cpp</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.018,=C:\Users\pvh cherpak\Documents\Embarcadero\Studio\Projects\Unit1.cpp</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.946,D:\git_rep\model_rays\Unit1.dfm=D:\git_rep\model_rays\main_unit.dfm</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.354,=D:\git_rep\model_rays\OpticalDevice.cpp</Transaction>
     <Transaction>1899.12.30 00:00:00.000.992,D:\git_rep\model_rays\ray_modeling.cbproj=D:\git_rep\model_rays\ray_modeling.cbproj</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.933,D:\git_rep\model_rays\ray_modeling.cbproj=C:\Users\pvh cherpak\Documents\Embarcadero\Studio\Projects\Project1.cbproj</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.915,C:\Users\pvh cherpak\Documents\Embarcadero\Studio\Projects\Unit1.cpp=D:\git_rep\model_rays\Unit1.cpp</Transaction>
+    <Transaction>2025.01.25 23:11:35.529,=D:\git_rep\model_rays\exprtk.hpp</Transaction>
   </Transactions>
 	<ProjectSortOrder AutoSort="0" SortType="0">
     <File Path="main_unit.cpp"/>
@@ -39,5 +40,6 @@
     <File Path="vector.h"/>
     <File Path="drive.cpp"/>
     <File Path="drive.h"/>
+    <File Path="exprtk.hpp"/>
   </ProjectSortOrder>
 </BorlandProject>
