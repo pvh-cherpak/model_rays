@@ -1,5 +1,5 @@
 #pragma once
-//#define EXPRTK
+#define EXPRTK
 //#define FPARSER
 
 #ifdef EXPRTK

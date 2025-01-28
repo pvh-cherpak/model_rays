@@ -1,10 +1,11 @@
 object Form1: TForm1
   Left = 0
   Top = 0
-  Caption = 'Form1'
+  Caption = #1052#1086#1076#1077#1083#1080#1088#1086#1074#1072#1085#1080#1077' '#1086#1087#1090#1080#1095#1077#1089#1082#1080#1093' '#1083#1091#1095#1077#1081
   ClientHeight = 588
   ClientWidth = 1049
   Color = clBtnFace
+  DoubleBuffered = True
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
   Font.Height = -12
@@ -57,12 +58,19 @@ object Form1: TForm1
     Height = 15
     Caption = 'LabelVersion'
   end
+  object Label1: TLabel
+    Left = 40
+    Top = 530
+    Width = 34
+    Height = 15
+    Caption = 'Label1'
+  end
   object Button1: TButton
     Left = 895
     Top = 8
     Width = 154
     Height = 73
-    Caption = 'Button1'
+    Caption = #1055#1088#1086#1088#1080#1089#1086#1074#1072#1090#1100' '#1089#1094#1077#1085#1091
     TabOrder = 0
     OnClick = Button1Click
   end

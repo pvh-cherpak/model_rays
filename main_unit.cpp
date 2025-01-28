@@ -212,44 +212,50 @@ void __fastcall TForm1::Button1Click(TObject* Sender)
     // Захватываем текущее время перед выполнением функции
     auto start = std::chrono::high_resolution_clock::now();
 
-    drive.calculate();
+	drive.calculate();
 
     // Захватываем текущее время после выполнения функции
     auto end = std::chrono::high_resolution_clock::now();
-
     // Вычисляем разницу во времени
-    std::chrono::duration<double> elapsed = end - start;
+	std::chrono::duration<double> elapsed = end - start;
+	LabelTimeScene->Caption =
+		"Время расчёта сцены: " + FloatToStr(elapsed.count());
 
-    LabelTimeScene->Caption =
-        "Время расчёта сцены: " + FloatToStr(elapsed.count());
 
-    reDraw();
+    start = std::chrono::high_resolution_clock::now();
+
+	reDraw();
+
+    end = std::chrono::high_resolution_clock::now();
+	elapsed = end - start;
+	Label1->Caption =
+		"Время рисовки сцены: " + FloatToStr(elapsed.count());
 }
 //---------------------------------------------------------------------------
 
 void __fastcall TForm1::FormCreate(TObject* Sender)
 {
-LabelVersion->Caption = "math: " ;
+    LabelVersion->Caption = "math: ";
 #ifdef EXPRTK
-	LabelVersion->Caption += "exprtk";
+    LabelVersion->Caption += "exprtk";
 #elif defined FPARSER
     LabelVersion->Caption += "fparser";
 #else
-	LabelVersion->Caption += "compiled";
+    LabelVersion->Caption += "compiled";
 #endif
 
-LabelVersion->Caption += "\t multitreading: ";
+    LabelVersion->Caption += "\t multitreading: ";
 #ifdef multitreading
-	LabelVersion->Caption += "TRUE";
+    LabelVersion->Caption += "TRUE";
 #else
-	LabelVersion->Caption += "FALSE";
+    LabelVersion->Caption += "FALSE";
 #endif
 
-LabelVersion->Caption += "\t GPU: ";
+    LabelVersion->Caption += "\t heat map: ";
 #ifdef GPU_HEAT_MAP
-	LabelVersion->Caption += "TRUE";
+    LabelVersion->Caption += "GPU";
 #else
-	LabelVersion->Caption += "FALSE";
+    LabelVersion->Caption += "CPU";
 #endif
 
     Virtual_Image->Width = VI_size;
