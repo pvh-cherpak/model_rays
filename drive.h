@@ -1,6 +1,6 @@
 #pragma once
 //#define EXPRTK
-//#define FPARSER
+#define FPARSER
 
 #ifdef EXPRTK
     #include "exprtk.hpp"

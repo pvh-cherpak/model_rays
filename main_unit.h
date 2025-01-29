@@ -17,8 +17,9 @@
 #include "data_types.h"
 #include "drive.h"
 #include "vector.h"
+#include "Optical_devices.h"
 
-enum class menu_type { ray_source, field, NONE};
+enum class menu_type { ray_source, field, Optical_dev, NONE};
 
 using namespace std;
 //---------------------------------------------------------------------------

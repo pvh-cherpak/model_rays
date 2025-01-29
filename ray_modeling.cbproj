@@ -215,11 +215,11 @@
             <DependentOn>main_unit.h</DependentOn>
             <BuildOrder>2</BuildOrder>
         </CppCompile>
-        <CppCompile Include="OpticalDevice.cpp">
-            <BuildOrder>3</BuildOrder>
+        <CppCompile Include="Optical_devices.cpp">
+            <BuildOrder>21</BuildOrder>
         </CppCompile>
-        <None Include="OpticalDevice.h">
-            <BuildOrder>4</BuildOrder>
+        <None Include="Optical_devices.h">
+            <BuildOrder>22</BuildOrder>
         </None>
         <CppCompile Include="ray_modeling.cpp">
             <BuildOrder>0</BuildOrder>
