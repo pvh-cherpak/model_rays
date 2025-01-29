@@ -308,13 +308,14 @@ void Nugol::get_segments(ray &r, bool &is_pvo, vector < segment > &otr)
 
     pryam lin1, lin2;
     lin1 = to_pryam(s1);
-    lin2 = normal(p1, lin1);
-	double sinus1;
+	lin2 = normal(p1, lin1);
+	double sinus1, n_vhoda;
 	sinus1 = sin_pr(r.pr, lin2);
 	sinus11 = sinus1;
-    sinus2 = 1. * sinus1 / n;
+
+	sinus2 = 1. * sinus1 / n;
     //????????????????????????????????
-    point n_checker_point;
+	point n_checker_point;
     n_checker_point.x = p1.x + 1;
     n_checker_point.y = (-lin2.a * n_checker_point.x - lin2.c) / lin2.b;
     if(!check(n_checker_point))

@@ -182,7 +182,7 @@ void TForm1::reDraw()
 			}
 			if(fabs(s[0].p1.x - s.back().p2.x) <= 0.000001 && fabs(s[0].p1.y - s.back().p2.y) <= 0.000001)
 			{
-				/**double value = vec_N[i].get_prel() - 1;
+				double value = vec_N[i].get_prel() - 1;
 				value = max(0.0, min(1.0, value)); // огрничьте значение между 0 и 1
 
 				// Определите цвет (например, градиент от синего к красному)
@@ -194,9 +194,12 @@ void TForm1::reDraw()
 				TColor color = (TColor)RGB(red, green, blue);
 				Virtual_Image->Canvas->Brush->Color= color;
 				double x_ris, y_ris;
+				x_ris = (s[0].p1.x + s[1].p2.x) / 2.;
+				y_ris = (s[0].p1.y + s[1].p2.y) / 2.;
+				x_ris = x_ris * pixels_per_meter + VI_centre;
+				y_ris = -y_ris * pixels_per_meter + VI_centre;
 				Virtual_Image->Canvas->FloodFill(x_ris, y_ris, clBlack, fsBorder);
-
-				Virtual_Image->Canvas->Brush->Color = clBlack; **/
+				Virtual_Image->Canvas->Brush->Color = clBlack;
 			}
 
         }
