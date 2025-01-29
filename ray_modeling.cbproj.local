@@ -11,8 +11,8 @@
     <Transaction>1899.12.30 00:00:00.000.930,=D:\git_rep\model_rays\fparser\fparser_mpfr.hh</Transaction>
     <Transaction>1899.12.30 00:00:00.000.118,=D:\git_rep\model_rays\fparser\fpoptimizer.cc</Transaction>
     <Transaction>1899.12.30 00:00:00.000.992,=D:\git_rep\model_rays\fparser\fpconfig.hh</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.483,=D:\git_rep\model_rays\UI.h</Transaction>
     <Transaction>1899.12.30 00:00:00.000.376,D:\git_rep\model_rays\UI.h=</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.483,=D:\git_rep\model_rays\UI.h</Transaction>
     <Transaction>1899.12.30 00:00:00.000.946,D:\git_rep\model_rays\Unit1.h=D:\git_rep\model_rays\main_unit.h</Transaction>
     <Transaction>1899.12.30 00:00:00.000.986,C:\Users\user\Documents\GitHub\model_rays\OpticalDevice.h=</Transaction>
     <Transaction>1899.12.30 00:00:00.000.915,C:\Users\pvh cherpak\Documents\Embarcadero\Studio\Projects\Unit1.h=D:\git_rep\model_rays\Unit1.h</Transaction>
@@ -20,25 +20,27 @@
     <Transaction>1899.12.30 00:00:00.000.323,=D:\git_rep\model_rays\fparser\extrasrc\fpaux.hh</Transaction>
     <Transaction>1899.12.30 00:00:00.000.915,C:\Users\pvh cherpak\Documents\Embarcadero\Studio\Projects\Unit1.dfm=D:\git_rep\model_rays\Unit1.dfm</Transaction>
     <Transaction>1899.12.30 00:00:00.000.124,=D:\git_rep\model_rays\data_types.h</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.431,=D:\git_rep\model_rays\UI.cpp</Transaction>
     <Transaction>1899.12.30 00:00:00.000.018,=C:\Users\pvh cherpak\Documents\Embarcadero\Studio\Projects\Unit1.cpp</Transaction>
     <Transaction>1899.12.30 00:00:00.000.915,C:\Users\pvh cherpak\Documents\Embarcadero\Studio\Projects\Unit1.cpp=D:\git_rep\model_rays\Unit1.cpp</Transaction>
     <Transaction>1899.12.30 00:00:00.000.340,=C:\Users\user\Documents\GitHub\model_rays\Optical_devices.h</Transaction>
     <Transaction>1899.12.30 00:00:00.000.354,=D:\git_rep\model_rays\OpticalDevice.cpp</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.456,=D:\git_rep\model_rays\vector.cpp</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.992,D:\git_rep\model_rays\ray_modeling.cbproj=D:\git_rep\model_rays\ray_modeling.cbproj</Transaction>
     <Transaction>1899.12.30 00:00:00.000.183,=C:\Users\user\Documents\GitHub\model_rays\Optical_devices.cpp</Transaction>
     <Transaction>1899.12.30 00:00:00.000.867,=D:\git_rep\model_rays\fparser\fparser_gmpint.hh</Transaction>
     <Transaction>1899.12.30 00:00:00.000.508,=D:\git_rep\model_rays\vector.h</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.992,D:\git_rep\model_rays\ray_modeling.cbproj=D:\git_rep\model_rays\ray_modeling.cbproj</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.378,=D:\git_rep\model_rays\OpticalDevice.h</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.933,C:\Users\pvh cherpak\Documents\Embarcadero\Studio\Projects\Project1.cbproj=D:\git_rep\model_rays\ray_modeling.cbproj</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.456,=D:\git_rep\model_rays\vector.cpp</Transaction>
     <Transaction>1899.12.30 00:00:00.000.648,=D:\git_rep\model_rays\fparser\fparser.cc</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.431,=D:\git_rep\model_rays\UI.cpp</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.548,D:\git_rep\model_rays\UI.cpp=</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.401,=D:\git_rep\model_rays\fparser\extrasrc\fptypes.hh</Transaction>
     <Transaction>1899.12.30 00:00:00.000.789,=D:\git_rep\model_rays\fparser\fparser.hh</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.933,C:\Users\pvh cherpak\Documents\Embarcadero\Studio\Projects\Project1.cbproj=D:\git_rep\model_rays\ray_modeling.cbproj</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.548,D:\git_rep\model_rays\UI.cpp=</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.378,=D:\git_rep\model_rays\OpticalDevice.h</Transaction>
     <Transaction>1899.12.30 00:00:00.000.052,C:\Users\user\Documents\GitHub\model_rays\OpticalDevice.cpp=</Transaction>
     <Transaction>1899.12.30 00:00:00.000.946,D:\git_rep\model_rays\Unit1.cpp=D:\git_rep\model_rays\main_unit.cpp</Transaction>
     <Transaction>1899.12.30 00:00:00.000.213,=D:\git_rep\model_rays\fparser\extrasrc\fp_opcode_add.inc</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.401,=D:\git_rep\model_rays\fparser\extrasrc\fptypes.hh</Transaction>
+    <Transaction>2025.01.29 21:33:53.710,=D:\git_rep\model_rays\n.cpp</Transaction>
+    <Transaction>2025.01.29 21:33:53.752,=D:\git_rep\model_rays\n.h</Transaction>
   </Transactions>
 	<ProjectSortOrder AutoSort="0" SortType="0">
     <File Path="fparser"/>
@@ -67,5 +69,7 @@
     <File Path="exprtk.hpp"/>
     <File Path="Optical_devices.cpp"/>
     <File Path="Optical_devices.h"/>
+    <File Path="n.cpp"/>
+    <File Path="n.h"/>
   </ProjectSortOrder>
 </BorlandProject>

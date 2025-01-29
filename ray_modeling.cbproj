@@ -215,6 +215,12 @@
             <DependentOn>main_unit.h</DependentOn>
             <BuildOrder>2</BuildOrder>
         </CppCompile>
+        <CppCompile Include="n.cpp">
+            <BuildOrder>21</BuildOrder>
+        </CppCompile>
+        <None Include="n.h">
+            <BuildOrder>22</BuildOrder>
+        </None>
         <CppCompile Include="Optical_devices.cpp">
             <BuildOrder>21</BuildOrder>
         </CppCompile>
