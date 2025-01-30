@@ -1,4 +1,4 @@
-//---------------------------------------------------------------------------
+﻿//---------------------------------------------------------------------------
 
 #include <vcl.h>
 #pragma hdrstop
@@ -206,48 +206,8 @@ void TForm1::reDraw()
 				Virtual_Image->Canvas->Brush->Color = clBlack;
 			}
 
-    for (int i = 0; i < vec_N.size(); i++) {
-        Virtual_Image->Canvas->Pen->Color = clBlack;
-        Virtual_Image->Canvas->Brush->Color = clBlack;
-        Virtual_Image->Canvas->Pen->Width = 2;
-        vector<segment> s;
-        vec_N[i].get_vector(s);
-        if (s.size() == 0)
-            break;
-        point p_nach;
-        p_nach = s[0].p1;
-        p_nach.x = p_nach.x * pixels_per_meter + VI_centre;
-        p_nach.y = -p_nach.y * pixels_per_meter + VI_centre;
-        Virtual_Image->Canvas->MoveTo(p_nach.x, p_nach.y);
-        for (int i = 0; i < s.size(); i++) {
-            p_nach = s[i].p2;
-            p_nach.x = p_nach.x * pixels_per_meter + VI_centre;
-            p_nach.y = -p_nach.y * pixels_per_meter + VI_centre;
-            Virtual_Image->Canvas->LineTo(p_nach.x, p_nach.y);
-        }
-        if (fabs(s[0].p1.x - s.back().p2.x) <= 0.000001 &&
-            fabs(s[0].p1.y - s.back().p2.y) <= 0.000001)
-        {
-            double value = vec_N[i].get_prel() - 1;
-            value = max(0.0, min(1.0, value)); // ��������� �������� ����� 0 � 1
 
-            // ���������� ���� (��������, �������� �� ������ � ��������)
-            BYTE red = static_cast<BYTE>(255 * value);
-            BYTE green = 0;
-            BYTE blue = static_cast<BYTE>(255 * (1 - value));
-
-            // ��������� ������� �� Bitmap
-            TColor color = (TColor)RGB(red, green, blue);
-            Virtual_Image->Canvas->Brush->Color = color;
-            double x_ris, y_ris;
-            x_ris = (s[0].p1.x + s[1].p2.x) / 2.;
-            y_ris = (s[0].p1.y + s[1].p2.y) / 2.;
-            x_ris = x_ris * pixels_per_meter + VI_centre;
-            y_ris = -y_ris * pixels_per_meter + VI_centre;
-            Virtual_Image->Canvas->FloodFill(x_ris, y_ris, clBlack, fsBorder);
-            Virtual_Image->Canvas->Brush->Color = clBlack;
-        }
-    }
+	}
 
     Virtual_Image->Canvas->Pen->Color = clYellow;
     Virtual_Image->Canvas->Pen->Width = 5;
