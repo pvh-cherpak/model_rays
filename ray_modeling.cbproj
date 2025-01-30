@@ -240,6 +240,12 @@
         <None Include="vector.h">
             <BuildOrder>7</BuildOrder>
         </None>
+        <CppCompile Include="visual_functions.cpp">
+            <BuildOrder>23</BuildOrder>
+        </CppCompile>
+        <None Include="visual_functios.h">
+            <BuildOrder>24</BuildOrder>
+        </None>
         <FormResources Include="main_unit.dfm"/>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>

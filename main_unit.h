@@ -18,6 +18,7 @@
 #include "drive.h"
 #include "vector.h"
 #include "Optical_devices.h"
+#include "visual_functios.h"
 
 enum class menu_type { ray_source, field, Optical_dev, NONE};
 
@@ -59,11 +60,8 @@ class TForm1 : public TForm
 	menu_type selected_type = menu_type::NONE;
     Graphics::TBitmap* Virtual_Image = new Graphics::TBitmap();
     Graphics::TBitmap* Heat_map = new Graphics::TBitmap();
-    int VI_size = 3000;
-    int VI_centre = VI_size / 2;
-    TRect user_rect, screen_rect;
-
-    void DrawCoordinates(TCanvas* Canvas, int unitPixels);
+    
+    TRect screen_rect;
 
     std::vector<TLabeledEdit*> menu_LE = { LabeledEdit1, LabeledEdit2,
         LabeledEdit3, LabeledEdit4 };
@@ -84,8 +82,6 @@ class TForm1 : public TForm
 
     void calculate_heat_map();
 
-    point_t scrin_to_global_metrs(int x, int y);
-    pair<int, int> to_picsels(double x, double y);
 	//	std::vector<Ray_t>& Rays;
     //	UI_t(OpticalDevices, Rays);
   public: // User declarations

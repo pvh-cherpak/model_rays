@@ -11,7 +11,6 @@ TForm1* Form1;
 //---------------------------------------------------------------------------
 __fastcall TForm1::TForm1(TComponent* Owner) : TForm(Owner) {}
 //---------------------------------------------------------------------------
-int pixels_per_meter = 50;
 int selected_device = -1;
 
 vector<point> v;
@@ -107,6 +106,7 @@ void __fastcall TForm1::ButtonAcceptClick(TObject* Sender)
 		case menu_type::field:
 		formula = AnsiString(LabeledEdit1->Text).c_str();
 			if (drive.set_new_n_expression(formula)) {
+				pixels_per_meter = StrToInt(LabeledEdit2->Text);
 				calculate_heat_map();
                 DrawCoordinates(Heat_map->Canvas, pixels_per_meter);
                 reDraw();
@@ -353,19 +353,6 @@ void __fastcall TForm1::FormCreate(TObject* Sender)
 }
 //---------------------------------------------------------------------------
 
-point_t TForm1::scrin_to_global_metrs(int x, int y)
-{
-	int g_x = x + user_rect.Left - VI_centre;
-	int g_y = VI_centre - (y + user_rect.Top);
-	return { g_x / (double)pixels_per_meter, g_y / (double)pixels_per_meter };
-}
-
-pair<int, int> TForm1::to_picsels(double x, double y)
-{
-	return { x * pixels_per_meter + VI_centre,
-		-y * pixels_per_meter + VI_centre };
-}
-
 void TForm1::show()
 {
     Image1->Canvas->CopyRect(screen_rect, Virtual_Image->Canvas, user_rect);
@@ -412,61 +399,6 @@ void __fastcall TForm1::Image1MouseMove(
 }
 //---------------------------------------------------------------------------
 
-void TForm1::DrawCoordinates(TCanvas* Canvas, int unitPixels)
-{
-    int width = Canvas->ClipRect.Width();
-    int height = Canvas->ClipRect.Height();
-
-    // Рисуем оси координат
-    Canvas->Pen->Color = clBlack;
-    Canvas->Pen->Width = 3; // Устанавливаем ширину осей
-    Canvas->MoveTo(width / 2, 0);
-    Canvas->LineTo(width / 2, height);
-    Canvas->MoveTo(0, height / 2);
-    Canvas->LineTo(width, height / 2);
-
-    // Рисуем сетку и подписи
-    Canvas->Pen->Color = clSilver;
-    Canvas->Pen->Width = 1; // Устанавливаем ширину линий сетки
-    Canvas->Brush->Style = bsClear; // Прозрачный фон для текста
-
-    for (int i = width / 2 + unitPixels; i < width; i += unitPixels) {
-        Canvas->MoveTo(i, 0);
-        Canvas->LineTo(i, height);
-        Canvas->TextOut(i + 2, height / 2 + 5,
-            IntToStr((i - width / 2) / unitPixels)); // Смещаем текст вправо
-    }
-    for (int i = width / 2 - unitPixels; i > 0; i -= unitPixels) {
-        Canvas->MoveTo(i, 0);
-        Canvas->LineTo(i, height);
-        Canvas->TextOut(i + 2, height / 2 + 5,
-            IntToStr((i - width / 2) / unitPixels)); // Смещаем текст вправо
-    }
-    for (int i = height / 2 + unitPixels; i < height; i += unitPixels) {
-        Canvas->MoveTo(0, i);
-        Canvas->LineTo(width, i);
-        Canvas->TextOut(width / 2 + 5, i + 2,
-            IntToStr((height / 2 - i) / unitPixels)); // Смещаем текст вправо
-    }
-    for (int i = height / 2 - unitPixels; i > 0; i -= unitPixels) {
-        Canvas->MoveTo(0, i);
-        Canvas->LineTo(width, i);
-        Canvas->TextOut(width / 2 + 5, i + 2,
-            IntToStr((height / 2 - i) / unitPixels)); // Смещаем текст вправо
-    }
-
-    // Отрисовываем ноль только в центре
-    if (width / 2 > 0 && width / 2 < width && height / 2 > 0 &&
-        height / 2 < height) {
-        Canvas->TextOut(width / 2 + 5, height / 2 + 5, "0");
-    }
-
-    // Восстанавливаем кисть
-    Canvas->Brush->Style = bsSolid;
-}
-
-
-
 void TForm1::calculate_heat_map()
 {
     double ppm = pixels_per_meter;
@@ -503,18 +435,23 @@ void TForm1::calculate_heat_map()
 
 void __fastcall TForm1::ComboBox1Change(TObject* Sender)
 {
+	hide_menu();
 	switch (ComboBox1->ItemIndex) {
-        case 0:
+		case 0:
             selected_type = menu_type::field;
-            LabeledEdit1->EditLabel->Caption = "формула n(x,y)";
-            LabeledEdit1->Text =
-                AnsiString(drive.get_n_expression_str().c_str());
-            LabeledEdit1->Visible = true;
+			LabeledEdit1->EditLabel->Caption = "формула n(x,y)";
+			LabeledEdit1->Text =
+				AnsiString(drive.get_n_expression_str().c_str());
+
+			LabeledEdit2->EditLabel->Caption = "пиксели/метр";
+			LabeledEdit2->Text = IntToStr(pixels_per_meter);
+
+			LabeledEdit1->Visible = true;
+            LabeledEdit2->Visible = true;
             ButtonAccept->Visible = true;
 			break;
 
-        default:
-            hide_menu();
+		default:
 			selected_device = -1;
 			break;
     }
