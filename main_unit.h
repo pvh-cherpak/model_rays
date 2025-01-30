@@ -11,6 +11,8 @@
 #include <Vcl.Dialogs.hpp>
 #include <Vcl.ExtDlgs.hpp>
 #include <Vcl.Menus.hpp>
+#include <Vcl.ActnColorMaps.hpp>
+#include <Vcl.ActnMan.hpp>
 
 #include <vector>
 #include <algorithm>
@@ -64,6 +66,12 @@ class TForm1 : public TForm
 	TMenuItem *N3;
 	TMenuItem *N4;
 	TMenuItem *N5;
+	TMenuItem *N6;
+	TMenuItem *N7;
+	TMenuItem *N8;
+	TMenuItem *N9;
+	TMenuItem *N10;
+	TColorDialog *ColorDialog1;
     void __fastcall Image1Click(TObject* Sender);
     void __fastcall Image1MouseDown(
         TObject* Sender, TMouseButton Button, TShiftState Shift, int X, int Y);
@@ -79,10 +87,15 @@ class TForm1 : public TForm
 	void __fastcall N2Click(TObject *Sender);
 	void __fastcall N3Click(TObject *Sender);
 	void __fastcall N5Click(TObject *Sender);
+	void __fastcall N7Click(TObject *Sender);
+	void __fastcall N8Click(TObject *Sender);
+	void __fastcall N9Click(TObject *Sender);
+	void __fastcall N10Click(TObject *Sender);
   private: // User declarations
     menu_type selected_type = menu_type::NONE;
     Graphics::TBitmap* Virtual_Image = new Graphics::TBitmap();
-    Graphics::TBitmap* Heat_map = new Graphics::TBitmap();
+	Graphics::TBitmap* Heat_map = new Graphics::TBitmap();
+    TColor ColorRay, ColorRayError;
 
     TRect screen_rect;
 

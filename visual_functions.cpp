@@ -5,6 +5,7 @@ int VI_size = 3000;
 int VI_centre = VI_size / 2;
 
 TRect user_rect;
+TColor ColorMin, ColorMax;
 
 void DrawCoordinates(TCanvas* Canvas, int unitPixels)
 {
@@ -86,5 +87,22 @@ void DrawAsterisk(
 
     Canvas->MoveTo(centerX + halfSize, centerY - halfSize);
     Canvas->LineTo(centerX - halfSize, centerY + halfSize);
+}
+
+TColor get_heat_color(double value)
+{
+    return (TColor)RGB(
+        r_b + delta_r * value, g_b + delta_b * value, b_b + delta_b * value);
+}
+
+void update_grad_delt()
+{
+	r_b = GetRValue(ColorMin);
+    g_b = GetGValue(ColorMin);
+	b_b = GetBValue(ColorMin);
+
+	delta_r =  GetRValue(ColorMax) - r_b;
+	delta_g =  GetGValue(ColorMax) - g_b;
+	delta_b =  GetBValue(ColorMax) - b_b;
 }
 

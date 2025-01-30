@@ -205,6 +205,25 @@ object Form1: TForm1
         OnClick = N5Click
       end
     end
+    object N6: TMenuItem
+      Caption = #1054#1090#1086#1073#1088#1072#1078#1077#1085#1080#1077
+      object N7: TMenuItem
+        Caption = #1062#1074#1077#1090' '#1084#1080#1085#1080#1084#1091#1084#1072' '#1090#1077#1087#1083#1086#1074#1086#1081' '#1082#1072#1088#1090#1099
+        OnClick = N7Click
+      end
+      object N8: TMenuItem
+        Caption = #1062#1074#1077#1090' '#1084#1072#1082#1089#1080#1084#1091#1084#1072' '#1090#1077#1087#1083#1086#1074#1086#1081' '#1082#1072#1088#1090#1099
+        OnClick = N8Click
+      end
+      object N9: TMenuItem
+        Caption = #1062#1074#1077#1090' '#1083#1091#1095#1072
+        OnClick = N9Click
+      end
+      object N10: TMenuItem
+        Caption = #1062#1074#1077#1090' '#1085#1077#1082#1086#1088#1077#1082#1090#1085#1086#1075#1086' '#1083#1091#1095#1072
+        OnClick = N10Click
+      end
+    end
   end
   object OpenTextFileDialog1: TOpenTextFileDialog
     DefaultExt = 'txt'
@@ -214,6 +233,10 @@ object Form1: TForm1
   object SaveTextFileDialog1: TSaveTextFileDialog
     DefaultExt = 'txt'
     Left = 776
+    Top = 560
+  end
+  object ColorDialog1: TColorDialog
+    Left = 816
     Top = 560
   end
 end

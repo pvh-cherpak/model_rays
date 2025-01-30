@@ -183,16 +183,10 @@ void TForm1::reDraw()
             fabs(s[0].p1.y - s.back().p2.y) <= 0.000001)
         {
             double value = vec_N[i].get_prel() - 1;
-            value = max(0.0, min(1.0, value)); // ��������� �������� ����� 0 � 1
+            value = max(0.0, min(1.0, value));
 
-            // ���������� ���� (��������, �������� �� ������ � ��������)
-            BYTE red = static_cast<BYTE>(255 * value);
-            BYTE green = 0;
-            BYTE blue = static_cast<BYTE>(255 * (1 - value));
+            Virtual_Image->Canvas->Brush->Color = get_heat_color(value);
 
-            // ��������� ������� �� Bitmap
-            TColor color = (TColor)RGB(red, green, blue);
-            Virtual_Image->Canvas->Brush->Color = color;
             double x_ris, y_ris, x_ris2, y_ris2;
             x_ris = (s[0].p1.x + s[0].p2.x) / 2.;
             x_ris2 = (s[1].p1.x + s[1].p2.x) / 2.;
@@ -213,9 +207,9 @@ void TForm1::reDraw()
         pair<int, int> t = to_picsels(points[i][0].x, points[i][0].y);
         Virtual_Image->Canvas->MoveTo(t.first, t.second);
         if (errors[i])
-            Virtual_Image->Canvas->Pen->Color = clRed;
+            Virtual_Image->Canvas->Pen->Color = ColorRayError;
         else
-            Virtual_Image->Canvas->Pen->Color = clYellow;
+            Virtual_Image->Canvas->Pen->Color = ColorRay;
         for (int j = 1; j < points[i].size(); j++) {
             t = to_picsels(points[i][j].x, points[i][j].y);
             Virtual_Image->Canvas->LineTo(t.first, t.second);
@@ -322,7 +316,13 @@ void __fastcall TForm1::FormCreate(TObject* Sender)
     Heat_map->Width = VI_size;
     Heat_map->Height = VI_size;
 
-    //    calculate_heat_map();
+    ColorMin = (TColor)RGB(0, 0, 255);
+    ColorMax = (TColor)RGB(255, 0, 0);
+    ColorRay = clYellow;
+    ColorRayError = clRed;
+    update_grad_delt();
+
+    calculate_heat_map();
 
     DrawCoordinates(Heat_map->Canvas, pixels_per_meter);
     reDraw();
@@ -391,14 +391,7 @@ void TForm1::calculate_heat_map()
                 drive.n((x - VI_centre) / ppm, (VI_centre - y) / ppm) - 1;
             value = max(0.0, min(1.0, value)); // ��������� �������� ����� 0 � 1
 
-            // ���������� ���� (��������, �������� �� ������ � ��������)
-            BYTE red = static_cast<BYTE>(255 * value);
-            BYTE green = 0;
-            BYTE blue = static_cast<BYTE>(255 * (1 - value));
-
-            // ��������� ������� �� Bitmap
-            TColor color = (TColor)RGB(red, green, blue);
-            Heat_map->Canvas->Pixels[x][y] = color;
+            Heat_map->Canvas->Pixels[x][y] = get_heat_color(value);
         }
     }
 
@@ -519,6 +512,46 @@ void __fastcall TForm1::N5Click(TObject* Sender)
         DrawCoordinates(Heat_map->Canvas, pixels_per_meter);
         reDraw();
     }
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::N7Click(TObject* Sender)
+{
+    if (ColorDialog1->Execute())
+        ColorMin = ColorDialog1->Color;
+    update_grad_delt();
+
+    calculate_heat_map();
+    DrawCoordinates(Heat_map->Canvas, pixels_per_meter);
+    reDraw();
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::N8Click(TObject* Sender)
+{
+    if (ColorDialog1->Execute())
+        ColorMax = ColorDialog1->Color;
+    update_grad_delt();
+
+    calculate_heat_map();
+    DrawCoordinates(Heat_map->Canvas, pixels_per_meter);
+    reDraw();
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::N9Click(TObject* Sender)
+{
+    if (ColorDialog1->Execute())
+        ColorRay = ColorDialog1->Color;
+    reDraw();
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::N10Click(TObject* Sender)
+{
+    if (ColorDialog1->Execute())
+        ColorRayError = ColorDialog1->Color;
+    reDraw();
 }
 //---------------------------------------------------------------------------
 
