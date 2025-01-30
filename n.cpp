@@ -13,7 +13,7 @@ bool n_t::set_new_expr(std::string &epr_str)
     expression_str = epr_str;
     return true;
 #elif defined FPARSER
-    if (n_fparser.Parse(epr_str, "x, y") != -1) {
+    if (n_fparser.Parse(expression_str, "x, y") != -1) {
         ShowMessage("Error: " + AnsiString(n_fparser.ErrorMsg()));
         return false;
     }
@@ -55,9 +55,27 @@ n_t::n_t(/* args */)
 
     n_expression.register_symbol_table(symbol_table);
 
-    std::string str = "y*0.1+1";
-    set_new_expr(str);
+    init();
+#elif defined FPARSER
+    init();
 #endif
+}
+bool n_t::init()
+{
+#ifdef EXPRTK
+    if (!n_parser.compile(expression_str, n_expression)) {
+        ShowMessage("Error: " + AnsiString(n_parser.error().c_str()));
+        return false;
+    }
+    return true;
+#elif defined FPARSER
+    if (n_fparser.Parse(expression_str, "x, y") != -1) {
+        ShowMessage("Error: " + AnsiString(n_fparser.ErrorMsg()));
+        return false;
+    }
+#endif
+    return false;
 }
 
 n_t::~n_t() {}
+
