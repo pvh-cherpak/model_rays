@@ -20,7 +20,7 @@ extern std::string expression_str;
 class n_t
 {
 private:
-    
+	bool init();
 #ifdef EXPRTK
     symbol_table_t symbol_table;
     expression_t n_expression;

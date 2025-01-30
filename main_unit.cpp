@@ -107,7 +107,8 @@ void __fastcall TForm1::ButtonAcceptClick(TObject* Sender)
 		case menu_type::field:
 		formula = AnsiString(LabeledEdit1->Text).c_str();
 			if (drive.set_new_n_expression(formula)) {
-                calculate_heat_map();
+				calculate_heat_map();
+                DrawCoordinates(Heat_map->Canvas, pixels_per_meter);
                 reDraw();
             }
 			break;
@@ -313,7 +314,7 @@ void __fastcall TForm1::Button1Click(TObject* Sender)
 
 void __fastcall TForm1::FormCreate(TObject* Sender)
 {
-    LabelVersion->Caption = "math: ";
+	LabelVersion->Caption = "math: ";
 #ifdef EXPRTK
     LabelVersion->Caption += "exprtk";
 #elif defined FPARSER
@@ -326,7 +327,7 @@ void __fastcall TForm1::FormCreate(TObject* Sender)
 #ifdef multitreading
     LabelVersion->Caption += "TRUE";
 #else
-    LabelVersion->Caption += "FALSE";
+	LabelVersion->Caption += "FALSE";
 #endif
 
     LabelVersion->Caption += "\t GPU: ";
@@ -347,7 +348,7 @@ void __fastcall TForm1::FormCreate(TObject* Sender)
 
     //    calculate_heat_map();
 
-    DrawCoordinates(Heat_map->Canvas, pixels_per_meter);
+	DrawCoordinates(Heat_map->Canvas, pixels_per_meter);
     reDraw();
 }
 //---------------------------------------------------------------------------
