@@ -20,7 +20,16 @@
 #include "Optical_devices.h"
 #include "visual_functios.h"
 
-enum class menu_type { ray_source, field, Optical_dev, NONE};
+enum class menu_type
+{
+    ray_source,
+    field,
+    Optical_dev,
+    NONE
+};
+
+const double RAD_TO_DEG = 180.0 / acos(-1);
+const double DEG_TO_RAD = acos(-1) / 180.0;
 
 using namespace std;
 //---------------------------------------------------------------------------
@@ -39,11 +48,11 @@ class TForm1 : public TForm
     TLabeledEdit* LabeledEdit1;
     TLabeledEdit* LabeledEdit2;
     TLabeledEdit* LabeledEditN;
-	TLabel *LabelPosition;
-	TLabel *LabelN;
-	TLabel *LabelTimeHeatMap;
-	TLabel *LabelTimeScene;
-	TLabel *LabelVersion;
+    TLabel* LabelPosition;
+    TLabel* LabelN;
+    TLabel* LabelTimeHeatMap;
+    TLabel* LabelTimeScene;
+    TLabel* LabelVersion;
     void __fastcall Image1Click(TObject* Sender);
     void __fastcall Image1MouseDown(
         TObject* Sender, TMouseButton Button, TShiftState Shift, int X, int Y);
@@ -55,12 +64,12 @@ class TForm1 : public TForm
     void __fastcall FormKeyDown(TObject* Sender, WORD &Key, TShiftState Shift);
     void __fastcall Image1MouseMove(
         TObject* Sender, TShiftState Shift, int X, int Y);
-	void __fastcall ComboBox1Change(TObject *Sender);
+    void __fastcall ComboBox1Change(TObject* Sender);
   private: // User declarations
-	menu_type selected_type = menu_type::NONE;
+    menu_type selected_type = menu_type::NONE;
     Graphics::TBitmap* Virtual_Image = new Graphics::TBitmap();
     Graphics::TBitmap* Heat_map = new Graphics::TBitmap();
-    
+
     TRect screen_rect;
 
     std::vector<TLabeledEdit*> menu_LE = { LabeledEdit1, LabeledEdit2,
@@ -70,19 +79,19 @@ class TForm1 : public TForm
 
     vector<bool> errors;
     vector<ray_t> rays_soursec;
-	vector<vector<point_t> > points;
-	vector<Nugol> vec_N;
+    vector<vector<point_t> > points;
+    vector<Nugol> vec_N;
 
     basicDrive_t drive = basicDrive_t(points, rays_soursec, errors, vec_N);
-	void hide_menu();
+    void hide_menu();
     void create_optecal_dev_menu();
     void reDraw();
     void draw_ray_source(ray_t &ray_source);
-	void show();
+    void show();
 
     void calculate_heat_map();
 
-	//	std::vector<Ray_t>& Rays;
+    //	std::vector<Ray_t>& Rays;
     //	UI_t(OpticalDevices, Rays);
   public: // User declarations
     __fastcall TForm1(TComponent* Owner);
