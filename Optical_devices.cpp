@@ -313,6 +313,7 @@ void Nugol::get_segments(ray &r, bool &is_pvo, vector < segment > &otr)
 	sinus1 = sin_pr(r.pr, lin2);
 	sinus11 = sinus1;
 
+    //ShowMessage(FloatToStr(global_n_obj.calculate(r.s.p1.x, r.s.p1.y)));
 	sinus2 = global_n_obj.calculate(r.s.p1.x, r.s.p1.y) * sinus1 / n;
 	//????????????????????????????????
 	point n_checker_point;

@@ -50,21 +50,22 @@ void basicDrive_t::calculate()
 			if(iter % 3 == 0)
 			{
 				ray r_dev;
-				r_dev.s.p1.x = rays[ray_i - 1].point.x;
-				r_dev.s.p1.y = rays[ray_i - 1].point.y;
-				r_dev.s.p2.x = rays[ray_i].point.x;
-				r_dev.s.p2.y = rays[ray_i].point.y;
+				r_dev.s.p1.x = points_[points_.size() - 2].x;
+				r_dev.s.p1.y = points_[points_.size() - 2].y;
+				r_dev.s.p2.x = points_[points_.size() - 1].x;
+				r_dev.s.p2.y = points_[points_.size() - 1].y;
 				r_dev.pr = to_pr(r_dev.s);
 
-                int pos = -1;
+				int pos = -1;
 				double mini = -1;
 				bool ok = false;
 				for(int i = 0; i < vec_N.size(); i++)
 				{
 					if(vec_N[i].is_crossing(r_dev))
 					{
+						//ShowMessage("Пересекает");
 						double temp = vec_N[i].s_to_dev(r_dev);
-						if((pos == -1 && temp < 3. * dt) || (pos != -1 && temp < mini))
+						if((pos == -1 && temp < 3 * dt) || (pos != -1 && temp < mini))
 						{
 							pos = i;
 							mini = temp;
@@ -73,6 +74,7 @@ void basicDrive_t::calculate()
 				}
 				if(pos != -1)
 				{
+					ShowMessage("Зашёл3");
 					vector < segment > otr;
 					vec_N[pos].get_segments(r_dev, ok, otr);
 					points_.push_back({ otr[0].p1.x, otr[0].p1.y });
@@ -95,9 +97,9 @@ void basicDrive_t::calculate()
 					otr.resize(0);
 					pos = -1;
 					mini = -1;
+					continue;
 				}
 				if (ok) {
-				errors[ray_i] = true;
 				break;
 				}
 

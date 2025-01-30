@@ -192,9 +192,13 @@ void TForm1::reDraw()
 				// Закрасьте пиксель на Bitmap
 				TColor color = (TColor)RGB(red, green, blue);
 				Virtual_Image->Canvas->Brush->Color= color;
-				double x_ris, y_ris;
-				x_ris = (s[0].p1.x + s[1].p2.x) / 2.;
-				y_ris = (s[0].p1.y + s[1].p2.y) / 2.;
+				double x_ris, y_ris, x_ris2, y_ris2;
+				x_ris = (s[0].p1.x + s[0].p2.x) / 2.;
+				x_ris2 = (s[1].p1.x + s[1].p2.x) / 2.;
+				y_ris = (s[0].p1.y + s[0].p2.y) / 2.;
+				y_ris2 = (s[1].p1.y + s[1].p2.y) / 2.;
+				x_ris = (x_ris + x_ris2) / 2.;
+				y_ris = (y_ris + y_ris2) / 2.;
 				x_ris = x_ris * pixels_per_meter + VI_centre;
 				y_ris = -y_ris * pixels_per_meter + VI_centre;
 				Virtual_Image->Canvas->FloodFill(x_ris, y_ris, clBlack, fsBorder);
