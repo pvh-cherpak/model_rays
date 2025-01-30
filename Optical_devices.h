@@ -61,7 +61,8 @@ class Nugol: public Optical_devices
 		double sinus11, sinus2;
 	public:
 		Nugol(int a, vector < segment > &b, double c):
-        k(a), seg(b), n(c){}
+		k(a), seg(b), n(c){}
+        Nugol(){}
 		void set_Nugol(int a, vector < segment > &b, double c);
 		double s_to_dev(ray r);
         bool is_crossing(ray r);
@@ -72,9 +73,7 @@ class Nugol: public Optical_devices
 		double get_op_dl_pt();
 		int get_ugl_vhoda();
 		int get_ugl_vyhoda();
-        void get_vector(vector < segment > &s);
-
-
+		void get_vector(vector < segment > &s);
 };
 
 #endif // OPTICAL_DEVICES_H

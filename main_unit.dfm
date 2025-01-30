@@ -10,6 +10,7 @@ object Form1: TForm1
   Font.Height = -12
   Font.Name = 'Segoe UI'
   Font.Style = []
+  Menu = MainMenu1
   OnCreate = FormCreate
   OnKeyDown = FormKeyDown
   TextHeight = 15
@@ -182,5 +183,37 @@ object Form1: TForm1
     TabOrder = 10
     Text = ''
     Visible = False
+  end
+  object MainMenu1: TMainMenu
+    Left = 696
+    Top = 560
+    object N1: TMenuItem
+      Caption = #1060#1072#1081#1083
+      object N2: TMenuItem
+        Caption = #1054#1095#1080#1089#1090#1080#1090#1100' '#1089#1094#1077#1085#1091
+        OnClick = N2Click
+      end
+      object N3: TMenuItem
+        Caption = #1057#1086#1093#1085#1072#1080#1090#1100' '#1089#1094#1077#1085#1091
+        OnClick = N3Click
+      end
+      object N4: TMenuItem
+        Caption = #1057#1086#1093#1088#1072#1085#1080#1090#1100' '#1090#1088#1072#1077#1090#1086#1088#1080#1102
+      end
+      object N5: TMenuItem
+        Caption = #1047#1072#1075#1088#1091#1079#1080#1090#1100' '#1089#1094#1077#1085#1091
+        OnClick = N5Click
+      end
+    end
+  end
+  object OpenTextFileDialog1: TOpenTextFileDialog
+    DefaultExt = 'txt'
+    Left = 736
+    Top = 560
+  end
+  object SaveTextFileDialog1: TSaveTextFileDialog
+    DefaultExt = 'txt'
+    Left = 776
+    Top = 560
   end
 end

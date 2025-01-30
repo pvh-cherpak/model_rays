@@ -48,7 +48,8 @@ void __fastcall TForm1::Image1MouseDown(
 
             LabeledEditX->Text = FloatToStr(rays_soursec.back().point.x);
             LabeledEditY->Text = FloatToStr(rays_soursec.back().point.y);
-            LabeledEdit1->Text = FloatToStr(rays_soursec.back().direction * RAD_TO_DEG);
+            LabeledEdit1->Text =
+                FloatToStr(rays_soursec.back().direction * RAD_TO_DEG);
 
             LabeledEdit1->EditLabel->Caption = "Direction";
             break;
@@ -157,57 +158,54 @@ void TForm1::reDraw()
     Virtual_Image->Assign(Heat_map);
 
     for (int i = 0; i < rays_soursec.size(); i++)
-		draw_ray_source(rays_soursec[i]);
+        draw_ray_source(rays_soursec[i]);
 
-	for(int i = 0; i < vec_N.size(); i++)
-		{
-		Virtual_Image->Canvas->Pen->Color = clBlack;
-		Virtual_Image->Canvas->Brush->Color = clBlack;
-		Virtual_Image->Canvas->Pen->Width = 2;
-			vector < segment > s;
-			vec_N[i].get_vector(s);
-			if(s.size() == 0)
-				break;
-			point p_nach;
-			p_nach = s[0].p1;
-			p_nach.x = p_nach.x * pixels_per_meter + VI_centre;
-			p_nach.y = -p_nach.y * pixels_per_meter + VI_centre;
-			Virtual_Image->Canvas->MoveTo(p_nach.x, p_nach.y);
-			for(int i = 0; i < s.size(); i++)
-			{
-			p_nach = s[i].p2;
-			p_nach.x = p_nach.x * pixels_per_meter + VI_centre;
-			p_nach.y = -p_nach.y * pixels_per_meter + VI_centre;
-			Virtual_Image->Canvas->LineTo(p_nach.x, p_nach.y);
-			}
-			if(fabs(s[0].p1.x - s.back().p2.x) <= 0.000001 && fabs(s[0].p1.y - s.back().p2.y) <= 0.000001)
-			{
-				double value = vec_N[i].get_prel() - 1;
-				value = max(0.0, min(1.0, value)); // ��������� �������� ����� 0 � 1
+    for (int i = 0; i < vec_N.size(); i++) {
+        Virtual_Image->Canvas->Pen->Color = clBlack;
+        Virtual_Image->Canvas->Brush->Color = clBlack;
+        Virtual_Image->Canvas->Pen->Width = 2;
+        vector<segment> s;
+        vec_N[i].get_vector(s);
+        if (s.size() == 0)
+            break;
+        point p_nach;
+        p_nach = s[0].p1;
+        p_nach.x = p_nach.x * pixels_per_meter + VI_centre;
+        p_nach.y = -p_nach.y * pixels_per_meter + VI_centre;
+        Virtual_Image->Canvas->MoveTo(p_nach.x, p_nach.y);
+        for (int i = 0; i < s.size(); i++) {
+            p_nach = s[i].p2;
+            p_nach.x = p_nach.x * pixels_per_meter + VI_centre;
+            p_nach.y = -p_nach.y * pixels_per_meter + VI_centre;
+            Virtual_Image->Canvas->LineTo(p_nach.x, p_nach.y);
+        }
+        if (fabs(s[0].p1.x - s.back().p2.x) <= 0.000001 &&
+            fabs(s[0].p1.y - s.back().p2.y) <= 0.000001)
+        {
+            double value = vec_N[i].get_prel() - 1;
+            value = max(0.0, min(1.0, value)); // ��������� �������� ����� 0 � 1
 
-				// ���������� ���� (��������, �������� �� ������ � ��������)
-				BYTE red = static_cast<BYTE>(255 * value);
-				BYTE green = 0;
-				BYTE blue = static_cast<BYTE>(255 * (1 - value));
+            // ���������� ���� (��������, �������� �� ������ � ��������)
+            BYTE red = static_cast<BYTE>(255 * value);
+            BYTE green = 0;
+            BYTE blue = static_cast<BYTE>(255 * (1 - value));
 
-				// ��������� ������� �� Bitmap
-				TColor color = (TColor)RGB(red, green, blue);
-				Virtual_Image->Canvas->Brush->Color= color;
-				double x_ris, y_ris, x_ris2, y_ris2;
-				x_ris = (s[0].p1.x + s[0].p2.x) / 2.;
-				x_ris2 = (s[1].p1.x + s[1].p2.x) / 2.;
-				y_ris = (s[0].p1.y + s[0].p2.y) / 2.;
-				y_ris2 = (s[1].p1.y + s[1].p2.y) / 2.;
-				x_ris = (x_ris + x_ris2) / 2.;
-				y_ris = (y_ris + y_ris2) / 2.;
-				x_ris = x_ris * pixels_per_meter + VI_centre;
-				y_ris = -y_ris * pixels_per_meter + VI_centre;
-				Virtual_Image->Canvas->FloodFill(x_ris, y_ris, clBlack, fsBorder);
-				Virtual_Image->Canvas->Brush->Color = clBlack;
-			}
-
-
-	}
+            // ��������� ������� �� Bitmap
+            TColor color = (TColor)RGB(red, green, blue);
+            Virtual_Image->Canvas->Brush->Color = color;
+            double x_ris, y_ris, x_ris2, y_ris2;
+            x_ris = (s[0].p1.x + s[0].p2.x) / 2.;
+            x_ris2 = (s[1].p1.x + s[1].p2.x) / 2.;
+            y_ris = (s[0].p1.y + s[0].p2.y) / 2.;
+            y_ris2 = (s[1].p1.y + s[1].p2.y) / 2.;
+            x_ris = (x_ris + x_ris2) / 2.;
+            y_ris = (y_ris + y_ris2) / 2.;
+            x_ris = x_ris * pixels_per_meter + VI_centre;
+            y_ris = -y_ris * pixels_per_meter + VI_centre;
+            Virtual_Image->Canvas->FloodFill(x_ris, y_ris, clBlack, fsBorder);
+            Virtual_Image->Canvas->Brush->Color = clBlack;
+        }
+    }
 
     Virtual_Image->Canvas->Pen->Color = clYellow;
     Virtual_Image->Canvas->Pen->Width = 5;
@@ -328,6 +326,9 @@ void __fastcall TForm1::FormCreate(TObject* Sender)
 
     DrawCoordinates(Heat_map->Canvas, pixels_per_meter);
     reDraw();
+
+    OpenTextFileDialog1->InitialDir = ExtractFilePath(ParamStr(0));
+    SaveTextFileDialog1->InitialDir = OpenTextFileDialog1->InitialDir;
 }
 //---------------------------------------------------------------------------
 
@@ -432,6 +433,91 @@ void __fastcall TForm1::ComboBox1Change(TObject* Sender)
         default:
             selected_device = -1;
             break;
+    }
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::N2Click(TObject* Sender)
+{
+    rays_soursec.clear();
+    vec_N.clear();
+    user_rect = Bounds(VI_centre - Image1->Width, VI_centre - Image1->Height,
+        Image1->Width, Image1->Height);
+    points.clear();
+    string s = "1";
+    drive.set_new_n_expression(s);
+
+    reDraw();
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::N3Click(TObject* Sender)
+{
+    if (SaveTextFileDialog1->Execute()) {
+        String S = SaveTextFileDialog1->FileName;
+        string s = AnsiString(S.c_str()).c_str();
+        ofstream fout(s);
+        fout << drive.get_n_expression_str() << endl;
+        fout << "pixels_per_metr: " << pixels_per_meter << endl;
+        fout << "ray_sources: " << rays_soursec.size() << endl;
+        for (auto &i : rays_soursec)
+            fout << i.point.x << ' ' << i.point.y << ' ' << i.direction << endl;
+        fout << "n_ugolniki: " << vec_N.size() << endl;
+        for (auto &i : vec_N) {
+            vector<segment> vec;
+            i.get_vector(vec);
+            fout << "N: " << i.get_prel() << endl;
+            fout << "segments: " << vec.size() << endl;
+            for (auto &j : vec)
+                fout << j.p1.x << ' ' << j.p1.y << ' ' << j.p2.x << ' '
+                     << j.p2.y << endl;
+        }
+        fout.close();
+    }
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::N5Click(TObject* Sender)
+{
+    if (OpenTextFileDialog1->Execute()) {
+        String S = OpenTextFileDialog1->FileName;
+        string s = AnsiString(S.c_str()).c_str();
+        ifstream fin(s);
+
+        string expr;
+        fin >> expr;
+        drive.set_new_n_expression(expr);
+
+        fin.ignore(50, ' ');
+        fin >> pixels_per_meter;
+        fin.ignore(50, ' ');
+        int rays_soursec_size = 0;
+        fin >> rays_soursec_size;
+        rays_soursec.resize(rays_soursec_size);
+        for (auto &i : rays_soursec)
+            fin >> i.point.x >> i.point.y >> i.direction;
+
+        fin.ignore(50, ' ');
+        int vec_N_size = 0;
+        fin >> vec_N_size;
+        vec_N.resize(vec_N_size);
+        for (auto &i : vec_N) {
+            fin.ignore(50, ' ');
+            int act_n;
+            fin >> act_n;
+            fin.ignore(50, ' ');
+            int lot_gran;
+            fin >> lot_gran;
+            vector<segment> vec(lot_gran);
+            for (auto &j : vec)
+                fin >> j.p1.x >> j.p1.y >> j.p2.x >> j.p2.y;
+            i.set_Nugol(lot_gran, vec, act_n);
+        }
+        fin.close();
+
+        calculate_heat_map();
+        DrawCoordinates(Heat_map->Canvas, pixels_per_meter);
+        reDraw();
     }
 }
 //---------------------------------------------------------------------------
