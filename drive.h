@@ -4,6 +4,8 @@
 #include <math.h>
 #include <string>
 #include "n.h"
+#include "Optical_devices.h"
+
 
 using namespace std;
 
@@ -12,12 +14,13 @@ class basicDrive_t
   private:
     vector<vector<point_t> > &points;
     vector<ray_t> &rays;
-    vector<bool> &errors;
-    n_t n_obj;
-    
+	vector<bool> &errors;
+    vector<Nugol> &vec_N;
+	n_t& n_obj =  global_n_obj;
+
   public:
     basicDrive_t(vector<vector<point_t> > &points, vector<ray_t> &rays_v,
-        vector<bool> &errors);
+		vector<bool> &errors, vector<Nugol> &vec_N);
     void calculate();
     bool set_new_n_expression(string &epr_str);
 	double n(double x, double y);

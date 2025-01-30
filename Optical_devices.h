@@ -1,6 +1,9 @@
 #ifndef OPTICAL_DEVICES_H
 #define OPTICAL_DEVICES_H
 #include <vector>
+#include "n.h"
+
+extern n_t global_n_obj;
 
 using namespace std;
 

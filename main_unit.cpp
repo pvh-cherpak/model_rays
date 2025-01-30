@@ -20,7 +20,6 @@ segment seg;
 ray r;
 point p3;
 pryam pr;
-vector<Nugol> vec_N;
 int now_dev = -1;
 double prel;
 

@@ -1,6 +1,6 @@
 #pragma once
 
-//#define EXPRTK
+#define EXPRTK
 //#define FPARSER
 
 #ifdef EXPRTK
@@ -36,5 +36,8 @@ public:
     n_t(/* args */);
     ~n_t();
 };
+
+
+extern n_t global_n_obj;
 
 

@@ -72,9 +72,10 @@ class TForm1 : public TForm
 
     vector<bool> errors;
     vector<ray_t> rays_soursec;
-    vector<vector<point_t> > points;
+	vector<vector<point_t> > points;
+	vector<Nugol> vec_N;
 
-    basicDrive_t drive = basicDrive_t(points, rays_soursec, errors);
+    basicDrive_t drive = basicDrive_t(points, rays_soursec, errors, vec_N);
 	void hide_menu();
     void create_optecal_dev_menu();
     void reDraw();

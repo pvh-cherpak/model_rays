@@ -313,8 +313,8 @@ void Nugol::get_segments(ray &r, bool &is_pvo, vector < segment > &otr)
 	sinus1 = sin_pr(r.pr, lin2);
 	sinus11 = sinus1;
 
-	sinus2 = 1. * sinus1 / n;
-    //????????????????????????????????
+	sinus2 = global_n_obj.calculate(r.s.p1.x, r.s.p1.y) * sinus1 / n;
+	//????????????????????????????????
 	point n_checker_point;
     n_checker_point.x = p1.x + 1;
     n_checker_point.y = (-lin2.a * n_checker_point.x - lin2.c) / lin2.b;
@@ -404,8 +404,17 @@ void Nugol::get_segments(ray &r, bool &is_pvo, vector < segment > &otr)
         lin1 = to_pryam(s1);
         lin2 = normal(p1, lin1);
 		//double sinus1, sinus2;
-        sinus1 = sin_pr(r.pr, lin2);
-        sinus2 = n * sinus1 / 1.;
+		sinus1 = sin_pr(r.pr, lin2);
+
+        n_checker_point.x = p1.x + 1;
+		n_checker_point.y = (-lin2.a * n_checker_point.x - lin2.c) / lin2.b;
+		if(check(n_checker_point))
+		{
+			 n_checker_point.x = p1.x - 1;
+			 n_checker_point.y = (-lin2.a * n_checker_point.x - lin2.c) / lin2.b;
+		}
+
+        sinus2 = n * sinus1 / global_n_obj.calculate(n_checker_point.x, n_checker_point.y);
 
         if(sinus2 > 1 || sinus2 < -1)
         {
@@ -414,13 +423,13 @@ void Nugol::get_segments(ray &r, bool &is_pvo, vector < segment > &otr)
         else
         {
             //????????????????????????????????
-            n_checker_point.x = p1.x + 1;
-            n_checker_point.y = (-lin2.a * n_checker_point.x - lin2.c) / lin2.b;
-            if(check(n_checker_point))
-            {
-                 n_checker_point.x = p1.x - 1;
-                 n_checker_point.y = (-lin2.a * n_checker_point.x - lin2.c) / lin2.b;
-            }
+			n_checker_point.x = p1.x + 1;
+			n_checker_point.y = (-lin2.a * n_checker_point.x - lin2.c) / lin2.b;
+			if(check(n_checker_point))
+			{
+				 n_checker_point.x = p1.x - 1;
+				 n_checker_point.y = (-lin2.a * n_checker_point.x - lin2.c) / lin2.b;
+			}
 
 
             if(n_checker_point.x - p1.x >= 0)

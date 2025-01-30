@@ -1,6 +1,8 @@
 ﻿#include "n.h"
 std::string expression_str = "y*0.1 + 1";
 
+n_t global_n_obj;
+
 bool n_t::set_new_expr(std::string &epr_str)
 {
 #ifdef EXPRTK
@@ -19,7 +21,7 @@ bool n_t::set_new_expr(std::string &epr_str)
     expression_str = epr_str;
     return true;
 #else
-    ShowMessage("���������� �������������� �� ���������� �������� ����������");
+    //ShowMessage("���������� �������������� �� ���������� �������� ����������");
     return false;
 #endif
 }
@@ -53,8 +55,8 @@ n_t::n_t(/* args */)
 
     n_expression.register_symbol_table(symbol_table);
 
-    string str = "y*0.1+1";
-    set_new_n_expression(str);
+    std::string str = "y*0.1+1";
+    set_new_expr(str);
 #endif
 }
 
