@@ -70,7 +70,7 @@ bool n_t::init()
     return true;
 #elif defined FPARSER
     if (n_fparser.Parse(expression_str, "x, y") != -1) {
-        ShowMessage("Error: " + AnsiString(n_fparser.ErrorMsg()));
+		ShowMessage("Error: " + AnsiString(n_fparser.ErrorMsg()));
         return false;
     }
 #endif

@@ -276,7 +276,7 @@ void __fastcall TForm1::Button1Click(TObject* Sender)
     std::chrono::duration<double> elapsed = end - start;
 
     LabelTimeScene->Caption =
-        "����� ������� �����: " + FloatToStr(elapsed.count());
+        "Время отрисовки сцены: " + FloatToStr(elapsed.count());
 
     reDraw();
 }
@@ -402,7 +402,7 @@ void TForm1::calculate_heat_map()
     std::chrono::duration<double> elapsed = end - start;
 
     LabelTimeHeatMap->Caption =
-        "����� ������� �������� �����: " + FloatToStr(elapsed.count());
+        "Время отрисовки тепловой карты: " + FloatToStr(elapsed.count());
 }
 
 void __fastcall TForm1::ComboBox1Change(TObject* Sender)
@@ -411,11 +411,11 @@ void __fastcall TForm1::ComboBox1Change(TObject* Sender)
     switch (ComboBox1->ItemIndex) {
         case 0:
             selected_type = menu_type::field;
-            LabeledEdit1->EditLabel->Caption = "������� n(x,y)";
+			LabeledEdit1->EditLabel->Caption = "функция n(x,y)";
             LabeledEdit1->Text =
                 AnsiString(drive.get_n_expression_str().c_str());
 
-            LabeledEdit2->EditLabel->Caption = "�������/����";
+            LabeledEdit2->EditLabel->Caption = "пиксели/метр";
             LabeledEdit2->Text = IntToStr(pixels_per_meter);
 
             LabeledEdit1->Visible = true;
