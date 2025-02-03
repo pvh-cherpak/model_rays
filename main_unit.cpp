@@ -583,11 +583,11 @@ void __fastcall TForm1::N4Click(TObject* Sender)
         String S = SaveTextFileDialog1->FileName;
         string s = AnsiString(S.c_str()).c_str();
 		ofstream fout(s);
-		four << rays_soursec.size();
+		fout << rays_soursec.size() << endl;
 		for (auto& i: points){
+			fout << i.size()<<endl;
 			for (auto& j: i)
-				fout << j.x << ' ' << j.y;
-            fout << endl;
+				fout << j.x << ' ' << j.y << endl;
 		}
         fout.close();
     }
