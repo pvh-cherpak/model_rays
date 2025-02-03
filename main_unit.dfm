@@ -11,6 +11,7 @@ object Form1: TForm1
   Font.Name = 'Segoe UI'
   Font.Style = []
   Menu = MainMenu1
+  Scaled = False
   OnCreate = FormCreate
   OnKeyDown = FormKeyDown
   TextHeight = 15
@@ -78,7 +79,8 @@ object Form1: TForm1
     Items.Strings = (
       #1055#1086#1083#1077
       #1051#1091#1095
-      'N-'#1091#1075#1086#1083#1100#1085#1080#1082)
+      'N-'#1091#1075#1086#1083#1100#1085#1080#1082
+      #1057#1074#1077#1076#1077#1085#1080#1103)
   end
   object LabeledEditX: TLabeledEdit
     Left = 904
@@ -182,6 +184,14 @@ object Form1: TForm1
     EditLabel.Caption = 'N'
     TabOrder = 10
     Text = ''
+    Visible = False
+  end
+  object Memo1: TMemo
+    Left = 624
+    Top = 432
+    Width = 265
+    Height = 121
+    TabOrder = 11
     Visible = False
   end
   object MainMenu1: TMainMenu

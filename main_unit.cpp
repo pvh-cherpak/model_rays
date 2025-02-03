@@ -59,10 +59,10 @@ void __fastcall TForm1::Image1MouseDown(
             selected_type = menu_type::Optical_dev;
             ButtonAccept->Visible = true;
             ButtonReject->Visible = true;
-            LabeledEditN->Visible = true;
-            p3.x = (X + user_rect.Left - VI_centre) / (double)pixels_per_meter;
-            p3.y = (VI_centre - (Y + user_rect.Top)) / (double)pixels_per_meter;
-            if (v.size() != 0) {
+			LabeledEditN->Visible = true;
+			p3.x = (X + user_rect.Left - VI_centre) / (double)pixels_per_meter;
+			p3.y = (VI_centre - (Y + user_rect.Top)) / (double)pixels_per_meter;
+			if (v.size() != 0) {
                 seg.p1 = v.back();
                 seg.p2 = p3;
                 v_seg.push_back(seg);
@@ -76,6 +76,27 @@ void __fastcall TForm1::Image1MouseDown(
             }
             v.push_back(p3);
             reDraw();
+            break;
+		}
+		case 3:
+		{
+			Memo1->Visible = true;
+			point prov;
+			prov.x = (X + user_rect.Left - VI_centre) / (double)pixels_per_meter;
+			prov.y = (VI_centre - (Y + user_rect.Top)) / (double)pixels_per_meter;
+
+            for(int i = 0; i < vec_N.size(); i++)
+			{
+				if(vec_N[i].check(prov))
+				{
+				  Memo1->Lines->Insert(0, "Показатель преломления: " + FloatToStrF(vec_N[i].get_prel(), ffFixed, 8, 3));
+				  Memo1->Lines->Insert(1, "Оптическая длина пути: " + FloatToStrF(vec_N[i].get_op_dl_pt() * pixels_per_meter, ffFixed, 8, 3) + " м");
+				  Memo1->Lines->Insert(2,"Угол входа (к нормали): " + IntToStr(vec_N[i].get_ugl_vhoda()) +"°");
+				  Memo1->Lines->Insert(3,"Угол выхода (к нормали): " + IntToStr(vec_N[i].get_ugl_vyhoda())+ "°");
+
+				}
+			}
+
             break;
         }
         default:;
@@ -228,7 +249,8 @@ void TForm1::hide_menu()
     LabeledEdit3->Visible = false;
     LabeledEdit4->Visible = false;
     ButtonAccept->Visible = false;
-    ButtonReject->Visible = false;
+	ButtonReject->Visible = false;
+	Memo1->Visible = false;
 }
 
 void TForm1::create_optecal_dev_menu()

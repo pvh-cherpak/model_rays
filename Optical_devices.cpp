@@ -314,7 +314,8 @@ void Nugol::get_segments(ray &r, bool &is_pvo, vector < segment > &otr)
 	sinus11 = sinus1;
 
     //ShowMessage(FloatToStr(global_n_obj.calculate(r.s.p1.x, r.s.p1.y)));
-	sinus2 = global_n_obj.calculate(r.s.p1.x, r.s.p1.y) * sinus1 / n;
+	//sinus2 = global_n_obj.calculate(r.s.p1.x, r.s.p1.y) * sinus1 / n;
+	sinus2 = 1. * sinus1 / n;
 	//????????????????????????????????
 	point n_checker_point;
     n_checker_point.x = p1.x + 1;
@@ -330,18 +331,18 @@ void Nugol::get_segments(ray &r, bool &is_pvo, vector < segment > &otr)
     {
 		if(lin2.a * r.s.p2.x + lin2.b * r.s.p2.y + lin2.c < 0)
 		{
-			r.pr.a = tan(asin(sinus2) + atan(-lin2.a / lin2.b));
+			r.pr.a = tan(-asin(sinus2) + atan(-lin2.a / lin2.b));
 		}
 		else
-		   r.pr.a = tan(-asin(sinus2) + atan(-lin2.a / lin2.b));
-    }
-    else
-    {
-        if(lin2.a * r.s.p2.x + lin2.b * r.s.p2.y + lin2.c < 0)
+		   r.pr.a = tan(asin(sinus2) + atan(-lin2.a / lin2.b));
+	}
+	else
+	{
+		if(lin2.a * r.s.p2.x + lin2.b * r.s.p2.y + lin2.c < 0)
 			r.pr.a = tan(asin(sinus2) + atan(-lin2.a / lin2.b) + acos(-1));
-        else
-           r.pr.a = tan(-asin(sinus2) + atan(-lin2.a / lin2.b) + acos(-1));
-    }
+		else
+		   r.pr.a = tan(-asin(sinus2) + atan(-lin2.a / lin2.b) + acos(-1));
+	}
     r.pr.b = -1.;
     r.pr.c = p1.y - r.pr.a * p1.x;
 
@@ -415,7 +416,8 @@ void Nugol::get_segments(ray &r, bool &is_pvo, vector < segment > &otr)
 			 n_checker_point.y = (-lin2.a * n_checker_point.x - lin2.c) / lin2.b;
 		}
 
-        sinus2 = n * sinus1 / global_n_obj.calculate(n_checker_point.x, n_checker_point.y);
+	   //	sinus2 = n * sinus1 / global_n_obj.calculate(n_checker_point.x, n_checker_point.y);
+		sinus2 = n * sinus1 / 1.;
 
         if(sinus2 > 1 || sinus2 < -1)
         {
@@ -443,9 +445,9 @@ void Nugol::get_segments(ray &r, bool &is_pvo, vector < segment > &otr)
 			else
 			{
 				if(lin2.a * r.s.p2.x + lin2.b * r.s.p2.y + lin2.c < 0)
-					r.pr.a = tan(-asin(sinus2) + atan(-lin2.a / lin2.b) + acos(-1));
+					r.pr.a = tan(asin(sinus2) + atan(-lin2.a / lin2.b) + acos(-1));
 				else
-				   r.pr.a = tan(asin(sinus2) + atan(-lin2.a / lin2.b) + acos(-1));
+				   r.pr.a = tan(-asin(sinus2) + atan(-lin2.a / lin2.b) + acos(-1));
 			}
             r.pr.b = -1.;
             r.pr.c = p1.y - r.pr.a * p1.x;
