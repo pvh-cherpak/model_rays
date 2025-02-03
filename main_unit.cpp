@@ -59,10 +59,10 @@ void __fastcall TForm1::Image1MouseDown(
             selected_type = menu_type::Optical_dev;
             ButtonAccept->Visible = true;
             ButtonReject->Visible = true;
-			LabeledEditN->Visible = true;
-			p3.x = (X + user_rect.Left - VI_centre) / (double)pixels_per_meter;
-			p3.y = (VI_centre - (Y + user_rect.Top)) / (double)pixels_per_meter;
-			if (v.size() != 0) {
+            LabeledEditN->Visible = true;
+            p3.x = (X + user_rect.Left - VI_centre) / (double)pixels_per_meter;
+            p3.y = (VI_centre - (Y + user_rect.Top)) / (double)pixels_per_meter;
+            if (v.size() != 0) {
                 seg.p1 = v.back();
                 seg.p2 = p3;
                 v_seg.push_back(seg);
@@ -77,25 +77,34 @@ void __fastcall TForm1::Image1MouseDown(
             v.push_back(p3);
             reDraw();
             break;
-		}
-		case 3:
-		{
-			Memo1->Visible = true;
-			point prov;
-			prov.x = (X + user_rect.Left - VI_centre) / (double)pixels_per_meter;
-			prov.y = (VI_centre - (Y + user_rect.Top)) / (double)pixels_per_meter;
+        }
+        case 3: {
+            Memo1->Visible = true;
+            point prov;
+            prov.x =
+                (X + user_rect.Left - VI_centre) / (double)pixels_per_meter;
+            prov.y =
+                (VI_centre - (Y + user_rect.Top)) / (double)pixels_per_meter;
 
-            for(int i = 0; i < vec_N.size(); i++)
-			{
-				if(vec_N[i].check(prov))
-				{
-				  Memo1->Lines->Insert(0, "Показатель преломления: " + FloatToStrF(vec_N[i].get_prel(), ffFixed, 8, 3));
-				  Memo1->Lines->Insert(1, "Оптическая длина пути: " + FloatToStrF(vec_N[i].get_op_dl_pt() * pixels_per_meter, ffFixed, 8, 3) + " м");
-				  Memo1->Lines->Insert(2,"Угол входа (к нормали): " + IntToStr(vec_N[i].get_ugl_vhoda()) +"°");
-				  Memo1->Lines->Insert(3,"Угол выхода (к нормали): " + IntToStr(vec_N[i].get_ugl_vyhoda())+ "°");
-
-				}
-			}
+            for (int i = 0; i < vec_N.size(); i++) {
+                if (vec_N[i].check(prov)) {
+                    Memo1->Lines->Insert(
+                        0, "Показатель преломления: " +
+                               FloatToStrF(vec_N[i].get_prel(), ffFixed, 8, 3));
+                    Memo1->Lines->Insert(
+                        1, "Оптическая длина пути: " +
+                               FloatToStrF(
+                                   vec_N[i].get_op_dl_pt() * pixels_per_meter,
+                                   ffFixed, 8, 3) +
+                               " м");
+                    Memo1->Lines->Insert(
+                        2, "Угол входа (к нормали): " +
+                               IntToStr(vec_N[i].get_ugl_vhoda()) + "°");
+                    Memo1->Lines->Insert(
+                        3, "Угол выхода (к нормали): " +
+                               IntToStr(vec_N[i].get_ugl_vyhoda()) + "°");
+                }
+            }
 
             break;
         }
@@ -126,13 +135,15 @@ void __fastcall TForm1::ButtonAcceptClick(TObject* Sender)
                 StrToFloat(LabeledEdit1->Text * DEG_TO_RAD);
             break;
         case menu_type::field:
-            formula = AnsiString(LabeledEdit1->Text).c_str();
-            if (drive.set_new_n_expression(formula)) {
+			formula = AnsiString(LabeledEdit1->Text).c_str();
+			if (formula != drive.get_n_expression_str() && drive.set_new_n_expression(formula)) {
                 pixels_per_meter = StrToInt(LabeledEdit2->Text);
                 calculate_heat_map();
                 DrawCoordinates(Heat_map->Canvas, pixels_per_meter);
                 reDraw();
             }
+			draw_precision = StrToInt(LabeledEdit3->Text);
+			reDraw();
             break;
         case menu_type::Optical_dev:
             double tempn;
@@ -231,9 +242,19 @@ void TForm1::reDraw()
             Virtual_Image->Canvas->Pen->Color = ColorRayError;
         else
             Virtual_Image->Canvas->Pen->Color = ColorRay;
-        for (int j = 1; j < points[i].size(); j++) {
-            t = to_picsels(points[i][j].x, points[i][j].y);
-            Virtual_Image->Canvas->LineTo(t.first, t.second);
+        necessary_index[i].push_back(points[i].size());
+        necessary_index[i].push_back(points[i].size());
+        int j = 0;
+        for (int k = 0; k < necessary_index[i].size(); k += 2) {
+            for (; j < necessary_index[i][k]; j += draw_precision) {
+                t = to_picsels(points[i][j].x, points[i][j].y);
+                Virtual_Image->Canvas->LineTo(t.first, t.second);
+            }
+            for (j = necessary_index[i][k]; j < necessary_index[i][k + 1]; j++)
+            {
+                t = to_picsels(points[i][j].x, points[i][j].y);
+                Virtual_Image->Canvas->LineTo(t.first, t.second);
+            }
         }
     }
     show();
@@ -249,8 +270,8 @@ void TForm1::hide_menu()
     LabeledEdit3->Visible = false;
     LabeledEdit4->Visible = false;
     ButtonAccept->Visible = false;
-	ButtonReject->Visible = false;
-	Memo1->Visible = false;
+    ButtonReject->Visible = false;
+    Memo1->Visible = false;
 }
 
 void TForm1::create_optecal_dev_menu()
@@ -286,21 +307,27 @@ void TForm1::draw_ray_source(ray_t &ray_source)
 
 void __fastcall TForm1::Button1Click(TObject* Sender)
 {
-    // ����������� ������� ����� ����� ����������� �������
+	// ����������� ������� ����� ����� ����������� �������
     auto start = std::chrono::high_resolution_clock::now();
 
-    drive.calculate();
+	drive.calculate();
 
-    // ����������� ������� ����� ����� ���������� �������
-    auto end = std::chrono::high_resolution_clock::now();
+	// ����������� ������� ����� ����� ���������� �������
+	auto end = std::chrono::high_resolution_clock::now();
 
     // ��������� ������� �� �������
     std::chrono::duration<double> elapsed = end - start;
 
-    LabelTimeScene->Caption =
-        "Время отрисовки сцены: " + FloatToStr(elapsed.count());
+	LabelTimeScene->Caption =
+		"Время расчёта сцены: " + FloatToStr(elapsed.count());
 
-    reDraw();
+	start = std::chrono::high_resolution_clock::now();
+	reDraw();
+	end = std::chrono::high_resolution_clock::now();
+
+	duration<double> elapsed = end - start;
+
+	LabelDrawScene->Caption = "Время отрисовки сцены: " + FloatToStr(elapsed.count());
 }
 //---------------------------------------------------------------------------
 
@@ -424,7 +451,7 @@ void TForm1::calculate_heat_map()
     std::chrono::duration<double> elapsed = end - start;
 
     LabelTimeHeatMap->Caption =
-        "Время отрисовки тепловой карты: " + FloatToStr(elapsed.count());
+		"Время отрисовки тепловой карты: " + FloatToStr(elapsed.count());
 }
 
 void __fastcall TForm1::ComboBox1Change(TObject* Sender)
@@ -440,8 +467,12 @@ void __fastcall TForm1::ComboBox1Change(TObject* Sender)
             LabeledEdit2->EditLabel->Caption = "пиксели/метр";
             LabeledEdit2->Text = IntToStr(pixels_per_meter);
 
+            LabeledEdit3->EditLabel->Caption = "Точность отрисовки: ";
+            LabeledEdit3->Text = IntToStr(draw_precision);
+
             LabeledEdit1->Visible = true;
-            LabeledEdit2->Visible = true;
+			LabeledEdit2->Visible = true;
+			LabeledEdit3->Visible = true;
             ButtonAccept->Visible = true;
             break;
 
@@ -454,11 +485,11 @@ void __fastcall TForm1::ComboBox1Change(TObject* Sender)
 
 void __fastcall TForm1::N2Click(TObject* Sender)
 {
-	rays_soursec.clear();
+    rays_soursec.clear();
     vec_N.clear();
     user_rect = Bounds(VI_centre - Image1->Width, VI_centre - Image1->Height,
         Image1->Width, Image1->Height);
-	points.clear();
+    points.clear();
     string s = "1";
     drive.set_new_n_expression(s);
 
@@ -582,15 +613,17 @@ void __fastcall TForm1::N4Click(TObject* Sender)
     if (SaveTextFileDialog1->Execute()) {
         String S = SaveTextFileDialog1->FileName;
         string s = AnsiString(S.c_str()).c_str();
-		ofstream fout(s);
-		fout << rays_soursec.size() << endl;
-		for (auto& i: points){
-			fout << i.size()<<endl;
-			for (auto& j: i)
-				fout << j.x << ' ' << j.y << endl;
-		}
+        ofstream fout(s);
+        fout << rays_soursec.size() << endl;
+        for (auto &i : points) {
+            fout << i.size() << endl;
+            for (auto &j : i)
+                fout << j.x << ' ' << j.y << endl;
+        }
         fout.close();
     }
 }
 //---------------------------------------------------------------------------
+
+
 

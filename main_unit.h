@@ -73,6 +73,9 @@ class TForm1 : public TForm
 	TMenuItem *N10;
 	TColorDialog *ColorDialog1;
 	TMemo *Memo1;
+	TLabel *LabelDrawScene;
+	TLabel *Label2;
+	TLabel *Label3;
     void __fastcall Image1Click(TObject* Sender);
     void __fastcall Image1MouseDown(
         TObject* Sender, TMouseButton Button, TShiftState Shift, int X, int Y);
@@ -106,12 +109,14 @@ class TForm1 : public TForm
 
     vector<std::unique_ptr<VirtualOpticalDevice_t> > OpticalDevices;
 
-    vector<bool> errors;
+	vector<bool> errors;
+	vector < vector <int>> necessary_index;
+    int draw_precision = 10;
     vector<ray_t> rays_soursec;
 	vector<vector<point_t> > points;
     vector<Nugol> vec_N;
 
-	basicDrive_t drive = basicDrive_t(points, rays_soursec, errors, vec_N);
+	basicDrive_t drive = basicDrive_t(points, rays_soursec, errors, vec_N, necessary_index);
 	void hide_menu();
 	void create_optecal_dev_menu();
     void reDraw();

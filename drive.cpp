@@ -11,9 +11,9 @@ pryam to_pr(segment s)
 }
 
 basicDrive_t::basicDrive_t(vector<vector<point_t> > &points_v,
-    vector<ray_t> &rays_v, vector<bool> &errors, vector<Nugol> &vec_N) :
+	vector<ray_t> &rays_v, vector<bool> &errors, vector<Nugol> &vec_N,  vector < vector <int>>& n_i) :
     points(points_v),
-    rays(rays_v), errors(errors), vec_N(vec_N)
+	rays(rays_v), errors(errors), vec_N(vec_N), necessary_index(n_i)
 {
 	string s =  "y*0.1+1";
 	n_obj.set_new_expr(s);
@@ -30,11 +30,13 @@ vector_t basicDrive_t::grad_n_ch(double x, double y, double dt)
 void basicDrive_t::calculate()
 {
     points.clear();
-    errors.clear();
-    errors.resize(rays.size());
-    double dt = 0.005;
+	errors.clear();
+	necessary_index.clear();
+	necessary_index.resize(rays.size());
+	errors.resize(rays.size());
+	double dt = 0.005;
     for (int ray_i = 0; ray_i < rays.size(); ray_i++) {
-        vector<point_t> points_;
+		vector<point_t> points_;
 		points_.reserve(10000);
 		vector_t r(rays[ray_i].point.x, rays[ray_i].point.y);
 		vector_t tau(cos(rays[ray_i].direction), sin(rays[ray_i].direction));
@@ -75,6 +77,7 @@ void basicDrive_t::calculate()
 				if(pos != -1)
 				{
 					ShowMessage("Зашёл3");
+					necessary_index[ray_i].push_back(points_.size());
 					vector < segment > otr;
 					vec_N[pos].get_segments(r_dev, ok, otr);
 					points_.push_back({ otr[0].p1.x, otr[0].p1.y });
@@ -93,6 +96,7 @@ void basicDrive_t::calculate()
 					prev_tau = tau;
 					gradient = grad_n_ch(r.x, r.y, dt);
 					prev_tau_ = (gradient - tau * (tau * gradient)) / n(r.x, r.y);
+					necessary_index[ray_i].push_back(points_.size());
 
 					otr.resize(0);
 					pos = -1;

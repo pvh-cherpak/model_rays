@@ -2,8 +2,8 @@ object Form1: TForm1
   Left = 0
   Top = 0
   Caption = 'Form1'
-  ClientHeight = 588
-  ClientWidth = 1049
+  ClientHeight = 621
+  ClientWidth = 1047
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -58,6 +58,38 @@ object Form1: TForm1
     Width = 66
     Height = 15
     Caption = 'LabelVersion'
+  end
+  object LabelDrawScene: TLabel
+    Left = 24
+    Top = 593
+    Width = 3
+    Height = 15
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
+  end
+  object Label2: TLabel
+    Left = 40
+    Top = 750
+    Width = 43
+    Height = 19
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
+    Caption = 'Label2'
+  end
+  object Label3: TLabel
+    Left = 100
+    Top = 740
+    Width = 43
+    Height = 19
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
+    Caption = 'Label3'
   end
   object Button1: TButton
     Left = 895
