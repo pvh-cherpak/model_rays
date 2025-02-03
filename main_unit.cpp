@@ -298,7 +298,7 @@ void __fastcall TForm1::Button1Click(TObject* Sender)
     std::chrono::duration<double> elapsed = end - start;
 
     LabelTimeScene->Caption =
-        "����� ������� �����: " + FloatToStr(elapsed.count());
+        "Время отрисовки сцены: " + FloatToStr(elapsed.count());
 
     reDraw();
 }
@@ -424,7 +424,7 @@ void TForm1::calculate_heat_map()
     std::chrono::duration<double> elapsed = end - start;
 
     LabelTimeHeatMap->Caption =
-        "����� ������� �������� �����: " + FloatToStr(elapsed.count());
+        "Время отрисовки тепловой карты: " + FloatToStr(elapsed.count());
 }
 
 void __fastcall TForm1::ComboBox1Change(TObject* Sender)
@@ -433,11 +433,11 @@ void __fastcall TForm1::ComboBox1Change(TObject* Sender)
     switch (ComboBox1->ItemIndex) {
         case 0:
             selected_type = menu_type::field;
-            LabeledEdit1->EditLabel->Caption = "������� n(x,y)";
+            LabeledEdit1->EditLabel->Caption = "функция n(x,y)";
             LabeledEdit1->Text =
                 AnsiString(drive.get_n_expression_str().c_str());
 
-            LabeledEdit2->EditLabel->Caption = "�������/����";
+            LabeledEdit2->EditLabel->Caption = "пиксели/метр";
             LabeledEdit2->Text = IntToStr(pixels_per_meter);
 
             LabeledEdit1->Visible = true;
@@ -454,11 +454,11 @@ void __fastcall TForm1::ComboBox1Change(TObject* Sender)
 
 void __fastcall TForm1::N2Click(TObject* Sender)
 {
-    rays_soursec.clear();
+	rays_soursec.clear();
     vec_N.clear();
     user_rect = Bounds(VI_centre - Image1->Width, VI_centre - Image1->Height,
         Image1->Width, Image1->Height);
-    points.clear();
+	points.clear();
     string s = "1";
     drive.set_new_n_expression(s);
 
@@ -574,6 +574,23 @@ void __fastcall TForm1::N10Click(TObject* Sender)
     if (ColorDialog1->Execute())
         ColorRayError = ColorDialog1->Color;
     reDraw();
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::N4Click(TObject* Sender)
+{
+    if (SaveTextFileDialog1->Execute()) {
+        String S = SaveTextFileDialog1->FileName;
+        string s = AnsiString(S.c_str()).c_str();
+		ofstream fout(s);
+		four << rays_soursec.size();
+		for (auto& i: points){
+			for (auto& j: i)
+				fout << j.x << ' ' << j.y;
+            fout << endl;
+		}
+        fout.close();
+    }
 }
 //---------------------------------------------------------------------------
 

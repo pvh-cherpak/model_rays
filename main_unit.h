@@ -92,6 +92,7 @@ class TForm1 : public TForm
 	void __fastcall N8Click(TObject *Sender);
 	void __fastcall N9Click(TObject *Sender);
 	void __fastcall N10Click(TObject *Sender);
+	void __fastcall N4Click(TObject *Sender);
   private: // User declarations
     menu_type selected_type = menu_type::NONE;
     Graphics::TBitmap* Virtual_Image = new Graphics::TBitmap();
