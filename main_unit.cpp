@@ -255,14 +255,15 @@ void TForm1::reDraw()
     Virtual_Image->Canvas->Pen->Color = clYellow;
     Virtual_Image->Canvas->Pen->Width = 5;
     for (int i = 0; i < points.size(); i++) {
+        if (points[i].empty())
+            continue;
         pair<int, int> t = to_picsels(points[i][0].x, points[i][0].y);
         Virtual_Image->Canvas->MoveTo(t.first, t.second);
         if (errors[i])
             Virtual_Image->Canvas->Pen->Color = ColorRayError;
         else
             Virtual_Image->Canvas->Pen->Color = ColorRay;
-        necessary_index[i].push_back(points[i].size());
-        necessary_index[i].push_back(points[i].size());
+
         int j = 0;
         for (int k = 0; k < necessary_index[i].size(); k += 2) {
             for (; j < necessary_index[i][k]; j += draw_precision) {
@@ -294,7 +295,7 @@ void TForm1::hide_menu()
     LabeledEdit1->Visible = false;
     LabeledEdit2->Visible = false;
     LabeledEdit3->Visible = false;
-	LabeledEdit4->Visible = false;
+    LabeledEdit4->Visible = false;
     LabeledEdit5->Visible = false;
     ButtonAccept->Visible = false;
     ButtonReject->Visible = false;
@@ -334,8 +335,8 @@ void TForm1::draw_ray_source(ray_t &ray_source)
 
 void __fastcall TForm1::Button1Click(TObject* Sender)
 {
-	reCalculate();
-	reDraw();
+    reCalculate();
+    reDraw();
 }
 //---------------------------------------------------------------------------
 
@@ -350,13 +351,13 @@ void __fastcall TForm1::FormCreate(TObject* Sender)
     LabelVersion->Caption += "compiled";
 #endif
 
-	LabelVersion->Caption += "\theat_map method: ";
+    LabelVersion->Caption += "\theat_map method: ";
 #ifdef HEAT_MAP_POINTER_DRAW
     LabelVersion->Caption += "ScanLine[]";
 #else
     LabelVersion->Caption += "Pixels[][]";
 #endif
-	LabelVersion->Caption += "\tPole size: " + IntToStr(VI_size);
+    LabelVersion->Caption += "\tPole size: " + IntToStr(VI_size);
     //    LabelVersion->Caption += "\t multitreading: ";
     //#ifdef multitreading
     //    LabelVersion->Caption += "TRUE";
@@ -371,7 +372,7 @@ void __fastcall TForm1::FormCreate(TObject* Sender)
     //    LabelVersion->Caption += "FALSE";
     //#endif
 
-	Virtual_Image->Width = VI_size;
+    Virtual_Image->Width = VI_size;
     Virtual_Image->Height = VI_size;
     user_rect = Bounds(VI_centre - Image1->Width, VI_centre - Image1->Height,
         Image1->Width, Image1->Height);

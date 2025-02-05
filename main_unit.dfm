@@ -48,7 +48,7 @@ object Form1: TForm1
   object LabelTimeScene: TLabel
     Left = 24
     Top = 565
-    Width = 85
+    Width = 86
     Height = 15
     Caption = 'LabelTimeScene'
   end

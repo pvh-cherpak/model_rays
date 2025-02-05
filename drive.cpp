@@ -123,6 +123,8 @@ void basicDrive_t::calculate()
             prev_tau = tau;
 			points_.push_back({ r.x, r.y });
 		}
+		necessary_index[ray_i].push_back(points_.size());
+        necessary_index[ray_i].push_back(points_.size());
         points.push_back(points_);
     }
 }
