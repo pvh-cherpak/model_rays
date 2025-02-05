@@ -135,15 +135,19 @@ void __fastcall TForm1::ButtonAcceptClick(TObject* Sender)
                 StrToFloat(LabeledEdit1->Text * DEG_TO_RAD);
             break;
         case menu_type::field:
-			formula = AnsiString(LabeledEdit1->Text).c_str();
-			if (formula != drive.get_n_expression_str() && drive.set_new_n_expression(formula)) {
-                pixels_per_meter = StrToInt(LabeledEdit2->Text);
+            pixels_per_meter = StrToInt(LabeledEdit2->Text);
+            draw_precision = StrToInt(LabeledEdit3->Text);
+
+            formula = AnsiString(LabeledEdit1->Text).c_str();
+            if (formula != drive.get_n_expression_str() &&
+                drive.set_new_n_expression(formula))
+            {
                 calculate_heat_map();
                 DrawCoordinates(Heat_map->Canvas, pixels_per_meter);
-                reDraw();
+                reCalculate();
             }
-			draw_precision = StrToInt(LabeledEdit3->Text);
-			reDraw();
+
+            reDraw();
             break;
         case menu_type::Optical_dev:
             double tempn;
@@ -180,6 +184,8 @@ void __fastcall TForm1::ButtonAcceptClick(TObject* Sender)
 
 void TForm1::reDraw()
 {
+    auto start = std::chrono::high_resolution_clock::now();
+
     Virtual_Image->Canvas->Pen->Color = clBlack;
     Virtual_Image->Canvas->Brush->Color = clBlack;
     TRect rect = Rect(0, 0, Virtual_Image->Width, Virtual_Image->Height);
@@ -258,6 +264,13 @@ void TForm1::reDraw()
         }
     }
     show();
+
+    auto end = std::chrono::high_resolution_clock::now();
+
+    std::chrono::duration<double> elapsed = end - start;
+
+    LabelDrawScene->Caption =
+        "Время отображения сцены: " + FloatToStr(elapsed.count());
 }
 
 void TForm1::hide_menu()
@@ -307,27 +320,9 @@ void TForm1::draw_ray_source(ray_t &ray_source)
 
 void __fastcall TForm1::Button1Click(TObject* Sender)
 {
-	// ����������� ������� ����� ����� ����������� �������
-    auto start = std::chrono::high_resolution_clock::now();
+    reCalculate();
 
-	drive.calculate();
-
-	// ����������� ������� ����� ����� ���������� �������
-	auto end = std::chrono::high_resolution_clock::now();
-
-    // ��������� ������� �� �������
-    std::chrono::duration<double> elapsed = end - start;
-
-	LabelTimeScene->Caption =
-		"Время расчёта сцены: " + FloatToStr(elapsed.count());
-
-	start = std::chrono::high_resolution_clock::now();
-	reDraw();
-	end = std::chrono::high_resolution_clock::now();
-
-	duration<double> elapsed = end - start;
-
-	LabelDrawScene->Caption = "Время отрисовки сцены: " + FloatToStr(elapsed.count());
+    reDraw();
 }
 //---------------------------------------------------------------------------
 
@@ -342,19 +337,26 @@ void __fastcall TForm1::FormCreate(TObject* Sender)
     LabelVersion->Caption += "compiled";
 #endif
 
-    LabelVersion->Caption += "\t multitreading: ";
-#ifdef multitreading
-    LabelVersion->Caption += "TRUE";
+    LabelVersion->Caption = "heat_map method: ";
+#ifdef HEAT_MAP_POINTER_DRAW
+    LabelVersion->Caption += "ScanLine[]";
 #else
-    LabelVersion->Caption += "FALSE";
+    LabelVersion->Caption += "Pixels[][]";
 #endif
 
-    LabelVersion->Caption += "\t GPU: ";
-#ifdef GPU_HEAT_MAP
-    LabelVersion->Caption += "TRUE";
-#else
-    LabelVersion->Caption += "FALSE";
-#endif
+    //    LabelVersion->Caption += "\t multitreading: ";
+    //#ifdef multitreading
+    //    LabelVersion->Caption += "TRUE";
+    //#else
+    //    LabelVersion->Caption += "FALSE";
+    //#endif
+    //
+    //    LabelVersion->Caption += "\t GPU: ";
+    //#ifdef GPU_HEAT_MAP
+    //    LabelVersion->Caption += "TRUE";
+    //#else
+    //    LabelVersion->Caption += "FALSE";
+    //#endif
 
     Virtual_Image->Width = VI_size;
     Virtual_Image->Height = VI_size;
@@ -364,6 +366,7 @@ void __fastcall TForm1::FormCreate(TObject* Sender)
 
     Heat_map->Width = VI_size;
     Heat_map->Height = VI_size;
+    Heat_map->PixelFormat = pf24bit;
 
     ColorMin = (TColor)RGB(0, 0, 255);
     ColorMax = (TColor)RGB(255, 0, 0);
@@ -431,27 +434,34 @@ void TForm1::calculate_heat_map()
 {
     double ppm = pixels_per_meter;
 
-    // ����������� ������� ����� ����� ����������� �������
     auto start = std::chrono::high_resolution_clock::now();
 
-    for (int y = VI_size / 4; y < VI_size / 2 + VI_size / 4; y++) {
-        for (int x = VI_size / 4; x < VI_size; x++) {
+    for (int y = 0; y < VI_size; y++) {
+#ifdef HEAT_MAP_POINTER_DRAW
+        unsigned char* row = static_cast<unsigned char*>(Heat_map->ScanLine[y]);
+#endif
+        for (int x = 0; x < VI_size; x++) {
             double value =
                 drive.n((x - VI_centre) / ppm, (VI_centre - y) / ppm) - 1;
-            value = max(0.0, min(1.0, value)); // ��������� �������� ����� 0 � 1
+            value = max(0.0, min(1.0, value));
+            TColor color = get_heat_color(value);
 
+#ifdef HEAT_MAP_POINTER_DRAW
+            row[x * 3] = GetBValue(color); // Синий канал
+            row[x * 3 + 1] = GetGValue(color); // Зеленый канал
+            row[x * 3 + 2] = GetRValue(color); // Красный каналE
+#else
             Heat_map->Canvas->Pixels[x][y] = get_heat_color(value);
+#endif
         }
     }
 
-    // ����������� ������� ����� ����� ���������� �������
     auto end = std::chrono::high_resolution_clock::now();
 
-    // ��������� ������� �� �������
     std::chrono::duration<double> elapsed = end - start;
 
     LabelTimeHeatMap->Caption =
-		"Время отрисовки тепловой карты: " + FloatToStr(elapsed.count());
+        "Время отрисовки тепловой карты: " + FloatToStr(elapsed.count());
 }
 
 void __fastcall TForm1::ComboBox1Change(TObject* Sender)
@@ -471,8 +481,8 @@ void __fastcall TForm1::ComboBox1Change(TObject* Sender)
             LabeledEdit3->Text = IntToStr(draw_precision);
 
             LabeledEdit1->Visible = true;
-			LabeledEdit2->Visible = true;
-			LabeledEdit3->Visible = true;
+            LabeledEdit2->Visible = true;
+            LabeledEdit3->Visible = true;
             ButtonAccept->Visible = true;
             break;
 
@@ -624,6 +634,17 @@ void __fastcall TForm1::N4Click(TObject* Sender)
     }
 }
 //---------------------------------------------------------------------------
+void TForm1::reCalculate()
+{
+    auto start = std::chrono::high_resolution_clock::now();
 
+    drive.calculate();
 
+    auto end = std::chrono::high_resolution_clock::now();
+
+    std::chrono::duration<double> elapsed = end - start;
+
+    LabelTimeScene->Caption =
+        "Время расчёта сцены: " + FloatToStr(elapsed.count());
+}
 

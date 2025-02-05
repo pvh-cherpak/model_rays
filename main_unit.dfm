@@ -48,13 +48,13 @@ object Form1: TForm1
   object LabelTimeScene: TLabel
     Left = 24
     Top = 565
-    Width = 85
+    Width = 86
     Height = 15
     Caption = 'LabelTimeScene'
   end
   object LabelVersion: TLabel
-    Left = 585
-    Top = 565
+    Left = 296
+    Top = 598
     Width = 66
     Height = 15
     Caption = 'LabelVersion'
@@ -62,18 +62,19 @@ object Form1: TForm1
   object LabelDrawScene: TLabel
     Left = 24
     Top = 593
-    Width = 3
+    Width = 86
     Height = 15
     Margins.Left = 4
     Margins.Top = 4
     Margins.Right = 4
     Margins.Bottom = 4
+    Caption = 'LabelDrawScene'
   end
   object Label2: TLabel
     Left = 40
     Top = 750
-    Width = 43
-    Height = 19
+    Width = 34
+    Height = 15
     Margins.Left = 4
     Margins.Top = 4
     Margins.Right = 4
@@ -83,8 +84,8 @@ object Form1: TForm1
   object Label3: TLabel
     Left = 100
     Top = 740
-    Width = 43
-    Height = 19
+    Width = 34
+    Height = 15
     Margins.Left = 4
     Margins.Top = 4
     Margins.Right = 4

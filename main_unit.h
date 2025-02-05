@@ -33,6 +33,8 @@ enum class menu_type
     NONE
 };
 
+#define HEAT_MAP_POINTER_DRAW
+
 const double RAD_TO_DEG = 180.0 / acos(-1);
 const double DEG_TO_RAD = acos(-1) / 180.0;
 
@@ -119,12 +121,13 @@ class TForm1 : public TForm
 	basicDrive_t drive = basicDrive_t(points, rays_soursec, errors, vec_N, necessary_index);
 	void hide_menu();
 	void create_optecal_dev_menu();
-    void reDraw();
+
     void draw_ray_source(ray_t &ray_source);
     void show();
 
     void calculate_heat_map();
-
+	void reDraw();
+    void reCalculate();
     //	std::vector<Ray_t>& Rays;
     //	UI_t(OpticalDevices, Rays);
   public: // User declarations
