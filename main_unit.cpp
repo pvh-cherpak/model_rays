@@ -334,30 +334,8 @@ void TForm1::draw_ray_source(ray_t &ray_source)
 
 void __fastcall TForm1::Button1Click(TObject* Sender)
 {
-    reCalculate();
-
-<<<<<<< HEAD
-	drive.calculate();
-
-	// ����������� ������� ����� ����� ���������� �������
-	auto end = std::chrono::high_resolution_clock::now();
-
-    // ��������� ������� �� �������
-    std::chrono::duration<double> elapsed = end - start;
-
-	LabelTimeScene->Caption =
-		"Время расчёта сцены: " + FloatToStr(elapsed.count());
-
-	start = std::chrono::high_resolution_clock::now();
+	reCalculate();
 	reDraw();
-	end = std::chrono::high_resolution_clock::now();
-
-	elapsed = end - start;
-
-	LabelDrawScene->Caption = "Время отрисовки сцены: " + FloatToStr(elapsed.count());
-=======
-    reDraw();
->>>>>>> 2d57a136490063d162029967fbbd0271eadba221
 }
 //---------------------------------------------------------------------------
 
