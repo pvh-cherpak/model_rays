@@ -11,9 +11,11 @@ pryam to_pr(segment s)
 }
 
 basicDrive_t::basicDrive_t(vector<vector<point_t> > &points_v,
-	vector<ray_t> &rays_v, vector<bool> &errors, vector<Nugol> &vec_N,  vector < vector <int>>& n_i) :
+	vector<ray_t> &rays_v, vector<bool> &errors,
+	vector<Nugol> &vec_N,  vector < vector <int>>& n_i, int & NRR, double &step) :
     points(points_v),
-	rays(rays_v), errors(errors), vec_N(vec_N), necessary_index(n_i)
+	rays(rays_v), errors(errors), vec_N(vec_N), necessary_index(n_i),
+	step(step), number_of_ray_points(NRR)
 {
 	string s =  "y*0.1+1";
 	n_obj.set_new_expr(s);
@@ -34,7 +36,7 @@ void basicDrive_t::calculate()
 	necessary_index.clear();
 	necessary_index.resize(rays.size());
 	errors.resize(rays.size());
-	double dt = 0.005;
+	double dt = step;
     for (int ray_i = 0; ray_i < rays.size(); ray_i++) {
 		vector<point_t> points_;
 		points_.reserve(10000);
@@ -44,7 +46,7 @@ void basicDrive_t::calculate()
 		vector_t prev_tau = tau;
 		vector_t gradient = grad_n_ch(r.x, r.y, dt);
 		vector_t prev_tau_ = (gradient - tau * (tau * gradient)) / n(r.x, r.y);
-		for (int iter = 1; iter < 10000; iter++) {
+		for (int iter = 1; iter < number_of_ray_points; iter++) {
 			if (n(r.x, r.y) < 1) {
 				errors[ray_i] = true;
 				break;

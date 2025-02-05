@@ -78,6 +78,7 @@ class TForm1 : public TForm
 	TLabel *LabelDrawScene;
 	TLabel *Label2;
 	TLabel *Label3;
+	TLabeledEdit *LabeledEdit5;
     void __fastcall Image1Click(TObject* Sender);
     void __fastcall Image1MouseDown(
         TObject* Sender, TMouseButton Button, TShiftState Shift, int X, int Y);
@@ -113,12 +114,17 @@ class TForm1 : public TForm
 
 	vector<bool> errors;
 	vector < vector <int>> necessary_index;
-    int draw_precision = 10;
-    vector<ray_t> rays_soursec;
+
+	int draw_precision = 10;
+	int number_of_ray_points = 50000;
+	double step = 0.005;
+
+	vector<ray_t> rays_soursec;
 	vector<vector<point_t> > points;
     vector<Nugol> vec_N;
 
-	basicDrive_t drive = basicDrive_t(points, rays_soursec, errors, vec_N, necessary_index);
+	basicDrive_t drive = basicDrive_t(points, rays_soursec,
+	errors, vec_N, necessary_index, number_of_ray_points, step);
 	void hide_menu();
 	void create_optecal_dev_menu();
 
@@ -127,7 +133,7 @@ class TForm1 : public TForm
 
     void calculate_heat_map();
 	void reDraw();
-    void reCalculate();
+	void reCalculate();
     //	std::vector<Ray_t>& Rays;
     //	UI_t(OpticalDevices, Rays);
   public: // User declarations

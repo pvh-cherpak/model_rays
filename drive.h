@@ -19,9 +19,13 @@ class basicDrive_t
 	vector < vector <int>> &necessary_index;
 	n_t& n_obj =  global_n_obj;
 
+	int &number_of_ray_points;
+	double &step;
+
   public:
     basicDrive_t(vector<vector<point_t> > &points, vector<ray_t> &rays_v,
-		vector<bool> &errors, vector<Nugol> &vec_N, vector < vector <int>>& n_i);
+		vector<bool> &errors, vector<Nugol> &vec_N,
+		vector < vector <int>>& n_i, int & NRR, double &step);
     void calculate();
     bool set_new_n_expression(string &epr_str);
 	double n(double x, double y);

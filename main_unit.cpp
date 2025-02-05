@@ -121,7 +121,11 @@ void __fastcall TForm1::ButtonRejectClick(TObject* Sender)
     selected_device = -1;
 }
 //---------------------------------------------------------------------------
-
+bool need_to_redraw;
+double new_step;
+int new_pixels_per_meter;
+int new_draw_precision;
+int new_number_of_ray_points;
 void __fastcall TForm1::ButtonAcceptClick(TObject* Sender)
 {
     string formula;
@@ -134,22 +138,7 @@ void __fastcall TForm1::ButtonAcceptClick(TObject* Sender)
             rays_soursec[selected_device].direction =
                 StrToFloat(LabeledEdit1->Text * DEG_TO_RAD);
             break;
-        case menu_type::field:
-            pixels_per_meter = StrToInt(LabeledEdit2->Text);
-            draw_precision = StrToInt(LabeledEdit3->Text);
-
-            formula = AnsiString(LabeledEdit1->Text).c_str();
-            if (formula != drive.get_n_expression_str() &&
-                drive.set_new_n_expression(formula))
-            {
-                calculate_heat_map();
-                DrawCoordinates(Heat_map->Canvas, pixels_per_meter);
-                reCalculate();
-            }
-
-            reDraw();
-            break;
-        case menu_type::Optical_dev:
+        case menu_type::Optical_dev: {
             double tempn;
             tempn = StrToFloat(LabeledEditN->Text);
             vector<segment> s;
@@ -159,25 +148,49 @@ void __fastcall TForm1::ButtonAcceptClick(TObject* Sender)
             s.push_back(seg);
             vec_N[now_dev].set_Nugol(s.size(), s, tempn);
             v.resize(0);
-            reDraw();
+            //            reDraw();
+        } break;
+        case menu_type::field:
+            need_to_redraw = false;
+
+            new_pixels_per_meter = StrToInt(LabeledEdit2->Text);
+            if (new_pixels_per_meter != pixels_per_meter) {
+                pixels_per_meter = new_pixels_per_meter;
+                need_to_redraw = true;
+            }
+
+            new_draw_precision = StrToInt(LabeledEdit3->Text);
+            if (new_draw_precision != pixels_per_meter) {
+                draw_precision = new_draw_precision;
+                need_to_redraw = true;
+            }
+
+            new_number_of_ray_points = StrToInt(LabeledEdit4->Text);
+            if (new_number_of_ray_points != number_of_ray_points) {
+                number_of_ray_points = new_number_of_ray_points;
+                need_to_redraw = true;
+            }
+
+            new_step = StrToFloat(LabeledEdit5->Text);
+            if (new_step != step) {
+                step = new_step;
+                need_to_redraw = true;
+            }
+
+            formula = AnsiString(LabeledEdit1->Text).c_str();
+            if (formula != drive.get_n_expression_str() &&
+                drive.set_new_n_expression(formula))
+                need_to_redraw = true;
+
+            if (need_to_redraw) {
+                calculate_heat_map();
+                DrawCoordinates(Heat_map->Canvas, pixels_per_meter);
+                reCalculate();
+                //                reDraw();
+            }
             break;
     }
-    //    if (selected_type) {
-    //        OpticalDevices[selected_device]->parametrs[0] =
-    //            StrToFloat(LabeledEditX->Text);
-    //        OpticalDevices[selected_device]->parametrs[1] =
-    //            StrToFloat(LabeledEditY->Text);
-    //        OpticalDevices[selected_device]->parametrs[2] =
-    //            StrToFloat(LabeledEditN->Text);
-    //        for (int i = 0;
-    //             i < OpticalDevices[selected_device]->parameter_names.size(); i++)
-    //        {
-    //            OpticalDevices[selected_device]->parametrs[i + 3] =
-    //                StrToFloat(menu_LE[i]->Text);
-    //        }
-    //    }
-    //    hide_menu();
-    //    selected_device = -1;
+
     reDraw();
 }
 //---------------------------------------------------------------------------
@@ -281,7 +294,8 @@ void TForm1::hide_menu()
     LabeledEdit1->Visible = false;
     LabeledEdit2->Visible = false;
     LabeledEdit3->Visible = false;
-    LabeledEdit4->Visible = false;
+	LabeledEdit4->Visible = false;
+    LabeledEdit5->Visible = false;
     ButtonAccept->Visible = false;
     ButtonReject->Visible = false;
     Memo1->Visible = false;
@@ -337,13 +351,13 @@ void __fastcall TForm1::FormCreate(TObject* Sender)
     LabelVersion->Caption += "compiled";
 #endif
 
-    LabelVersion->Caption = "heat_map method: ";
+	LabelVersion->Caption += "\theat_map method: ";
 #ifdef HEAT_MAP_POINTER_DRAW
     LabelVersion->Caption += "ScanLine[]";
 #else
     LabelVersion->Caption += "Pixels[][]";
 #endif
-
+	LabelVersion->Caption += "\tPole size: " + IntToStr(VI_size);
     //    LabelVersion->Caption += "\t multitreading: ";
     //#ifdef multitreading
     //    LabelVersion->Caption += "TRUE";
@@ -358,7 +372,7 @@ void __fastcall TForm1::FormCreate(TObject* Sender)
     //    LabelVersion->Caption += "FALSE";
     //#endif
 
-    Virtual_Image->Width = VI_size;
+	Virtual_Image->Width = VI_size;
     Virtual_Image->Height = VI_size;
     user_rect = Bounds(VI_centre - Image1->Width, VI_centre - Image1->Height,
         Image1->Width, Image1->Height);
@@ -480,9 +494,17 @@ void __fastcall TForm1::ComboBox1Change(TObject* Sender)
             LabeledEdit3->EditLabel->Caption = "Точность отрисовки: ";
             LabeledEdit3->Text = IntToStr(draw_precision);
 
+            LabeledEdit4->EditLabel->Caption = "Кол-во точек в луче: ";
+            LabeledEdit4->Text = IntToStr(number_of_ray_points);
+
+            LabeledEdit5->EditLabel->Caption = "Шаг интегрирования (м): ";
+            LabeledEdit5->Text = FloatToStr(step);
+
             LabeledEdit1->Visible = true;
             LabeledEdit2->Visible = true;
             LabeledEdit3->Visible = true;
+            LabeledEdit4->Visible = true;
+            LabeledEdit5->Visible = true;
             ButtonAccept->Visible = true;
             break;
 
