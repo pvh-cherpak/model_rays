@@ -325,7 +325,7 @@ void __fastcall TForm1::Button1Click(TObject* Sender)
 	reDraw();
 	end = std::chrono::high_resolution_clock::now();
 
-	duration<double> elapsed = end - start;
+	elapsed = end - start;
 
 	LabelDrawScene->Caption = "Время отрисовки сцены: " + FloatToStr(elapsed.count());
 }

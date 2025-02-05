@@ -40,12 +40,13 @@ class Optical_devices
         point tchk_segment_ray(segment s, ray r);
         bool is_tchk_ray(segment s, point p);
         pryam to_pryam(segment s);
-        void zerkalo(ray &r, segment s1, point p1, pryam lin2);
+		void zerkalo(ray &r, pryam lin1, point p1, pryam lin2);
+        bool check_razn2(point t1, point t2, pryam lin1, pryam lin2);
 
         Optical_devices();
         virtual ~Optical_devices();
         virtual double s_to_dev(ray r) = 0;
-        virtual bool is_crossing(ray r) = 0;
+		virtual bool is_crossing(ray r) = 0;
         virtual void get_segments(ray &r, bool &is_pvo, vector < segment > &otr) = 0;
 
 
@@ -69,6 +70,7 @@ class Nugol: public Optical_devices
 		void get_segments(ray &r, bool &is_pvo, vector < segment > &otr);
 		double get_prel();
 		bool check(point p);
+		bool check_razn(point t1, point t2, pryam lin1, pryam lin2);
 		void set_op_dl_pt(double a);
 		double get_op_dl_pt();
 		int get_ugl_vhoda();
