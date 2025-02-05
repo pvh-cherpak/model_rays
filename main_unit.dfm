@@ -25,15 +25,15 @@ object Form1: TForm1
     OnMouseMove = Image1MouseMove
   end
   object LabelPosition: TLabel
-    Left = 904
-    Top = 530
+    Left = 818
+    Top = 559
     Width = 71
     Height = 15
     Caption = 'LabelPosition'
   end
   object LabelN: TLabel
-    Left = 905
-    Top = 565
+    Left = 818
+    Top = 598
     Width = 37
     Height = 15
     Caption = 'LabelN'
@@ -48,13 +48,13 @@ object Form1: TForm1
   object LabelTimeScene: TLabel
     Left = 24
     Top = 565
-    Width = 85
+    Width = 86
     Height = 15
     Caption = 'LabelTimeScene'
   end
   object LabelVersion: TLabel
-    Left = 585
-    Top = 565
+    Left = 296
+    Top = 598
     Width = 66
     Height = 15
     Caption = 'LabelVersion'
@@ -62,18 +62,19 @@ object Form1: TForm1
   object LabelDrawScene: TLabel
     Left = 24
     Top = 593
-    Width = 3
+    Width = 86
     Height = 15
     Margins.Left = 4
     Margins.Top = 4
     Margins.Right = 4
     Margins.Bottom = 4
+    Caption = 'LabelDrawScene'
   end
   object Label2: TLabel
     Left = 40
     Top = 750
-    Width = 43
-    Height = 19
+    Width = 34
+    Height = 15
     Margins.Left = 4
     Margins.Top = 4
     Margins.Right = 4
@@ -83,8 +84,8 @@ object Form1: TForm1
   object Label3: TLabel
     Left = 100
     Top = 740
-    Width = 43
-    Height = 19
+    Width = 34
+    Height = 15
     Margins.Left = 4
     Margins.Top = 4
     Margins.Right = 4
@@ -116,7 +117,7 @@ object Form1: TForm1
   end
   object LabeledEditX: TLabeledEdit
     Left = 904
-    Top = 168
+    Top = 152
     Width = 121
     Height = 23
     EditLabel.Width = 7
@@ -127,8 +128,8 @@ object Form1: TForm1
     Visible = False
   end
   object LabeledEditY: TLabeledEdit
-    Left = 904
-    Top = 216
+    Left = 905
+    Top = 200
     Width = 121
     Height = 23
     EditLabel.Width = 7
@@ -140,7 +141,7 @@ object Form1: TForm1
   end
   object LabeledEdit3: TLabeledEdit
     Left = 905
-    Top = 403
+    Top = 387
     Width = 121
     Height = 23
     EditLabel.Width = 67
@@ -152,7 +153,7 @@ object Form1: TForm1
   end
   object LabeledEdit4: TLabeledEdit
     Left = 905
-    Top = 448
+    Top = 432
     Width = 121
     Height = 23
     EditLabel.Width = 67
@@ -164,7 +165,7 @@ object Form1: TForm1
   end
   object ButtonAccept: TButton
     Left = 904
-    Top = 485
+    Top = 520
     Width = 57
     Height = 25
     Caption = #1055#1088#1080#1085#1103#1090#1100
@@ -174,7 +175,7 @@ object Form1: TForm1
   end
   object ButtonReject: TButton
     Left = 967
-    Top = 485
+    Top = 520
     Width = 73
     Height = 25
     Caption = #1054#1090#1082#1083#1086#1085#1080#1090#1100
@@ -184,7 +185,7 @@ object Form1: TForm1
   end
   object LabeledEdit1: TLabeledEdit
     Left = 905
-    Top = 317
+    Top = 301
     Width = 121
     Height = 23
     EditLabel.Width = 67
@@ -195,8 +196,8 @@ object Form1: TForm1
     Visible = False
   end
   object LabeledEdit2: TLabeledEdit
-    Left = 904
-    Top = 360
+    Left = 905
+    Top = 344
     Width = 121
     Height = 23
     EditLabel.Width = 67
@@ -208,7 +209,7 @@ object Form1: TForm1
   end
   object LabeledEditN: TLabeledEdit
     Left = 905
-    Top = 264
+    Top = 248
     Width = 121
     Height = 23
     EditLabel.Width = 9
@@ -226,8 +227,28 @@ object Form1: TForm1
     TabOrder = 11
     Visible = False
   end
+  object LabeledEdit5: TLabeledEdit
+    Left = 905
+    Top = 478
+    Width = 117
+    Height = 23
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
+    EditLabel.Width = 67
+    EditLabel.Height = 15
+    EditLabel.Margins.Left = 4
+    EditLabel.Margins.Top = 4
+    EditLabel.Margins.Right = 4
+    EditLabel.Margins.Bottom = 4
+    EditLabel.Caption = 'LabeledEdit5'
+    TabOrder = 12
+    Text = ''
+    Visible = False
+  end
   object MainMenu1: TMainMenu
-    Left = 696
+    Left = 512
     Top = 560
     object N1: TMenuItem
       Caption = #1060#1072#1081#1083
@@ -270,16 +291,16 @@ object Form1: TForm1
   end
   object OpenTextFileDialog1: TOpenTextFileDialog
     DefaultExt = 'txt'
-    Left = 736
+    Left = 568
     Top = 560
   end
   object SaveTextFileDialog1: TSaveTextFileDialog
     DefaultExt = 'txt'
-    Left = 776
+    Left = 616
     Top = 560
   end
   object ColorDialog1: TColorDialog
-    Left = 816
+    Left = 656
     Top = 560
   end
 end

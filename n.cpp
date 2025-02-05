@@ -6,19 +6,21 @@ n_t global_n_obj;
 bool n_t::set_new_expr(std::string &epr_str)
 {
 #ifdef EXPRTK
-    if (!n_parser.compile(epr_str, n_expression)) {
-        ShowMessage("Error: " + AnsiString(n_parser.error().c_str()));
-        return false;
+	if (!n_parser.compile(epr_str, n_expression)) {
+		ShowMessage("Error: " + AnsiString(n_parser.error().c_str()));
+		n_parser.compile(expression_str, n_expression);
+		return false;
     }
-    expression_str = epr_str;
-    return true;
+	expression_str = epr_str;
+	return true;
 #elif defined FPARSER
-    if (n_fparser.Parse(expression_str, "x, y") != -1) {
-        ShowMessage("Error: " + AnsiString(n_fparser.ErrorMsg()));
+	if (n_fparser.Parse(epr_str, "x, y") != -1) {
+		ShowMessage("Error: " + AnsiString(n_fparser.ErrorMsg()));
+		n_fparser.Parse(expression_str, "x, y") ;
         return false;
     }
 
-    expression_str = epr_str;
+	expression_str = epr_str;
     return true;
 #else
     //ShowMessage("���������� �������������� �� ���������� �������� ����������");
