@@ -522,11 +522,14 @@ void __fastcall TForm1::ComboBox1Change(TObject* Sender)
 void __fastcall TForm1::N2Click(TObject* Sender)
 {
     rays_soursec.clear();
-    vec_N.clear();
-    user_rect = Bounds(VI_centre - Image1->Width, VI_centre - Image1->Height,
-        Image1->Width, Image1->Height);
-    points.clear();
-    //    string s = "1";
+	vec_N.clear();
+	points.clear();
+
+    user_rect = Bounds(VI_centre - Image1->Width / 2,
+        VI_centre - Image1->Height / 2, Image1->Width, Image1->Height);
+    screen_rect = Bounds(0, 0, Image1->Width, Image1->Height);
+
+	//    string s = "1";
     //	drive.set_new_n_expression(s);
     vec_N.clear();
 
