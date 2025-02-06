@@ -18,6 +18,9 @@ object Form1: TForm1
   OnCreate = FormCreate
   OnKeyDown = FormKeyDown
   OnResize = FormResize
+  DesignSize = (
+    1907
+    1030)
   TextHeight = 30
   object Image1: TImage
     Left = 0
@@ -433,7 +436,7 @@ object Form1: TForm1
       Caption = 'LabelDrawScene'
     end
     object LabelTimeHeatMap: TLabel
-      Left = 348
+      Left = 624
       Top = 7
       Width = 313
       Height = 30
@@ -455,7 +458,7 @@ object Form1: TForm1
       Caption = 'LabelTimeScene'
     end
     object LabelVersion: TLabel
-      Left = 348
+      Left = 624
       Top = 51
       Width = 117
       Height = 30
@@ -467,22 +470,23 @@ object Form1: TForm1
     end
   end
   object Panel2: TPanel
-    Left = 300
-    Top = 300
-    Width = 231
-    Height = 51
+    Left = 1454
+    Top = 836
+    Width = 197
+    Height = 109
     Margins.Left = 4
     Margins.Top = 4
     Margins.Right = 4
     Margins.Bottom = 4
-    Caption = 'Panel2'
+    Anchors = [akRight, akBottom]
+    ShowCaption = False
     TabOrder = 3
     DesignSize = (
-      231
-      51)
+      197
+      109)
     object LabelN: TLabel
-      Left = 96
-      Top = 21
+      Left = 13
+      Top = 62
       Width = 65
       Height = 30
       Margins.Left = 4
@@ -493,8 +497,8 @@ object Form1: TForm1
       Caption = 'LabelN'
     end
     object LabelPosition: TLabel
-      Left = 78
-      Top = 21
+      Left = 13
+      Top = 3
       Width = 122
       Height = 30
       Margins.Left = 4
