@@ -1,0 +1,7 @@
+if(x > 0, 2, 1)
+pixels_per_metr: 70
+ray_sources: 3
+1 0 2.35619
+1 -3 2.0944
+-2 0 0.785398
+n_ugolniki: 0

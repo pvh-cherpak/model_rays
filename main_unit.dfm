@@ -32,8 +32,8 @@ object Form1: TForm1
     OnClick = Image1Click
     OnMouseDown = Image1MouseDown
     OnMouseMove = Image1MouseMove
-    ExplicitWidth = 881
-    ExplicitHeight = 545
+    ExplicitLeft = -280
+    ExplicitTop = -7
   end
   object Label1: TLabel
     Left = 1960
@@ -175,6 +175,7 @@ object Form1: TForm1
       end>
     ShowCaption = False
     TabOrder = 1
+    ExplicitTop = -8
     object Button1: TButton
       Left = 1
       Top = 1
@@ -199,7 +200,9 @@ object Form1: TForm1
       Margins.Right = 4
       Margins.Bottom = 4
       Align = alClient
+      AutoCloseUp = True
       TabOrder = 1
+      TabStop = False
       Text = #1051#1091#1095
       OnChange = ComboBox1Change
       Items.Strings = (
@@ -211,7 +214,7 @@ object Form1: TForm1
     object LabeledEdit1: TLabeledEdit
       Left = 1
       Top = 133
-      Width = 151
+      Width = 240
       Height = 38
       Margins.Left = 4
       Margins.Top = 4
@@ -231,7 +234,7 @@ object Form1: TForm1
     object LabeledEdit2: TLabeledEdit
       Left = 1
       Top = 204
-      Width = 151
+      Width = 240
       Height = 38
       Margins.Left = 4
       Margins.Top = 4
@@ -251,7 +254,7 @@ object Form1: TForm1
     object LabeledEdit3: TLabeledEdit
       Left = 1
       Top = 275
-      Width = 151
+      Width = 240
       Height = 38
       Margins.Left = 4
       Margins.Top = 4
@@ -271,7 +274,7 @@ object Form1: TForm1
     object LabeledEdit4: TLabeledEdit
       Left = 1
       Top = 346
-      Width = 151
+      Width = 240
       Height = 38
       Margins.Left = 4
       Margins.Top = 4
@@ -291,7 +294,7 @@ object Form1: TForm1
     object LabeledEdit5: TLabeledEdit
       Left = 1
       Top = 417
-      Width = 146
+      Width = 240
       Height = 38
       Margins.Left = 5
       Margins.Top = 5
@@ -311,7 +314,7 @@ object Form1: TForm1
     object LabeledEditN: TLabeledEdit
       Left = 1
       Top = 488
-      Width = 151
+      Width = 240
       Height = 38
       Margins.Left = 4
       Margins.Top = 4
@@ -331,7 +334,7 @@ object Form1: TForm1
     object LabeledEditX: TLabeledEdit
       Left = 1
       Top = 559
-      Width = 151
+      Width = 240
       Height = 38
       Margins.Left = 4
       Margins.Top = 4
@@ -351,7 +354,7 @@ object Form1: TForm1
     object LabeledEditY: TLabeledEdit
       Left = 1
       Top = 630
-      Width = 151
+      Width = 240
       Height = 38
       Margins.Left = 4
       Margins.Top = 4
@@ -412,6 +415,9 @@ object Form1: TForm1
     Caption = 'Panel1'
     ShowCaption = False
     TabOrder = 2
+    DesignSize = (
+      1907
+      85)
     object LabelDrawScene: TLabel
       Left = 14
       Top = 8
@@ -455,6 +461,20 @@ object Form1: TForm1
       Margins.Right = 4
       Margins.Bottom = 4
       Caption = 'LabelVersion'
+    end
+    object Button2: TButton
+      Left = 1454
+      Top = 7
+      Width = 197
+      Height = 74
+      Margins.Left = 4
+      Margins.Top = 4
+      Margins.Right = 4
+      Margins.Bottom = 4
+      Anchors = [akRight, akBottom]
+      Caption = #1055#1077#1088#1077#1076#1074#1077#1078#1077#1085#1080#1077
+      TabOrder = 0
+      OnClick = Button2Click
     end
   end
   object Panel2: TPanel
@@ -547,10 +567,10 @@ object Form1: TForm1
   object SaveTextFileDialog1: TSaveTextFileDialog
     DefaultExt = 'txt'
     Left = 136
-    Top = 16
+    Top = 8
   end
   object ColorDialog1: TColorDialog
     Left = 192
-    Top = 48
+    Top = 16
   end
 end

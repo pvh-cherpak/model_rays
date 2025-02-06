@@ -337,6 +337,7 @@ void __fastcall TForm1::Button1Click(TObject* Sender)
 {
     reCalculate();
     reDraw();
+    Button2->Visible = true;
 }
 //---------------------------------------------------------------------------
 
@@ -395,9 +396,9 @@ void __fastcall TForm1::FormCreate(TObject* Sender)
     reDraw();
 
     OpenTextFileDialog1->InitialDir = ExtractFilePath(ParamStr(0));
-	SaveTextFileDialog1->InitialDir = OpenTextFileDialog1->InitialDir;
+    SaveTextFileDialog1->InitialDir = OpenTextFileDialog1->InitialDir;
 
-	this->ClientHeight = 500;
+    this->ClientHeight = 500;
     this->ClientWidth = 1000;
 }
 //---------------------------------------------------------------------------
@@ -408,8 +409,7 @@ void TForm1::show()
 }
 void __fastcall TForm1::Button2Click(TObject* Sender)
 {
-    OffsetRect(&user_rect, 100, 0);
-    show();
+    Button2->Visible = false;
 }
 //---------------------------------------------------------------------------
 
@@ -443,7 +443,7 @@ void __fastcall TForm1::Image1MouseMove(
 {
     point_t t = scrin_to_global_metrs(X, Y);
     LabelPosition->Caption =
-        "X: " + FloatToStr(t.x) + "\n Y: " + FloatToStr(t.y);
+        "X: " + FloatToStr(t.x) + "\nY: " + FloatToStr(t.y);
     LabelN->Caption = "N: " + FloatToStr(drive.n(t.x, t.y));
 }
 //---------------------------------------------------------------------------
@@ -484,6 +484,7 @@ void TForm1::calculate_heat_map()
 
 void __fastcall TForm1::ComboBox1Change(TObject* Sender)
 {
+    Button2->Visible = true;
     hide_menu();
     switch (ComboBox1->ItemIndex) {
         case 0:
@@ -522,14 +523,14 @@ void __fastcall TForm1::ComboBox1Change(TObject* Sender)
 void __fastcall TForm1::N2Click(TObject* Sender)
 {
     rays_soursec.clear();
-	vec_N.clear();
-	points.clear();
+    vec_N.clear();
+    points.clear();
 
     user_rect = Bounds(VI_centre - Image1->Width / 2,
         VI_centre - Image1->Height / 2, Image1->Width, Image1->Height);
     screen_rect = Bounds(0, 0, Image1->Width, Image1->Height);
 
-	//    string s = "1";
+    //    string s = "1";
     //	drive.set_new_n_expression(s);
     vec_N.clear();
 
@@ -571,7 +572,8 @@ void __fastcall TForm1::N5Click(TObject* Sender)
         ifstream fin(s);
 
         string expr;
-        fin >> expr;
+        getline(fin, expr);
+        fin.ignore();
         drive.set_new_n_expression(expr);
 
         fin.ignore(50, ' ');
@@ -603,7 +605,10 @@ void __fastcall TForm1::N5Click(TObject* Sender)
 
         calculate_heat_map();
         DrawCoordinates(Heat_map->Canvas, pixels_per_meter);
+
+        reCalculate();
         reDraw();
+        Button2->Visible = true;
     }
 }
 //---------------------------------------------------------------------------
@@ -695,6 +700,4 @@ void __fastcall TForm1::FormResize(TObject* Sender)
     //	ShowMessage(IntToStr(Image1->Width));
 }
 //---------------------------------------------------------------------------
-
-
 

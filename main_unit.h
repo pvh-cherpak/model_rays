@@ -82,6 +82,7 @@ class TForm1 : public TForm
 	TPanel *Panel1;
 	TLabel *Label1;
 	TPanel *Panel2;
+	TButton *Button2;
     void __fastcall Image1Click(TObject* Sender);
     void __fastcall Image1MouseDown(
         TObject* Sender, TMouseButton Button, TShiftState Shift, int X, int Y);

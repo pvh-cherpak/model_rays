@@ -1,0 +1,5 @@
+y*0.1+1
+pixels_per_metr: 70
+ray_sources: 1
+0 1 0
+n_ugolniki: 0
