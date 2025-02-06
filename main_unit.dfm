@@ -47,10 +47,11 @@ object Form1: TForm1
     Caption = 'Label1'
   end
   object Memo1: TMemo
-    Left = 624
-    Top = 432
+    Left = 1195
+    Top = 824
     Width = 265
     Height = 121
+    Anchors = [akRight, akBottom]
     TabOrder = 0
     Visible = False
   end
@@ -174,8 +175,6 @@ object Form1: TForm1
       end>
     ShowCaption = False
     TabOrder = 1
-    ExplicitLeft = 896
-    ExplicitHeight = 562
     object Button1: TButton
       Left = 1
       Top = 1
@@ -189,9 +188,6 @@ object Form1: TForm1
       Caption = #1056#1072#1089#1089#1095#1080#1090#1072#1090#1100' '#1089#1094#1077#1085#1091
       TabOrder = 0
       OnClick = Button1Click
-      ExplicitLeft = 49
-      ExplicitTop = 0
-      ExplicitWidth = 184
     end
     object ComboBox1: TComboBox
       Left = 1
@@ -214,7 +210,7 @@ object Form1: TForm1
     end
     object LabeledEdit1: TLabeledEdit
       Left = 1
-      Top = 134
+      Top = 133
       Width = 151
       Height = 38
       Margins.Left = 4
@@ -234,7 +230,7 @@ object Form1: TForm1
     end
     object LabeledEdit2: TLabeledEdit
       Left = 1
-      Top = 206
+      Top = 204
       Width = 151
       Height = 38
       Margins.Left = 4
@@ -254,7 +250,7 @@ object Form1: TForm1
     end
     object LabeledEdit3: TLabeledEdit
       Left = 1
-      Top = 278
+      Top = 275
       Width = 151
       Height = 38
       Margins.Left = 4
@@ -274,7 +270,7 @@ object Form1: TForm1
     end
     object LabeledEdit4: TLabeledEdit
       Left = 1
-      Top = 350
+      Top = 346
       Width = 151
       Height = 38
       Margins.Left = 4
@@ -294,7 +290,7 @@ object Form1: TForm1
     end
     object LabeledEdit5: TLabeledEdit
       Left = 1
-      Top = 422
+      Top = 417
       Width = 146
       Height = 38
       Margins.Left = 5
@@ -314,7 +310,7 @@ object Form1: TForm1
     end
     object LabeledEditN: TLabeledEdit
       Left = 1
-      Top = 494
+      Top = 488
       Width = 151
       Height = 38
       Margins.Left = 4
@@ -334,7 +330,7 @@ object Form1: TForm1
     end
     object LabeledEditX: TLabeledEdit
       Left = 1
-      Top = 566
+      Top = 559
       Width = 151
       Height = 38
       Margins.Left = 4
@@ -354,7 +350,7 @@ object Form1: TForm1
     end
     object LabeledEditY: TLabeledEdit
       Left = 1
-      Top = 638
+      Top = 630
       Width = 151
       Height = 38
       Margins.Left = 4
@@ -374,7 +370,7 @@ object Form1: TForm1
     end
     object ButtonReject: TButton
       Left = 1
-      Top = 721
+      Top = 713
       Width = 254
       Height = 32
       Margins.Left = 4
@@ -386,13 +382,10 @@ object Form1: TForm1
       TabOrder = 11
       Visible = False
       OnClick = ButtonRejectClick
-      ExplicitLeft = 74
-      ExplicitTop = 684
-      ExplicitWidth = 109
     end
     object ButtonAccept: TButton
       Left = 1
-      Top = 676
+      Top = 668
       Width = 254
       Height = 45
       Margins.Left = 4
@@ -404,8 +397,6 @@ object Form1: TForm1
       TabOrder = 10
       Visible = False
       OnClick = ButtonAcceptClick
-      ExplicitLeft = 65
-      ExplicitWidth = 120
     end
   end
   object Panel1: TPanel
@@ -421,9 +412,6 @@ object Form1: TForm1
     Caption = 'Panel1'
     ShowCaption = False
     TabOrder = 2
-    ExplicitLeft = -96
-    ExplicitTop = 520
-    ExplicitWidth = 1199
     object LabelDrawScene: TLabel
       Left = 14
       Top = 8
