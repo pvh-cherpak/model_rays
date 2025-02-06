@@ -374,8 +374,9 @@ void __fastcall TForm1::FormCreate(TObject* Sender)
 
     Virtual_Image->Width = VI_size;
     Virtual_Image->Height = VI_size;
-    user_rect = Bounds(VI_centre - Image1->Width, VI_centre - Image1->Height,
-        Image1->Width, Image1->Height);
+
+    user_rect = Bounds(VI_centre - Image1->Width / 2,
+        VI_centre - Image1->Height / 2, Image1->Width, Image1->Height);
     screen_rect = Bounds(0, 0, Image1->Width, Image1->Height);
 
     Heat_map->Width = VI_size;
@@ -394,7 +395,10 @@ void __fastcall TForm1::FormCreate(TObject* Sender)
     reDraw();
 
     OpenTextFileDialog1->InitialDir = ExtractFilePath(ParamStr(0));
-    SaveTextFileDialog1->InitialDir = OpenTextFileDialog1->InitialDir;
+	SaveTextFileDialog1->InitialDir = OpenTextFileDialog1->InitialDir;
+
+	this->ClientHeight = 500;
+    this->ClientWidth = 1000;
 }
 //---------------------------------------------------------------------------
 
@@ -522,8 +526,8 @@ void __fastcall TForm1::N2Click(TObject* Sender)
     user_rect = Bounds(VI_centre - Image1->Width, VI_centre - Image1->Height,
         Image1->Width, Image1->Height);
     points.clear();
-//    string s = "1";
-//	drive.set_new_n_expression(s);
+    //    string s = "1";
+    //	drive.set_new_n_expression(s);
     vec_N.clear();
 
     reDraw();
@@ -670,4 +674,24 @@ void TForm1::reCalculate()
     LabelTimeScene->Caption =
         "Время расчёта сцены: " + FloatToStr(elapsed.count());
 }
+
+void __fastcall TForm1::FormResize(TObject* Sender)
+{
+    //	int w = GridPanel1->Left;
+    //	int h = GridPanel1->Top;
+    //
+    //	user_rect = Bounds(VI_centre - w / 2,
+    //		VI_centre - h / 2, w, h);
+    //	screen_rect = Bounds(0, 0, w, h);
+    user_rect = Bounds(VI_centre - Image1->Width / 2,
+        VI_centre - Image1->Height / 2, Image1->Width, Image1->Height);
+    screen_rect = Bounds(0, 0, Image1->Width, Image1->Height);
+
+    show();
+
+    //	ShowMessage(IntToStr(Image1->Width));
+}
+//---------------------------------------------------------------------------
+
+
 
