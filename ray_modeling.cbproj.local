@@ -6,7 +6,11 @@
     <Transaction>1899.12.30 00:00:00.000.692,=D:\git_rep\model_rays\drive.cpp</Transaction>
     <Transaction>1899.12.30 00:00:00.000.897,C:\Users\pvh cherpak\Documents\Embarcadero\Studio\Projects\Project1PCH1.h=D:\git_rep\model_rays\ray_modelingPCH1.h</Transaction>
     <Transaction>1899.12.30 00:00:00.000.345,=C:\Users\pvh cherpak\Documents\Embarcadero\Studio\Projects\Project1PCH1.h</Transaction>
+<<<<<<< HEAD
     <Transaction>1899.12.30 00:00:00.000.548,D:\git_rep\model_rays\UI.cpp=</Transaction>
+=======
+    <Transaction>1899.12.30 00:00:00.000.431,=D:\git_rep\model_rays\UI.cpp</Transaction>
+>>>>>>> 64ae2871f64e021e8b7b98730619915f971322cc
     <Transaction>1899.12.30 00:00:00.000.494,=D:\git_rep\model_rays\exprtk.hpp</Transaction>
     <Transaction>1899.12.30 00:00:00.000.529,=D:\git_rep\model_rays\exprtk.hpp</Transaction>
     <Transaction>1899.12.30 00:00:00.000.930,=D:\git_rep\model_rays\fparser\fparser_mpfr.hh</Transaction>
@@ -35,7 +39,11 @@
     <Transaction>1899.12.30 00:00:00.000.365,=D:\git_rep\model_rays\visual_functios.h</Transaction>
     <Transaction>1899.12.30 00:00:00.000.933,C:\Users\pvh cherpak\Documents\Embarcadero\Studio\Projects\Project1.cbproj=D:\git_rep\model_rays\ray_modeling.cbproj</Transaction>
     <Transaction>1899.12.30 00:00:00.000.648,=D:\git_rep\model_rays\fparser\fparser.cc</Transaction>
+<<<<<<< HEAD
     <Transaction>1899.12.30 00:00:00.000.431,=D:\git_rep\model_rays\UI.cpp</Transaction>
+=======
+    <Transaction>1899.12.30 00:00:00.000.548,D:\git_rep\model_rays\UI.cpp=</Transaction>
+>>>>>>> 64ae2871f64e021e8b7b98730619915f971322cc
     <Transaction>1899.12.30 00:00:00.000.052,C:\Users\user\Documents\GitHub\model_rays\OpticalDevice.cpp=</Transaction>
     <Transaction>1899.12.30 00:00:00.000.946,D:\git_rep\model_rays\Unit1.cpp=D:\git_rep\model_rays\main_unit.cpp</Transaction>
     <Transaction>1899.12.30 00:00:00.000.300,=D:\git_rep\model_rays\visual_functions.cpp</Transaction>

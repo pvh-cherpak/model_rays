@@ -13,6 +13,7 @@
 #include <Vcl.Menus.hpp>
 #include <Vcl.ActnColorMaps.hpp>
 #include <Vcl.ActnMan.hpp>
+#include <Vcl.Grids.hpp>
 
 #include <vector>
 #include <algorithm>
@@ -76,9 +77,11 @@ class TForm1 : public TForm
 	TColorDialog *ColorDialog1;
 	TMemo *Memo1;
 	TLabel *LabelDrawScene;
-	TLabel *Label2;
-	TLabel *Label3;
 	TLabeledEdit *LabeledEdit5;
+	TGridPanel *GridPanel1;
+	TPanel *Panel1;
+	TLabel *Label1;
+	TPanel *Panel2;
     void __fastcall Image1Click(TObject* Sender);
     void __fastcall Image1MouseDown(
         TObject* Sender, TMouseButton Button, TShiftState Shift, int X, int Y);
@@ -99,6 +102,7 @@ class TForm1 : public TForm
 	void __fastcall N9Click(TObject *Sender);
 	void __fastcall N10Click(TObject *Sender);
 	void __fastcall N4Click(TObject *Sender);
+	void __fastcall FormResize(TObject *Sender);
   private: // User declarations
     menu_type selected_type = menu_type::NONE;
     Graphics::TBitmap* Virtual_Image = new Graphics::TBitmap();

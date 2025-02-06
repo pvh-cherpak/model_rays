@@ -1,6 +1,6 @@
 ﻿#include "visual_functios.h"
 
-int pixels_per_meter = 50;
+int pixels_per_meter = 70;
 int VI_size = 3000;
 int VI_centre = VI_size / 2;
 

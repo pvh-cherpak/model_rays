@@ -255,14 +255,15 @@ void TForm1::reDraw()
     Virtual_Image->Canvas->Pen->Color = clYellow;
     Virtual_Image->Canvas->Pen->Width = 5;
     for (int i = 0; i < points.size(); i++) {
+        if (points[i].empty())
+            continue;
         pair<int, int> t = to_picsels(points[i][0].x, points[i][0].y);
         Virtual_Image->Canvas->MoveTo(t.first, t.second);
         if (errors[i])
             Virtual_Image->Canvas->Pen->Color = ColorRayError;
         else
             Virtual_Image->Canvas->Pen->Color = ColorRay;
-        necessary_index[i].push_back(points[i].size());
-        necessary_index[i].push_back(points[i].size());
+
         int j = 0;
         for (int k = 0; k < necessary_index[i].size(); k += 2) {
             for (; j < necessary_index[i][k]; j += draw_precision) {
@@ -294,7 +295,7 @@ void TForm1::hide_menu()
     LabeledEdit1->Visible = false;
     LabeledEdit2->Visible = false;
     LabeledEdit3->Visible = false;
-	LabeledEdit4->Visible = false;
+    LabeledEdit4->Visible = false;
     LabeledEdit5->Visible = false;
     ButtonAccept->Visible = false;
     ButtonReject->Visible = false;
@@ -334,8 +335,8 @@ void TForm1::draw_ray_source(ray_t &ray_source)
 
 void __fastcall TForm1::Button1Click(TObject* Sender)
 {
-	reCalculate();
-	reDraw();
+    reCalculate();
+    reDraw();
 }
 //---------------------------------------------------------------------------
 
@@ -350,13 +351,13 @@ void __fastcall TForm1::FormCreate(TObject* Sender)
     LabelVersion->Caption += "compiled";
 #endif
 
-	LabelVersion->Caption += "\theat_map method: ";
+    LabelVersion->Caption += "\theat_map method: ";
 #ifdef HEAT_MAP_POINTER_DRAW
     LabelVersion->Caption += "ScanLine[]";
 #else
     LabelVersion->Caption += "Pixels[][]";
 #endif
-	LabelVersion->Caption += "\tPole size: " + IntToStr(VI_size);
+    LabelVersion->Caption += "\tPole size: " + IntToStr(VI_size);
     //    LabelVersion->Caption += "\t multitreading: ";
     //#ifdef multitreading
     //    LabelVersion->Caption += "TRUE";
@@ -371,10 +372,11 @@ void __fastcall TForm1::FormCreate(TObject* Sender)
     //    LabelVersion->Caption += "FALSE";
     //#endif
 
-	Virtual_Image->Width = VI_size;
+    Virtual_Image->Width = VI_size;
     Virtual_Image->Height = VI_size;
-    user_rect = Bounds(VI_centre - Image1->Width, VI_centre - Image1->Height,
-        Image1->Width, Image1->Height);
+
+    user_rect = Bounds(VI_centre - Image1->Width / 2,
+        VI_centre - Image1->Height / 2, Image1->Width, Image1->Height);
     screen_rect = Bounds(0, 0, Image1->Width, Image1->Height);
 
     Heat_map->Width = VI_size;
@@ -393,7 +395,10 @@ void __fastcall TForm1::FormCreate(TObject* Sender)
     reDraw();
 
     OpenTextFileDialog1->InitialDir = ExtractFilePath(ParamStr(0));
-    SaveTextFileDialog1->InitialDir = OpenTextFileDialog1->InitialDir;
+	SaveTextFileDialog1->InitialDir = OpenTextFileDialog1->InitialDir;
+
+	this->ClientHeight = 500;
+    this->ClientWidth = 1000;
 }
 //---------------------------------------------------------------------------
 
@@ -517,12 +522,16 @@ void __fastcall TForm1::ComboBox1Change(TObject* Sender)
 void __fastcall TForm1::N2Click(TObject* Sender)
 {
     rays_soursec.clear();
+	vec_N.clear();
+	points.clear();
+
+    user_rect = Bounds(VI_centre - Image1->Width / 2,
+        VI_centre - Image1->Height / 2, Image1->Width, Image1->Height);
+    screen_rect = Bounds(0, 0, Image1->Width, Image1->Height);
+
+	//    string s = "1";
+    //	drive.set_new_n_expression(s);
     vec_N.clear();
-    user_rect = Bounds(VI_centre - Image1->Width, VI_centre - Image1->Height,
-        Image1->Width, Image1->Height);
-    points.clear();
-    string s = "1";
-    drive.set_new_n_expression(s);
 
     reDraw();
 }
@@ -668,4 +677,24 @@ void TForm1::reCalculate()
     LabelTimeScene->Caption =
         "Время расчёта сцены: " + FloatToStr(elapsed.count());
 }
+
+void __fastcall TForm1::FormResize(TObject* Sender)
+{
+    //	int w = GridPanel1->Left;
+    //	int h = GridPanel1->Top;
+    //
+    //	user_rect = Bounds(VI_centre - w / 2,
+    //		VI_centre - h / 2, w, h);
+    //	screen_rect = Bounds(0, 0, w, h);
+    user_rect = Bounds(VI_centre - Image1->Width / 2,
+        VI_centre - Image1->Height / 2, Image1->Width, Image1->Height);
+    screen_rect = Bounds(0, 0, Image1->Width, Image1->Height);
+
+    show();
+
+    //	ShowMessage(IntToStr(Image1->Width));
+}
+//---------------------------------------------------------------------------
+
+
 

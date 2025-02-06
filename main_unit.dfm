@@ -1,255 +1,517 @@
 object Form1: TForm1
   Left = 0
   Top = 0
-  Caption = 'Form1'
-  ClientHeight = 621
-  ClientWidth = 1047
+  Caption = #1052#1086#1076#1077#1083#1080#1088#1086#1074#1072#1085#1087#1077' '#1086#1087#1090#1080#1095#1077#1089#1082#1080#1093' '#1083#1091#1095#1077#1081
+  ClientHeight = 1030
+  ClientWidth = 1907
   Color = clBtnFace
+  DoubleBuffered = True
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
-  Font.Height = -12
+  Font.Height = -21
   Font.Name = 'Segoe UI'
   Font.Style = []
   Menu = MainMenu1
+  Position = poDesigned
+  PrintScale = poNone
   Scaled = False
   OnCreate = FormCreate
   OnKeyDown = FormKeyDown
-  TextHeight = 15
+  OnResize = FormResize
+  DesignSize = (
+    1907
+    1030)
+  TextHeight = 30
   object Image1: TImage
-    Left = 8
-    Top = 8
-    Width = 881
-    Height = 545
+    Left = 0
+    Top = 0
+    Width = 1651
+    Height = 945
+    Align = alClient
+    AutoSize = True
     OnClick = Image1Click
     OnMouseDown = Image1MouseDown
     OnMouseMove = Image1MouseMove
+    ExplicitWidth = 881
+    ExplicitHeight = 545
   end
-  object LabelPosition: TLabel
-    Left = 818
-    Top = 559
-    Width = 71
-    Height = 15
-    Caption = 'LabelPosition'
-  end
-  object LabelN: TLabel
-    Left = 818
-    Top = 598
-    Width = 37
-    Height = 15
-    Caption = 'LabelN'
-  end
-  object LabelTimeHeatMap: TLabel
-    Left = 296
-    Top = 565
-    Width = 178
-    Height = 15
-    Caption = #1042#1088#1077#1084#1103' '#1088#1072#1089#1095#1105#1090#1072' '#1090#1077#1087#1083#1086#1074#1086#1081' '#1082#1072#1088#1090#1099': '
-  end
-  object LabelTimeScene: TLabel
-    Left = 24
-    Top = 565
-    Width = 85
-    Height = 15
-    Caption = 'LabelTimeScene'
-  end
-  object LabelVersion: TLabel
-    Left = 296
-    Top = 598
-    Width = 66
-    Height = 15
-    Caption = 'LabelVersion'
-  end
-  object LabelDrawScene: TLabel
-    Left = 24
-    Top = 593
-    Width = 86
-    Height = 15
+  object Label1: TLabel
+    Left = 1960
+    Top = 150
+    Width = 60
+    Height = 30
     Margins.Left = 4
     Margins.Top = 4
     Margins.Right = 4
     Margins.Bottom = 4
-    Caption = 'LabelDrawScene'
-  end
-  object Label2: TLabel
-    Left = 40
-    Top = 750
-    Width = 34
-    Height = 15
-    Margins.Left = 4
-    Margins.Top = 4
-    Margins.Right = 4
-    Margins.Bottom = 4
-    Caption = 'Label2'
-  end
-  object Label3: TLabel
-    Left = 100
-    Top = 740
-    Width = 34
-    Height = 15
-    Margins.Left = 4
-    Margins.Top = 4
-    Margins.Right = 4
-    Margins.Bottom = 4
-    Caption = 'Label3'
-  end
-  object Button1: TButton
-    Left = 895
-    Top = 8
-    Width = 154
-    Height = 73
-    Caption = 'Button1'
-    TabOrder = 0
-    OnClick = Button1Click
-  end
-  object ComboBox1: TComboBox
-    Left = 905
-    Top = 101
-    Width = 136
-    Height = 23
-    TabOrder = 1
-    Text = #1051#1091#1095
-    OnChange = ComboBox1Change
-    Items.Strings = (
-      #1055#1086#1083#1077
-      #1051#1091#1095
-      'N-'#1091#1075#1086#1083#1100#1085#1080#1082
-      #1057#1074#1077#1076#1077#1085#1080#1103)
-  end
-  object LabeledEditX: TLabeledEdit
-    Left = 904
-    Top = 152
-    Width = 121
-    Height = 23
-    EditLabel.Width = 7
-    EditLabel.Height = 15
-    EditLabel.Caption = 'X'
-    TabOrder = 2
-    Text = ''
-    Visible = False
-  end
-  object LabeledEditY: TLabeledEdit
-    Left = 905
-    Top = 200
-    Width = 121
-    Height = 23
-    EditLabel.Width = 7
-    EditLabel.Height = 15
-    EditLabel.Caption = 'Y'
-    TabOrder = 3
-    Text = ''
-    Visible = False
-  end
-  object LabeledEdit3: TLabeledEdit
-    Left = 905
-    Top = 387
-    Width = 121
-    Height = 23
-    EditLabel.Width = 67
-    EditLabel.Height = 15
-    EditLabel.Caption = 'LabeledEdit3'
-    TabOrder = 4
-    Text = ''
-    Visible = False
-  end
-  object LabeledEdit4: TLabeledEdit
-    Left = 905
-    Top = 432
-    Width = 121
-    Height = 23
-    EditLabel.Width = 67
-    EditLabel.Height = 15
-    EditLabel.Caption = 'LabeledEdit4'
-    TabOrder = 5
-    Text = ''
-    Visible = False
-  end
-  object ButtonAccept: TButton
-    Left = 904
-    Top = 520
-    Width = 57
-    Height = 25
-    Caption = #1055#1088#1080#1085#1103#1090#1100
-    TabOrder = 6
-    Visible = False
-    OnClick = ButtonAcceptClick
-  end
-  object ButtonReject: TButton
-    Left = 967
-    Top = 520
-    Width = 73
-    Height = 25
-    Caption = #1054#1090#1082#1083#1086#1085#1080#1090#1100
-    TabOrder = 7
-    Visible = False
-    OnClick = ButtonRejectClick
-  end
-  object LabeledEdit1: TLabeledEdit
-    Left = 905
-    Top = 301
-    Width = 121
-    Height = 23
-    EditLabel.Width = 67
-    EditLabel.Height = 15
-    EditLabel.Caption = 'LabeledEdit1'
-    TabOrder = 8
-    Text = ''
-    Visible = False
-  end
-  object LabeledEdit2: TLabeledEdit
-    Left = 905
-    Top = 344
-    Width = 121
-    Height = 23
-    EditLabel.Width = 67
-    EditLabel.Height = 15
-    EditLabel.Caption = 'LabeledEdit2'
-    TabOrder = 9
-    Text = ''
-    Visible = False
-  end
-  object LabeledEditN: TLabeledEdit
-    Left = 905
-    Top = 248
-    Width = 121
-    Height = 23
-    EditLabel.Width = 9
-    EditLabel.Height = 15
-    EditLabel.Caption = 'N'
-    TabOrder = 10
-    Text = ''
-    Visible = False
+    Caption = 'Label1'
   end
   object Memo1: TMemo
     Left = 624
     Top = 432
     Width = 265
     Height = 121
-    TabOrder = 11
+    TabOrder = 0
     Visible = False
   end
-  object LabeledEdit5: TLabeledEdit
-    Left = 905
-    Top = 478
-    Width = 117
-    Height = 23
+  object GridPanel1: TGridPanel
+    Left = 1651
+    Top = 0
+    Width = 256
+    Height = 945
     Margins.Left = 4
     Margins.Top = 4
     Margins.Right = 4
     Margins.Bottom = 4
-    EditLabel.Width = 67
-    EditLabel.Height = 15
-    EditLabel.Margins.Left = 4
-    EditLabel.Margins.Top = 4
-    EditLabel.Margins.Right = 4
-    EditLabel.Margins.Bottom = 4
-    EditLabel.Caption = 'LabeledEdit5'
-    TabOrder = 12
-    Text = ''
-    Visible = False
+    Align = alRight
+    ColumnCollection = <
+      item
+        Value = 100.000000000000000000
+      end>
+    ControlCollection = <
+      item
+        Column = 0
+        Control = Button1
+        Row = 0
+      end
+      item
+        Column = 0
+        Control = ComboBox1
+        Row = 1
+      end
+      item
+        Column = 0
+        Control = LabeledEdit1
+        Row = 2
+      end
+      item
+        Column = 0
+        Control = LabeledEdit2
+        Row = 3
+      end
+      item
+        Column = 0
+        Control = LabeledEdit3
+        Row = 4
+      end
+      item
+        Column = 0
+        Control = LabeledEdit4
+        Row = 5
+      end
+      item
+        Column = 0
+        Control = LabeledEdit5
+        Row = 6
+      end
+      item
+        Column = 0
+        Control = LabeledEditN
+        Row = 7
+      end
+      item
+        Column = 0
+        Control = LabeledEditX
+        Row = 8
+      end
+      item
+        Column = 0
+        Control = LabeledEditY
+        Row = 9
+      end
+      item
+        Column = 0
+        Control = ButtonReject
+        Row = 11
+      end
+      item
+        Column = 0
+        Control = ButtonAccept
+        Row = 10
+      end>
+    RowCollection = <
+      item
+        SizeStyle = ssAuto
+      end
+      item
+        SizeStyle = ssAuto
+      end
+      item
+        SizeStyle = ssAuto
+      end
+      item
+        SizeStyle = ssAuto
+      end
+      item
+        SizeStyle = ssAuto
+      end
+      item
+        SizeStyle = ssAuto
+      end
+      item
+        SizeStyle = ssAuto
+      end
+      item
+        SizeStyle = ssAuto
+      end
+      item
+        SizeStyle = ssAuto
+      end
+      item
+        SizeStyle = ssAuto
+      end
+      item
+        SizeStyle = ssAuto
+      end
+      item
+        SizeStyle = ssAuto
+      end
+      item
+        SizeStyle = ssAuto
+      end
+      item
+        SizeStyle = ssAuto
+      end>
+    ShowCaption = False
+    TabOrder = 1
+    ExplicitLeft = 896
+    ExplicitHeight = 562
+    object Button1: TButton
+      Left = 1
+      Top = 1
+      Width = 254
+      Height = 61
+      Margins.Left = 4
+      Margins.Top = 4
+      Margins.Right = 4
+      Margins.Bottom = 4
+      Align = alClient
+      Caption = #1056#1072#1089#1089#1095#1080#1090#1072#1090#1100' '#1089#1094#1077#1085#1091
+      TabOrder = 0
+      OnClick = Button1Click
+      ExplicitLeft = 49
+      ExplicitTop = 0
+      ExplicitWidth = 184
+    end
+    object ComboBox1: TComboBox
+      Left = 1
+      Top = 62
+      Width = 254
+      Height = 38
+      Margins.Left = 4
+      Margins.Top = 4
+      Margins.Right = 4
+      Margins.Bottom = 4
+      Align = alClient
+      TabOrder = 1
+      Text = #1051#1091#1095
+      OnChange = ComboBox1Change
+      Items.Strings = (
+        #1055#1086#1083#1077
+        #1051#1091#1095
+        'N-'#1091#1075#1086#1083#1100#1085#1080#1082
+        #1057#1074#1077#1076#1077#1085#1080#1103)
+    end
+    object LabeledEdit1: TLabeledEdit
+      Left = 1
+      Top = 134
+      Width = 151
+      Height = 38
+      Margins.Left = 4
+      Margins.Top = 4
+      Margins.Right = 4
+      Margins.Bottom = 4
+      EditLabel.Width = 118
+      EditLabel.Height = 30
+      EditLabel.Margins.Left = 4
+      EditLabel.Margins.Top = 4
+      EditLabel.Margins.Right = 4
+      EditLabel.Margins.Bottom = 4
+      EditLabel.Caption = 'LabeledEdit1'
+      TabOrder = 2
+      Text = ''
+      Visible = False
+    end
+    object LabeledEdit2: TLabeledEdit
+      Left = 1
+      Top = 206
+      Width = 151
+      Height = 38
+      Margins.Left = 4
+      Margins.Top = 4
+      Margins.Right = 4
+      Margins.Bottom = 4
+      EditLabel.Width = 118
+      EditLabel.Height = 30
+      EditLabel.Margins.Left = 4
+      EditLabel.Margins.Top = 4
+      EditLabel.Margins.Right = 4
+      EditLabel.Margins.Bottom = 4
+      EditLabel.Caption = 'LabeledEdit2'
+      TabOrder = 3
+      Text = ''
+      Visible = False
+    end
+    object LabeledEdit3: TLabeledEdit
+      Left = 1
+      Top = 278
+      Width = 151
+      Height = 38
+      Margins.Left = 4
+      Margins.Top = 4
+      Margins.Right = 4
+      Margins.Bottom = 4
+      EditLabel.Width = 118
+      EditLabel.Height = 30
+      EditLabel.Margins.Left = 4
+      EditLabel.Margins.Top = 4
+      EditLabel.Margins.Right = 4
+      EditLabel.Margins.Bottom = 4
+      EditLabel.Caption = 'LabeledEdit3'
+      TabOrder = 4
+      Text = ''
+      Visible = False
+    end
+    object LabeledEdit4: TLabeledEdit
+      Left = 1
+      Top = 350
+      Width = 151
+      Height = 38
+      Margins.Left = 4
+      Margins.Top = 4
+      Margins.Right = 4
+      Margins.Bottom = 4
+      EditLabel.Width = 118
+      EditLabel.Height = 30
+      EditLabel.Margins.Left = 4
+      EditLabel.Margins.Top = 4
+      EditLabel.Margins.Right = 4
+      EditLabel.Margins.Bottom = 4
+      EditLabel.Caption = 'LabeledEdit4'
+      TabOrder = 5
+      Text = ''
+      Visible = False
+    end
+    object LabeledEdit5: TLabeledEdit
+      Left = 1
+      Top = 422
+      Width = 146
+      Height = 38
+      Margins.Left = 5
+      Margins.Top = 5
+      Margins.Right = 5
+      Margins.Bottom = 5
+      EditLabel.Width = 118
+      EditLabel.Height = 30
+      EditLabel.Margins.Left = 5
+      EditLabel.Margins.Top = 5
+      EditLabel.Margins.Right = 5
+      EditLabel.Margins.Bottom = 5
+      EditLabel.Caption = 'LabeledEdit5'
+      TabOrder = 6
+      Text = ''
+      Visible = False
+    end
+    object LabeledEditN: TLabeledEdit
+      Left = 1
+      Top = 494
+      Width = 151
+      Height = 38
+      Margins.Left = 4
+      Margins.Top = 4
+      Margins.Right = 4
+      Margins.Bottom = 4
+      EditLabel.Width = 16
+      EditLabel.Height = 30
+      EditLabel.Margins.Left = 4
+      EditLabel.Margins.Top = 4
+      EditLabel.Margins.Right = 4
+      EditLabel.Margins.Bottom = 4
+      EditLabel.Caption = 'N'
+      TabOrder = 7
+      Text = ''
+      Visible = False
+    end
+    object LabeledEditX: TLabeledEdit
+      Left = 1
+      Top = 566
+      Width = 151
+      Height = 38
+      Margins.Left = 4
+      Margins.Top = 4
+      Margins.Right = 4
+      Margins.Bottom = 4
+      EditLabel.Width = 12
+      EditLabel.Height = 30
+      EditLabel.Margins.Left = 4
+      EditLabel.Margins.Top = 4
+      EditLabel.Margins.Right = 4
+      EditLabel.Margins.Bottom = 4
+      EditLabel.Caption = 'X'
+      TabOrder = 8
+      Text = ''
+      Visible = False
+    end
+    object LabeledEditY: TLabeledEdit
+      Left = 1
+      Top = 638
+      Width = 151
+      Height = 38
+      Margins.Left = 4
+      Margins.Top = 4
+      Margins.Right = 4
+      Margins.Bottom = 4
+      EditLabel.Width = 12
+      EditLabel.Height = 30
+      EditLabel.Margins.Left = 4
+      EditLabel.Margins.Top = 4
+      EditLabel.Margins.Right = 4
+      EditLabel.Margins.Bottom = 4
+      EditLabel.Caption = 'Y'
+      TabOrder = 9
+      Text = ''
+      Visible = False
+    end
+    object ButtonReject: TButton
+      Left = 1
+      Top = 721
+      Width = 254
+      Height = 32
+      Margins.Left = 4
+      Margins.Top = 4
+      Margins.Right = 4
+      Margins.Bottom = 4
+      Align = alClient
+      Caption = #1054#1090#1082#1083#1086#1085#1080#1090#1100
+      TabOrder = 11
+      Visible = False
+      OnClick = ButtonRejectClick
+      ExplicitLeft = 74
+      ExplicitTop = 684
+      ExplicitWidth = 109
+    end
+    object ButtonAccept: TButton
+      Left = 1
+      Top = 676
+      Width = 254
+      Height = 45
+      Margins.Left = 4
+      Margins.Top = 4
+      Margins.Right = 4
+      Margins.Bottom = 4
+      Align = alClient
+      Caption = #1055#1088#1080#1085#1103#1090#1100
+      TabOrder = 10
+      Visible = False
+      OnClick = ButtonAcceptClick
+      ExplicitLeft = 65
+      ExplicitWidth = 120
+    end
+  end
+  object Panel1: TPanel
+    Left = 0
+    Top = 945
+    Width = 1907
+    Height = 85
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
+    Align = alBottom
+    Caption = 'Panel1'
+    ShowCaption = False
+    TabOrder = 2
+    ExplicitLeft = -96
+    ExplicitTop = 520
+    ExplicitWidth = 1199
+    object LabelDrawScene: TLabel
+      Left = 14
+      Top = 8
+      Width = 152
+      Height = 30
+      Margins.Left = 5
+      Margins.Top = 5
+      Margins.Right = 5
+      Margins.Bottom = 5
+      Caption = 'LabelDrawScene'
+    end
+    object LabelTimeHeatMap: TLabel
+      Left = 624
+      Top = 7
+      Width = 313
+      Height = 30
+      Margins.Left = 4
+      Margins.Top = 4
+      Margins.Right = 4
+      Margins.Bottom = 4
+      Caption = #1042#1088#1077#1084#1103' '#1088#1072#1089#1095#1105#1090#1072' '#1090#1077#1087#1083#1086#1074#1086#1081' '#1082#1072#1088#1090#1099': '
+    end
+    object LabelTimeScene: TLabel
+      Left = 14
+      Top = 56
+      Width = 149
+      Height = 30
+      Margins.Left = 4
+      Margins.Top = 4
+      Margins.Right = 4
+      Margins.Bottom = 4
+      Caption = 'LabelTimeScene'
+    end
+    object LabelVersion: TLabel
+      Left = 624
+      Top = 51
+      Width = 117
+      Height = 30
+      Margins.Left = 4
+      Margins.Top = 4
+      Margins.Right = 4
+      Margins.Bottom = 4
+      Caption = 'LabelVersion'
+    end
+  end
+  object Panel2: TPanel
+    Left = 1454
+    Top = 836
+    Width = 197
+    Height = 109
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
+    Anchors = [akRight, akBottom]
+    ShowCaption = False
+    TabOrder = 3
+    DesignSize = (
+      197
+      109)
+    object LabelN: TLabel
+      Left = 13
+      Top = 62
+      Width = 65
+      Height = 30
+      Margins.Left = 4
+      Margins.Top = 4
+      Margins.Right = 4
+      Margins.Bottom = 4
+      Anchors = []
+      Caption = 'LabelN'
+    end
+    object LabelPosition: TLabel
+      Left = 13
+      Top = 3
+      Width = 122
+      Height = 30
+      Margins.Left = 4
+      Margins.Top = 4
+      Margins.Right = 4
+      Margins.Bottom = 4
+      Anchors = []
+      Caption = 'LabelPosition'
+    end
   end
   object MainMenu1: TMainMenu
-    Left = 512
-    Top = 560
+    Left = 16
+    Top = 8
     object N1: TMenuItem
       Caption = #1060#1072#1081#1083
       object N2: TMenuItem
@@ -291,16 +553,16 @@ object Form1: TForm1
   end
   object OpenTextFileDialog1: TOpenTextFileDialog
     DefaultExt = 'txt'
-    Left = 568
-    Top = 560
+    Left = 72
+    Top = 8
   end
   object SaveTextFileDialog1: TSaveTextFileDialog
     DefaultExt = 'txt'
-    Left = 616
-    Top = 560
+    Left = 136
+    Top = 16
   end
   object ColorDialog1: TColorDialog
-    Left = 656
-    Top = 560
+    Left = 192
+    Top = 48
   end
 end
