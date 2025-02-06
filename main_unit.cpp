@@ -80,28 +80,28 @@ void __fastcall TForm1::Image1MouseDown(
         }
         case 3: {
             Memo1->Visible = true;
-            point prov;
-            prov.x =
-                (X + user_rect.Left - VI_centre) / (double)pixels_per_meter;
-            prov.y =
-                (VI_centre - (Y + user_rect.Top)) / (double)pixels_per_meter;
+			point prov;
+			prov.x =
+				(X + user_rect.Left - VI_centre) / (double)pixels_per_meter;
+			prov.y =
+				(VI_centre - (Y + user_rect.Top)) / (double)pixels_per_meter;
 
-            for (int i = 0; i < vec_N.size(); i++) {
+			for (int i = 0; i < vec_N.size(); i++) {
                 if (vec_N[i].check(prov)) {
                     Memo1->Lines->Insert(
                         0, "Показатель преломления: " +
                                FloatToStrF(vec_N[i].get_prel(), ffFixed, 8, 3));
-                    Memo1->Lines->Insert(
+				   /** Memo1->Lines->Insert(
                         1, "Оптическая длина пути: " +
                                FloatToStrF(
                                    vec_N[i].get_op_dl_pt() * pixels_per_meter,
                                    ffFixed, 8, 3) +
-                               " м");
+							   " м");    **/
                     Memo1->Lines->Insert(
-                        2, "Угол входа (к нормали): " +
-                               IntToStr(vec_N[i].get_ugl_vhoda()) + "°");
-                    Memo1->Lines->Insert(
-                        3, "Угол выхода (к нормали): " +
+						1, "Угол входа (к нормали): " +
+							   IntToStr(vec_N[i].get_ugl_vhoda()) + "°");
+					Memo1->Lines->Insert(
+						2, "Угол выхода (к нормали): " +
                                IntToStr(vec_N[i].get_ugl_vyhoda()) + "°");
                 }
             }
@@ -442,9 +442,22 @@ void __fastcall TForm1::Image1MouseMove(
     TObject* Sender, TShiftState Shift, int X, int Y)
 {
     point_t t = scrin_to_global_metrs(X, Y);
-    LabelPosition->Caption =
-        "X: " + FloatToStr(t.x) + "\n Y: " + FloatToStr(t.y);
-    LabelN->Caption = "N: " + FloatToStr(drive.n(t.x, t.y));
+	LabelPosition->Caption =
+		"X: " + FloatToStr(t.x) + "\n Y: " + FloatToStr(t.y);
+   /**point prov;
+			prov.x =
+				(X + user_rect.Left - VI_centre) / (double)pixels_per_meter;
+			prov.y =
+				(VI_centre - (Y + user_rect.Top)) / (double)pixels_per_meter;
+	for (int i = 0; i < vec_N.size(); i++)
+	{
+				if (vec_N[i].check(prov))
+				{
+					LabelN->Caption = "N: " + FloatToStrF(vec_N[i].get_prel(), ffFixed, 8, 3);
+					return;
+				}
+	}  **/
+	LabelN->Caption = "N: " + FloatToStr(drive.n(t.x, t.y));
 }
 //---------------------------------------------------------------------------
 

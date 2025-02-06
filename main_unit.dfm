@@ -47,11 +47,17 @@ object Form1: TForm1
     Caption = 'Label1'
   end
   object Memo1: TMemo
-    Left = 1195
-    Top = 824
-    Width = 265
-    Height = 121
+    Left = 1096
+    Top = 806
+    Width = 292
+    Height = 139
     Anchors = [akRight, akBottom]
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -12
+    Font.Name = 'Segoe UI'
+    Font.Style = []
+    ParentFont = False
     TabOrder = 0
     Visible = False
   end
@@ -458,9 +464,9 @@ object Form1: TForm1
     end
   end
   object Panel2: TPanel
-    Left = 1454
+    Left = 1395
     Top = 836
-    Width = 197
+    Width = 256
     Height = 109
     Margins.Left = 4
     Margins.Top = 4
@@ -470,10 +476,10 @@ object Form1: TForm1
     ShowCaption = False
     TabOrder = 3
     DesignSize = (
-      197
+      256
       109)
     object LabelN: TLabel
-      Left = 13
+      Left = 26
       Top = 62
       Width = 65
       Height = 30
@@ -483,9 +489,10 @@ object Form1: TForm1
       Margins.Bottom = 4
       Anchors = []
       Caption = 'LabelN'
+      ExplicitLeft = 13
     end
     object LabelPosition: TLabel
-      Left = 13
+      Left = 35
       Top = 3
       Width = 122
       Height = 30
@@ -495,6 +502,7 @@ object Form1: TForm1
       Margins.Bottom = 4
       Anchors = []
       Caption = 'LabelPosition'
+      ExplicitLeft = 13
     end
   end
   object MainMenu1: TMainMenu
