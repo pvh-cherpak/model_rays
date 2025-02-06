@@ -522,8 +522,9 @@ void __fastcall TForm1::N2Click(TObject* Sender)
     user_rect = Bounds(VI_centre - Image1->Width, VI_centre - Image1->Height,
         Image1->Width, Image1->Height);
     points.clear();
-    string s = "1";
-    drive.set_new_n_expression(s);
+//    string s = "1";
+//	drive.set_new_n_expression(s);
+    vec_N.clear();
 
     reDraw();
 }

@@ -1,7 +1,7 @@
 object Form1: TForm1
   Left = 0
   Top = 0
-  Caption = 'Form1'
+  Caption = #1052#1086#1076#1077#1083#1080#1088#1086#1074#1072#1085#1087#1077' '#1086#1087#1090#1080#1095#1077#1089#1082#1080#1093' '#1083#1091#1095#1077#1081
   ClientHeight = 621
   ClientWidth = 1047
   Color = clBtnFace
@@ -14,6 +14,9 @@ object Form1: TForm1
   Scaled = False
   OnCreate = FormCreate
   OnKeyDown = FormKeyDown
+  DesignSize = (
+    1047
+    621)
   TextHeight = 15
   object Image1: TImage
     Left = 8
@@ -95,9 +98,10 @@ object Form1: TForm1
   object Button1: TButton
     Left = 895
     Top = 8
-    Width = 154
-    Height = 73
-    Caption = 'Button1'
+    Width = 148
+    Height = 70
+    Anchors = [akTop, akRight]
+    Caption = #1056#1072#1089#1089#1095#1080#1090#1072#1090#1100' '#1089#1094#1077#1085#1091
     TabOrder = 0
     OnClick = Button1Click
   end

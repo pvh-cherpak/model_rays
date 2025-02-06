@@ -78,7 +78,7 @@ void basicDrive_t::calculate()
 				}
 				if(pos != -1)
 				{
-					ShowMessage("Зашёл3");
+					//ShowMessage("Зашёл3");
 					necessary_index[ray_i].push_back(points_.size());
 					vector < segment > otr;
 					vec_N[pos].get_segments(r_dev, ok, otr);
