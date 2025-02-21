@@ -23,8 +23,8 @@ bool n_t::set_new_expr(std::string &epr_str)
 	expression_str = epr_str;
     return true;
 #else
-    //ShowMessage("���������� �������������� �� ���������� �������� ����������");
-    return false;
+	ShowMessage("Текущая редакция не поддерживает изменение уравнения n(x, y)");
+	return false;
 #endif
 }
 

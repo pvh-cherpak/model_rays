@@ -1,7 +1,7 @@
 ﻿#include "visual_functios.h"
 
 int pixels_per_meter = 70;
-int VI_size = 3000;
+int VI_size = 6000;
 int VI_centre = VI_size / 2;
 
 TRect user_rect;

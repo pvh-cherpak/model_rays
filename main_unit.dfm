@@ -181,7 +181,6 @@ object Form1: TForm1
       end>
     ShowCaption = False
     TabOrder = 1
-    ExplicitTop = -8
     object Button1: TButton
       Left = 1
       Top = 1
@@ -499,7 +498,7 @@ object Form1: TForm1
       256
       109)
     object LabelN: TLabel
-      Left = 26
+      Left = 10
       Top = 62
       Width = 65
       Height = 30
@@ -509,10 +508,9 @@ object Form1: TForm1
       Margins.Bottom = 4
       Anchors = []
       Caption = 'LabelN'
-      ExplicitLeft = 13
     end
     object LabelPosition: TLabel
-      Left = 35
+      Left = 11
       Top = 3
       Width = 122
       Height = 30
@@ -522,7 +520,6 @@ object Form1: TForm1
       Margins.Bottom = 4
       Anchors = []
       Caption = 'LabelPosition'
-      ExplicitLeft = 13
     end
   end
   object MainMenu1: TMainMenu

@@ -1,4 +1,4 @@
-#include "vector.h"
+﻿#include "vector.h"
 
 vector_t::vector_t(double x, double y)
 {

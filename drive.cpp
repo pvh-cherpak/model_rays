@@ -1,4 +1,4 @@
-#include "drive.h"
+ο»Ώ#include "drive.h"
 
 
 pryam to_pr(segment s)
@@ -67,7 +67,7 @@ void basicDrive_t::calculate()
 				{
 					if(vec_N[i].is_crossing(r_dev))
 					{
-						//ShowMessage("Οεπερεκΰες");
+//						ShowMessage("ΠΠµΡ€ΠµΡΠµΠΊΠ°ΠµΡ‚");
 						double temp = vec_N[i].s_to_dev(r_dev);
 						if((pos == -1 && temp < 3 * dt) || (pos != -1 && temp < mini))
 						{
@@ -78,7 +78,7 @@ void basicDrive_t::calculate()
 				}
 				if(pos != -1)
 				{
-					//ShowMessage("ΗΰψΈλ3");
+//					ShowMessage("Π—Π°ΡΡ‘Π»3");
 					necessary_index[ray_i].push_back(points_.size());
 					vector < segment > otr;
 					vec_N[pos].get_segments(r_dev, ok, otr);
@@ -87,10 +87,10 @@ void basicDrive_t::calculate()
 					{
 					  points_.push_back({ otr[i].p2.x, otr[i].p2.y });
 					}
-					points_.push_back({ r_dev.s.p2.x, r_dev.s.p2.y });
+//					points_.push_back({ r_dev.s.p2.x, r_dev.s.p2.y });
 
-					vector_t r2(r_dev.s.p2.x, r_dev.s.p2.y);
-					vector_t tau2(r_dev.s.p2.x - r_dev.s.p1.x, r_dev.s.p2.y - r_dev.s.p1.y);
+					vector_t r2(otr.back().p2.x, otr.back().p2.y);
+					vector_t tau2(r_dev.s.p2.x - otr.back().p2.x, r_dev.s.p2.y - otr.back().p2.y);
 					tau2.normalization();
 					r = r2;
 					tau = tau2;

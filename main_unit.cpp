@@ -267,9 +267,9 @@ void TForm1::reDraw()
         int j = 0;
         for (int k = 0; k < necessary_index[i].size(); k += 2) {
             for (; j < necessary_index[i][k]; j += draw_precision) {
-                t = to_picsels(points[i][j].x, points[i][j].y);
-                Virtual_Image->Canvas->LineTo(t.first, t.second);
-            }
+				t = to_picsels(points[i][j].x, points[i][j].y);
+				Virtual_Image->Canvas->LineTo(t.first, t.second);
+			}
             for (j = necessary_index[i][k]; j < necessary_index[i][k + 1]; j++)
             {
                 t = to_picsels(points[i][j].x, points[i][j].y);
@@ -416,7 +416,7 @@ void __fastcall TForm1::Button2Click(TObject* Sender)
 void __fastcall TForm1::FormKeyDown(
     TObject* Sender, WORD &Key, TShiftState Shift)
 {
-    switch (Key) {
+	switch (Key) {
         case VK_LEFT:
             OffsetRect(&user_rect, -10, 0);
             show();
@@ -443,7 +443,7 @@ void __fastcall TForm1::Image1MouseMove(
 {
     point_t t = scrin_to_global_metrs(X, Y);
 	LabelPosition->Caption =
-		"X: " + FloatToStr(t.x) + "\n Y: " + FloatToStr(t.y);
+		"X: " + FloatToStr(t.x) + "\nY: " + FloatToStr(t.y);
    /**point prov;
 			prov.x =
 				(X + user_rect.Left - VI_centre) / (double)pixels_per_meter;
@@ -600,11 +600,12 @@ void __fastcall TForm1::N5Click(TObject* Sender)
 
         fin.ignore(50, ' ');
         int vec_N_size = 0;
-        fin >> vec_N_size;
+		fin >> vec_N_size;
+        vec_N.clear();
         vec_N.resize(vec_N_size);
         for (auto &i : vec_N) {
             fin.ignore(50, ' ');
-            int act_n;
+            double act_n;
             fin >> act_n;
             fin.ignore(50, ' ');
             int lot_gran;
@@ -621,7 +622,9 @@ void __fastcall TForm1::N5Click(TObject* Sender)
 
         reCalculate();
         reDraw();
-        Button2->Visible = true;
+		Button2->Visible = true;
+
+        ComboBox1Change(this);
     }
 }
 //---------------------------------------------------------------------------

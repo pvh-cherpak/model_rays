@@ -1,4 +1,4 @@
-#ifndef OPTICAL_DEVICES_H
+﻿#ifndef OPTICAL_DEVICES_H
 #define OPTICAL_DEVICES_H
 #include <vector>
 #include "n.h"
