@@ -1,5 +1,11 @@
 ﻿#pragma once
 
+#define HSL_LINER_GRAD
+
+#ifdef  HSL_LINER_GRAD
+    #include <System.UIConsts.hpp>
+#endif
+
 #include "data_types.h"
 #include "main_unit.h"
 
@@ -17,8 +23,14 @@ extern int pixels_per_meter;
 extern int VI_size;
 extern int VI_centre;
 extern TColor ColorMin, ColorMax;
+
+#ifdef HSL_LINER_GRAD
+static float min_h, max_h;
+#else
 static int r_b, g_b, b_b;
 static int delta_r, delta_g, delta_b;
+#endif
+
 
 void update_grad_delt();
 TColor get_heat_color(double value);

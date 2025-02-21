@@ -80,28 +80,28 @@ void __fastcall TForm1::Image1MouseDown(
         }
         case 3: {
             Memo1->Visible = true;
-			point prov;
-			prov.x =
-				(X + user_rect.Left - VI_centre) / (double)pixels_per_meter;
-			prov.y =
-				(VI_centre - (Y + user_rect.Top)) / (double)pixels_per_meter;
+            point prov;
+            prov.x =
+                (X + user_rect.Left - VI_centre) / (double)pixels_per_meter;
+            prov.y =
+                (VI_centre - (Y + user_rect.Top)) / (double)pixels_per_meter;
 
-			for (int i = 0; i < vec_N.size(); i++) {
+            for (int i = 0; i < vec_N.size(); i++) {
                 if (vec_N[i].check(prov)) {
                     Memo1->Lines->Insert(
                         0, "Показатель преломления: " +
                                FloatToStrF(vec_N[i].get_prel(), ffFixed, 8, 3));
-				   /** Memo1->Lines->Insert(
+                    /** Memo1->Lines->Insert(
                         1, "Оптическая длина пути: " +
                                FloatToStrF(
                                    vec_N[i].get_op_dl_pt() * pixels_per_meter,
                                    ffFixed, 8, 3) +
 							   " м");    **/
                     Memo1->Lines->Insert(
-						1, "Угол входа (к нормали): " +
-							   IntToStr(vec_N[i].get_ugl_vhoda()) + "°");
-					Memo1->Lines->Insert(
-						2, "Угол выхода (к нормали): " +
+                        1, "Угол входа (к нормали): " +
+                               IntToStr(vec_N[i].get_ugl_vhoda()) + "°");
+                    Memo1->Lines->Insert(
+                        2, "Угол выхода (к нормали): " +
                                IntToStr(vec_N[i].get_ugl_vyhoda()) + "°");
                 }
             }
@@ -267,9 +267,9 @@ void TForm1::reDraw()
         int j = 0;
         for (int k = 0; k < necessary_index[i].size(); k += 2) {
             for (; j < necessary_index[i][k]; j += draw_precision) {
-				t = to_picsels(points[i][j].x, points[i][j].y);
-				Virtual_Image->Canvas->LineTo(t.first, t.second);
-			}
+                t = to_picsels(points[i][j].x, points[i][j].y);
+                Virtual_Image->Canvas->LineTo(t.first, t.second);
+            }
             for (j = necessary_index[i][k]; j < necessary_index[i][k + 1]; j++)
             {
                 t = to_picsels(points[i][j].x, points[i][j].y);
@@ -352,6 +352,13 @@ void __fastcall TForm1::FormCreate(TObject* Sender)
     LabelVersion->Caption += "compiled";
 #endif
 
+    LabelVersion->Caption += "\tcolor mode: ";
+#ifdef HSL_LINER_GRAD
+    LabelVersion->Caption += "HSL Linear";
+#else
+    LabelVersion->Caption += "RGB Linear";
+#endif
+
     LabelVersion->Caption += "\theat_map method: ";
 #ifdef HEAT_MAP_POINTER_DRAW
     LabelVersion->Caption += "ScanLine[]";
@@ -384,11 +391,19 @@ void __fastcall TForm1::FormCreate(TObject* Sender)
     Heat_map->Height = VI_size;
     Heat_map->PixelFormat = pf24bit;
 
+#ifdef HSL_LINER_GRAD
+	ColorMin = (TColor)RGB(255, 0, 0);
+	ColorMax = (TColor)RGB(0, 255, 0);
+	ColorRay = (TColor)RGB(0, 0, 255);
+    ColorRayError = clBlack;
+    update_grad_delt();
+#else
     ColorMin = (TColor)RGB(0, 0, 255);
     ColorMax = (TColor)RGB(255, 0, 0);
     ColorRay = clYellow;
     ColorRayError = clRed;
     update_grad_delt();
+#endif
 
     calculate_heat_map();
 
@@ -416,7 +431,7 @@ void __fastcall TForm1::Button2Click(TObject* Sender)
 void __fastcall TForm1::FormKeyDown(
     TObject* Sender, WORD &Key, TShiftState Shift)
 {
-	switch (Key) {
+    switch (Key) {
         case VK_LEFT:
             OffsetRect(&user_rect, -10, 0);
             show();
@@ -442,9 +457,9 @@ void __fastcall TForm1::Image1MouseMove(
     TObject* Sender, TShiftState Shift, int X, int Y)
 {
     point_t t = scrin_to_global_metrs(X, Y);
-	LabelPosition->Caption =
-		"X: " + FloatToStr(t.x) + "\nY: " + FloatToStr(t.y);
-   /**point prov;
+    LabelPosition->Caption =
+        "X: " + FloatToStr(t.x) + "\nY: " + FloatToStr(t.y);
+    /**point prov;
 			prov.x =
 				(X + user_rect.Left - VI_centre) / (double)pixels_per_meter;
 			prov.y =
@@ -457,7 +472,7 @@ void __fastcall TForm1::Image1MouseMove(
 					return;
 				}
 	}  **/
-	LabelN->Caption = "N: " + FloatToStr(drive.n(t.x, t.y));
+    LabelN->Caption = "N: " + FloatToStr(drive.n(t.x, t.y));
 }
 //---------------------------------------------------------------------------
 
@@ -600,7 +615,7 @@ void __fastcall TForm1::N5Click(TObject* Sender)
 
         fin.ignore(50, ' ');
         int vec_N_size = 0;
-		fin >> vec_N_size;
+        fin >> vec_N_size;
         vec_N.clear();
         vec_N.resize(vec_N_size);
         for (auto &i : vec_N) {
@@ -622,7 +637,7 @@ void __fastcall TForm1::N5Click(TObject* Sender)
 
         reCalculate();
         reDraw();
-		Button2->Visible = true;
+        Button2->Visible = true;
 
         ComboBox1Change(this);
     }
