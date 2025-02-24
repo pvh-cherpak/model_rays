@@ -235,16 +235,15 @@ void TForm1::reDraw()
         if (fabs(s[0].p1.x - s.back().p2.x) <= 0.000001 &&
             fabs(s[0].p1.y - s.back().p2.y) <= 0.000001)
         {
-            double value = vec_N[i].get_prel() - 1;
-            value = max(0.0, min(1.0, value));
+			double n = vec_N[i].get_prel();
 
-            Virtual_Image->Canvas->Brush->Color = get_heat_color(value);
+			Virtual_Image->Canvas->Brush->Color = get_heat_color(n);
 
             double x_ris, y_ris, x_ris2, y_ris2;
             x_ris = (s[0].p1.x + s[0].p2.x) / 2.;
             x_ris2 = (s[1].p1.x + s[1].p2.x) / 2.;
             y_ris = (s[0].p1.y + s[0].p2.y) / 2.;
-            y_ris2 = (s[1].p1.y + s[1].p2.y) / 2.;
+			y_ris2 = (s[1].p1.y + s[1].p2.y) / 2.;
             x_ris = (x_ris + x_ris2) / 2.;
             y_ris = (y_ris + y_ris2) / 2.;
             x_ris = x_ris * pixels_per_meter + VI_centre;
@@ -394,6 +393,7 @@ void __fastcall TForm1::FormCreate(TObject* Sender)
     Heat_map->Height = VI_size;
     Heat_map->PixelFormat = pf24bit;
 
+    heat_normalized_coeff = 2;
 #ifdef HSL_LINER_GRAD
     ColorMin = (TColor)RGB(255, 0, 0);
     ColorMax = (TColor)RGB(0, 255, 0);
@@ -478,20 +478,19 @@ void TForm1::calculate_heat_map()
         unsigned char* row = static_cast<unsigned char*>(Heat_map->ScanLine[y]);
 #endif
         for (int x = 0; x < VI_size; x++) {
-            double value =
-                drive.n((x - VI_centre) / ppm, (VI_centre - y) / ppm) - 1;
-            value = max(0.0, min(1.0, value));
-            TColor color = get_heat_color(value);
+			double n =
+				drive.n((x - VI_centre) / ppm, (VI_centre - y) / ppm);
+			TColor color = get_heat_color(n);
 
 #ifdef HEAT_MAP_POINTER_DRAW
             row[x * 3] = GetBValue(color); // Синий канал
             row[x * 3 + 1] = GetGValue(color); // Зеленый канал
             row[x * 3 + 2] = GetRValue(color); // Красный каналE
 #else
-            Heat_map->Canvas->Pixels[x][y] = get_heat_color(value);
+			Heat_map->Canvas->Pixels[x][y] = color;
 #endif
         }
-    }
+	}
 
     auto end = std::chrono::high_resolution_clock::now();
 

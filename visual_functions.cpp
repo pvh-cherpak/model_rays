@@ -4,8 +4,11 @@ int pixels_per_meter = 70;
 int VI_size = 3000;
 int VI_centre = VI_size / 2;
 
-TRect user_rect;
+
 TColor ColorMin, ColorMax;
+float heat_normalized_coeff;
+TRect user_rect;
+
 
 void DrawCoordinates(TCanvas* Canvas, int unitPixels)
 {
@@ -89,8 +92,10 @@ void DrawAsterisk(
     Canvas->LineTo(centerX - halfSize, centerY + halfSize);
 }
 
-TColor get_heat_color(double value)
+TColor get_heat_color(double n)
 {
+	float value = (n - 1) / heat_normalized_coeff;
+    value = max(0.f, min(1.f, value));
 #ifdef HSL_LINER_GRAD
     return (TColor)HSLtoRGB(value * (max_h - min_h) + min_h, 1, 0.5);
 #else

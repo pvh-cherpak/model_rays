@@ -23,6 +23,7 @@ extern int pixels_per_meter;
 extern int VI_size;
 extern int VI_centre;
 extern TColor ColorMin, ColorMax;
+extern float heat_normalized_coeff;
 static int r_b, g_b, b_b;
 static int delta_r, delta_g, delta_b;
 

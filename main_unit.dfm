@@ -47,7 +47,7 @@ object Form1: TForm1
     Caption = 'Label1'
   end
   object Memo1: TMemo
-    Left = 1168
+    Left = 1166
     Top = 836
     Width = 265
     Height = 121
@@ -60,7 +60,6 @@ object Form1: TForm1
     ParentFont = False
     TabOrder = 0
     Visible = False
-    ExplicitTop = 824
   end
   object GridPanel1: TGridPanel
     Left = 1647
@@ -214,7 +213,6 @@ object Form1: TForm1
         #1051#1091#1095
         'N-'#1091#1075#1086#1083#1100#1085#1080#1082
         #1057#1074#1077#1076#1077#1085#1080#1103)
-      ExplicitWidth = 254
     end
     object LabeledEdit1: TLabeledEdit
       Left = 1
@@ -379,7 +377,7 @@ object Form1: TForm1
     object ButtonReject: TButton
       Left = 1
       Top = 713
-      Width = 254
+      Width = 257
       Height = 32
       Margins.Left = 4
       Margins.Top = 4
@@ -394,7 +392,7 @@ object Form1: TForm1
     object ButtonAccept: TButton
       Left = 1
       Top = 668
-      Width = 254
+      Width = 257
       Height = 45
       Margins.Left = 4
       Margins.Top = 4
@@ -466,7 +464,7 @@ object Form1: TForm1
     end
   end
   object Panel2: TPanel
-    Left = 1440
+    Left = 1438
     Top = 836
     Width = 211
     Height = 109
@@ -477,8 +475,6 @@ object Form1: TForm1
     Anchors = [akRight, akBottom]
     ShowCaption = False
     TabOrder = 3
-    ExplicitLeft = 1408
-    ExplicitTop = 824
     DesignSize = (
       211
       109)
