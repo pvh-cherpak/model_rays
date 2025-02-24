@@ -47,11 +47,17 @@ object Form1: TForm1
     Caption = 'Label1'
   end
   object Memo1: TMemo
-    Left = 1119
+    Left = 1168
     Top = 836
-    Width = 281
+    Width = 265
     Height = 121
     Anchors = [akRight, akBottom]
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -16
+    Font.Name = 'Segoe UI'
+    Font.Style = []
+    ParentFont = False
     TabOrder = 0
     Visible = False
     ExplicitTop = 824
@@ -176,8 +182,6 @@ object Form1: TForm1
       end>
     ShowCaption = False
     TabOrder = 1
-    ExplicitLeft = 1648
-    ExplicitHeight = 945
     object Button1: TButton
       Left = 1
       Top = 1
@@ -191,7 +195,6 @@ object Form1: TForm1
       Caption = #1056#1072#1089#1089#1095#1080#1090#1072#1090#1100' '#1089#1094#1077#1085#1091
       TabOrder = 0
       OnClick = Button1Click
-      ExplicitWidth = 254
     end
     object ComboBox1: TComboBox
       Left = 1
@@ -204,7 +207,7 @@ object Form1: TForm1
       Margins.Bottom = 4
       Align = alClient
       TabOrder = 1
-      Text = #1051#1091#1095
+      Text = #1042#1099#1073#1077#1088#1080#1090#1077
       OnChange = ComboBox1Change
       Items.Strings = (
         #1055#1086#1083#1077
@@ -216,7 +219,7 @@ object Form1: TForm1
     object LabeledEdit1: TLabeledEdit
       Left = 1
       Top = 133
-      Width = 256
+      Width = 151
       Height = 38
       Margins.Left = 4
       Margins.Top = 4
@@ -236,7 +239,7 @@ object Form1: TForm1
     object LabeledEdit2: TLabeledEdit
       Left = 1
       Top = 204
-      Width = 256
+      Width = 151
       Height = 38
       Margins.Left = 4
       Margins.Top = 4
@@ -256,7 +259,7 @@ object Form1: TForm1
     object LabeledEdit3: TLabeledEdit
       Left = 1
       Top = 275
-      Width = 256
+      Width = 151
       Height = 38
       Margins.Left = 4
       Margins.Top = 4
@@ -276,7 +279,7 @@ object Form1: TForm1
     object LabeledEdit4: TLabeledEdit
       Left = 1
       Top = 346
-      Width = 256
+      Width = 151
       Height = 38
       Margins.Left = 4
       Margins.Top = 4
@@ -296,7 +299,7 @@ object Form1: TForm1
     object LabeledEdit5: TLabeledEdit
       Left = 1
       Top = 417
-      Width = 256
+      Width = 146
       Height = 38
       Margins.Left = 5
       Margins.Top = 5
@@ -316,7 +319,7 @@ object Form1: TForm1
     object LabeledEditN: TLabeledEdit
       Left = 1
       Top = 488
-      Width = 256
+      Width = 151
       Height = 38
       Margins.Left = 4
       Margins.Top = 4
@@ -336,7 +339,7 @@ object Form1: TForm1
     object LabeledEditX: TLabeledEdit
       Left = 1
       Top = 559
-      Width = 256
+      Width = 151
       Height = 38
       Margins.Left = 4
       Margins.Top = 4
@@ -356,7 +359,7 @@ object Form1: TForm1
     object LabeledEditY: TLabeledEdit
       Left = 1
       Top = 630
-      Width = 256
+      Width = 151
       Height = 38
       Margins.Left = 4
       Margins.Top = 4
@@ -376,7 +379,7 @@ object Form1: TForm1
     object ButtonReject: TButton
       Left = 1
       Top = 713
-      Width = 257
+      Width = 254
       Height = 32
       Margins.Left = 4
       Margins.Top = 4
@@ -387,12 +390,11 @@ object Form1: TForm1
       TabOrder = 11
       Visible = False
       OnClick = ButtonRejectClick
-      ExplicitWidth = 254
     end
     object ButtonAccept: TButton
       Left = 1
       Top = 668
-      Width = 257
+      Width = 254
       Height = 45
       Margins.Left = 4
       Margins.Top = 4
@@ -403,7 +405,6 @@ object Form1: TForm1
       TabOrder = 10
       Visible = False
       OnClick = ButtonAcceptClick
-      ExplicitWidth = 254
     end
   end
   object Panel1: TPanel
@@ -419,8 +420,6 @@ object Form1: TForm1
     Caption = 'Panel1'
     ShowCaption = False
     TabOrder = 2
-    ExplicitTop = 945
-    ExplicitWidth = 1907
     object LabelDrawScene: TLabel
       Left = 14
       Top = 8
@@ -467,10 +466,10 @@ object Form1: TForm1
     end
   end
   object Panel2: TPanel
-    Left = 1407
+    Left = 1440
     Top = 836
-    Width = 243
-    Height = 121
+    Width = 211
+    Height = 109
     Margins.Left = 4
     Margins.Top = 4
     Margins.Right = 4
@@ -481,11 +480,11 @@ object Form1: TForm1
     ExplicitLeft = 1408
     ExplicitTop = 824
     DesignSize = (
-      243
-      121)
+      211
+      109)
     object LabelN: TLabel
       Left = 16
-      Top = 78
+      Top = 62
       Width = 65
       Height = 30
       Margins.Left = 4
@@ -494,10 +493,11 @@ object Form1: TForm1
       Margins.Bottom = 4
       Anchors = []
       Caption = 'LabelN'
+      ExplicitLeft = 13
     end
     object LabelPosition: TLabel
-      Left = 16
-      Top = 5
+      Left = 18
+      Top = 3
       Width = 122
       Height = 30
       Margins.Left = 4
@@ -506,6 +506,7 @@ object Form1: TForm1
       Margins.Bottom = 4
       Anchors = []
       Caption = 'LabelPosition'
+      ExplicitLeft = 13
     end
   end
   object MainMenu1: TMainMenu

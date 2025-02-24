@@ -84,24 +84,25 @@ void __fastcall TForm1::Image1MouseDown(
             prov.x =
                 (X + user_rect.Left - VI_centre) / (double)pixels_per_meter;
             prov.y =
-                (VI_centre - (Y + user_rect.Top)) / (double)pixels_per_meter;
+				(VI_centre - (Y + user_rect.Top)) / (double)pixels_per_meter;
+            Memo1->Lines->Clear();
 
             for (int i = 0; i < vec_N.size(); i++) {
                 if (vec_N[i].check(prov)) {
-                    Memo1->Lines->Insert(
+					Memo1->Lines->Insert(
                         0, "Показатель преломления: " +
                                FloatToStrF(vec_N[i].get_prel(), ffFixed, 8, 3));
-                    Memo1->Lines->Insert(
+					/**Memo1->Lines->Insert(
                         1, "Оптическая длина пути: " +
                                FloatToStrF(
                                    vec_N[i].get_op_dl_pt() * pixels_per_meter,
                                    ffFixed, 8, 3) +
-                               " м");
+							   " м");  **/
                     Memo1->Lines->Insert(
-                        2, "Угол входа (к нормали): " +
-                               IntToStr(vec_N[i].get_ugl_vhoda()) + "°");
-                    Memo1->Lines->Insert(
-                        3, "Угол выхода (к нормали): " +
+						1, "Угол входа (к нормали): " +
+							   IntToStr(vec_N[i].get_ugl_vhoda()) + "°");
+					Memo1->Lines->Insert(
+                        2, "Угол выхода (к нормали): " +
                                IntToStr(vec_N[i].get_ugl_vyhoda()) + "°");
                 }
             }
@@ -502,7 +503,8 @@ void TForm1::calculate_heat_map()
 
 void __fastcall TForm1::ComboBox1Change(TObject* Sender)
 {
-    hide_menu();
+	hide_menu();
+    ButtonReject->Visible=true;
     switch (ComboBox1->ItemIndex) {
         case 0:
             selected_type = menu_type::field;
@@ -542,8 +544,9 @@ void __fastcall TForm1::ComboBox1Change(TObject* Sender)
 void __fastcall TForm1::N2Click(TObject* Sender)
 {
     rays_soursec.clear();
-    vec_N.clear();
-    points.clear();
+	vec_N.clear();
+	points.clear();
+    now_dev = -1;
 
     user_rect = Bounds(VI_centre - Image1->Width / 2,
         VI_centre - Image1->Height / 2, Image1->Width, Image1->Height);
@@ -591,7 +594,8 @@ void __fastcall TForm1::N5Click(TObject* Sender)
         ifstream fin(s);
 
         string expr;
-        fin >> expr;
+		getline(fin, expr);
+        fin.ignore();
         drive.set_new_n_expression(expr);
 
         fin.ignore(50, ' ');
@@ -606,10 +610,11 @@ void __fastcall TForm1::N5Click(TObject* Sender)
         fin.ignore(50, ' ');
         int vec_N_size = 0;
         fin >> vec_N_size;
-        vec_N.resize(vec_N_size);
+		vec_N.resize(vec_N_size);
+        now_dev = vec_N_size - 1;
         for (auto &i : vec_N) {
             fin.ignore(50, ' ');
-            int act_n;
+            double act_n;
             fin >> act_n;
             fin.ignore(50, ' ');
             int lot_gran;
@@ -619,12 +624,16 @@ void __fastcall TForm1::N5Click(TObject* Sender)
                 fin >> j.p1.x >> j.p1.y >> j.p2.x >> j.p2.y;
             i.set_Nugol(lot_gran, vec, act_n);
         }
-        fin.close();
+		fin.close();
+
+
 
         calculate_heat_map();
-        DrawCoordinates(Heat_map->Canvas, pixels_per_meter);
-        reDraw();
-    }
+		DrawCoordinates(Heat_map->Canvas, pixels_per_meter);
+		reCalculate();
+		reDraw();
+        ComboBox1Change(this);
+	}
 }
 //---------------------------------------------------------------------------
 

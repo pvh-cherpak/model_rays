@@ -28,8 +28,8 @@
 
 enum class menu_type
 {
-    ray_source,
-    field,
+	ray_source,
+	field,
     Optical_dev,
     NONE
 };
