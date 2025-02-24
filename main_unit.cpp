@@ -236,10 +236,12 @@ void TForm1::reDraw()
             fabs(s[0].p1.y - s.back().p2.y) <= 0.000001)
         {
 			double n = vec_N[i].get_prel();
+			TColor kol = get_heat_color(n);
+			TColor kol2 = (TColor)RGB(GetRValue(kol), GetGValue(kol), GetBValue(kol));
 
-			Virtual_Image->Canvas->Brush->Color = get_heat_color(n);
+			Virtual_Image->Canvas->Brush->Color = kol2;
 
-            double x_ris, y_ris, x_ris2, y_ris2;
+			double x_ris, y_ris, x_ris2, y_ris2;
             x_ris = (s[0].p1.x + s[0].p2.x) / 2.;
             x_ris2 = (s[1].p1.x + s[1].p2.x) / 2.;
             y_ris = (s[0].p1.y + s[0].p2.y) / 2.;
@@ -248,9 +250,9 @@ void TForm1::reDraw()
             y_ris = (y_ris + y_ris2) / 2.;
             x_ris = x_ris * pixels_per_meter + VI_centre;
             y_ris = -y_ris * pixels_per_meter + VI_centre;
-            Virtual_Image->Canvas->FloodFill(x_ris, y_ris, clBlack, fsBorder);
-            Virtual_Image->Canvas->Brush->Color = clBlack;
-        }
+			Virtual_Image->Canvas->FloodFill(x_ris, y_ris, clBlack, fsBorder);
+			//Virtual_Image->Canvas->Brush->Color = clBlack;
+		}
     }
 
     Virtual_Image->Canvas->Pen->Color = clYellow;
@@ -483,9 +485,9 @@ void TForm1::calculate_heat_map()
 			TColor color = get_heat_color(n);
 
 #ifdef HEAT_MAP_POINTER_DRAW
-            row[x * 3] = GetBValue(color); // Синий канал
-            row[x * 3 + 1] = GetGValue(color); // Зеленый канал
-            row[x * 3 + 2] = GetRValue(color); // Красный каналE
+			row[x * 3] = GetBValue(color); // Синий канал
+			row[x * 3 + 1] = GetGValue(color); // Зеленый канал
+			row[x * 3 + 2] = GetRValue(color); // Красный каналE
 #else
 			Heat_map->Canvas->Pixels[x][y] = color;
 #endif

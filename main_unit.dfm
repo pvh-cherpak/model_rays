@@ -2,7 +2,7 @@ object Form1: TForm1
   Left = 0
   Top = 0
   Caption = #1052#1086#1076#1077#1083#1080#1088#1086#1074#1072#1085#1087#1077' '#1086#1087#1090#1080#1095#1077#1089#1082#1080#1093' '#1083#1091#1095#1077#1081
-  ClientHeight = 1042
+  ClientHeight = 1030
   ClientWidth = 1906
   Color = clBtnFace
   DoubleBuffered = True
@@ -20,13 +20,13 @@ object Form1: TForm1
   OnResize = FormResize
   DesignSize = (
     1906
-    1042)
+    1030)
   TextHeight = 30
   object Image1: TImage
     Left = 0
     Top = 0
     Width = 1647
-    Height = 957
+    Height = 945
     Align = alClient
     AutoSize = True
     OnClick = Image1Click
@@ -65,7 +65,7 @@ object Form1: TForm1
     Left = 1647
     Top = 0
     Width = 259
-    Height = 957
+    Height = 945
     Margins.Left = 4
     Margins.Top = 4
     Margins.Right = 4
@@ -407,7 +407,7 @@ object Form1: TForm1
   end
   object Panel1: TPanel
     Left = 0
-    Top = 957
+    Top = 945
     Width = 1906
     Height = 85
     Margins.Left = 4
