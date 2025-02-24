@@ -1,4 +1,4 @@
-#include "drive.h"
+ο»Ώ#include "drive.h"
 
 
 pryam to_pr(segment s)
@@ -67,7 +67,7 @@ void basicDrive_t::calculate()
 				{
 					if(vec_N[i].is_crossing(r_dev))
 					{
-						//ShowMessage("Οεπερεκΰες");
+						//ShowMessage("ΠΠµΡ€ΠµΡΠµΠΊΠ°ΠµΡ‚");
 						double temp = vec_N[i].s_to_dev(r_dev);
 						if((pos == -1 && temp < 3 * dt) || (pos != -1 && temp < mini))
 						{
@@ -78,7 +78,7 @@ void basicDrive_t::calculate()
 				}
 				if(pos != -1)
 				{
-					//ShowMessage("ΗΰψΈλ3");
+					//ShowMessage("Π—Π°ΡΡ‘Π»3");
 					necessary_index[ray_i].push_back(points_.size());
 					vector < segment > otr;
 					vec_N[pos].get_segments(r_dev, ok, otr);

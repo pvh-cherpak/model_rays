@@ -1,4 +1,4 @@
-//---------------------------------------------------------------------------
+﻿//---------------------------------------------------------------------------
 #ifndef main_unitH
 #define main_unitH
 //---------------------------------------------------------------------------
@@ -56,7 +56,7 @@ class TForm1 : public TForm
     TLabeledEdit* LabeledEdit1;
     TLabeledEdit* LabeledEdit2;
     TLabeledEdit* LabeledEditN;
-    TLabel* LabelPosition;
+	TLabel* LabelPosition;
     TLabel* LabelN;
     TLabel* LabelTimeHeatMap;
     TLabel* LabelTimeScene;
