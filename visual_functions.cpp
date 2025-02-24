@@ -91,18 +91,28 @@ void DrawAsterisk(
 
 TColor get_heat_color(double value)
 {
+#ifdef HSL_LINER_GRAD
+    return (TColor)HSLtoRGB(value * (max_h - min_h) + min_h, 1, 0.5);
+#else
     return (TColor)RGB(
-        r_b + delta_r * value, g_b + delta_b * value, b_b + delta_b * value);
+        r_b + delta_r * value, g_b + delta_g * value, b_b + delta_b * value);
+#endif
 }
 
 void update_grad_delt()
 {
-	r_b = GetRValue(ColorMin);
+#ifdef HSL_LINER_GRAD
+    float t1, t2;
+    RGBtoHSL(ColorMin, min_h, t1, t2);
+    RGBtoHSL(ColorMax, max_h, t1, t2);
+#else
+    r_b = GetRValue(ColorMin);
     g_b = GetGValue(ColorMin);
-	b_b = GetBValue(ColorMin);
+    b_b = GetBValue(ColorMin);
 
-	delta_r =  GetRValue(ColorMax) - r_b;
-	delta_g =  GetGValue(ColorMax) - g_b;
-	delta_b =  GetBValue(ColorMax) - b_b;
+    delta_r = GetRValue(ColorMax) - r_b;
+    delta_g = GetGValue(ColorMax) - g_b;
+    delta_b = GetBValue(ColorMax) - b_b;
+#endif
 }
 

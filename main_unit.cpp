@@ -128,6 +128,7 @@ int new_draw_precision;
 int new_number_of_ray_points;
 void __fastcall TForm1::ButtonAcceptClick(TObject* Sender)
 {
+    ButtonAccept->Visible = false;
     string formula;
     switch (selected_type) {
         case menu_type::ray_source:
@@ -190,7 +191,7 @@ void __fastcall TForm1::ButtonAcceptClick(TObject* Sender)
             }
             break;
     }
-
+    ButtonAccept->Visible = true;
     reDraw();
 }
 //---------------------------------------------------------------------------
@@ -335,8 +336,10 @@ void TForm1::draw_ray_source(ray_t &ray_source)
 
 void __fastcall TForm1::Button1Click(TObject* Sender)
 {
+    Button1->Visible = false;
     reCalculate();
     reDraw();
+    Button1->Visible = true;
 }
 //---------------------------------------------------------------------------
 
@@ -349,6 +352,13 @@ void __fastcall TForm1::FormCreate(TObject* Sender)
     LabelVersion->Caption += "fparser";
 #else
     LabelVersion->Caption += "compiled";
+#endif
+
+    LabelVersion->Caption += "\tcolor mode: ";
+#ifdef HSL_LINER_GRAD
+    LabelVersion->Caption += "HSL Linear";
+#else
+    LabelVersion->Caption += "RGB Linear";
 #endif
 
     LabelVersion->Caption += "\theat_map method: ";
@@ -383,11 +393,19 @@ void __fastcall TForm1::FormCreate(TObject* Sender)
     Heat_map->Height = VI_size;
     Heat_map->PixelFormat = pf24bit;
 
+#ifdef HSL_LINER_GRAD
+    ColorMin = (TColor)RGB(255, 0, 0);
+    ColorMax = (TColor)RGB(0, 255, 0);
+    ColorRay = (TColor)RGB(0, 0, 255);
+    ColorRayError = clBlack;
+    update_grad_delt();
+#else
     ColorMin = (TColor)RGB(0, 0, 255);
     ColorMax = (TColor)RGB(255, 0, 0);
     ColorRay = clYellow;
     ColorRayError = clRed;
     update_grad_delt();
+#endif
 
     calculate_heat_map();
 
@@ -395,9 +413,9 @@ void __fastcall TForm1::FormCreate(TObject* Sender)
     reDraw();
 
     OpenTextFileDialog1->InitialDir = ExtractFilePath(ParamStr(0));
-	SaveTextFileDialog1->InitialDir = OpenTextFileDialog1->InitialDir;
+    SaveTextFileDialog1->InitialDir = OpenTextFileDialog1->InitialDir;
 
-	this->ClientHeight = 500;
+    this->ClientHeight = 500;
     this->ClientWidth = 1000;
 }
 //---------------------------------------------------------------------------
@@ -443,7 +461,7 @@ void __fastcall TForm1::Image1MouseMove(
 {
     point_t t = scrin_to_global_metrs(X, Y);
     LabelPosition->Caption =
-        "X: " + FloatToStr(t.x) + "\n Y: " + FloatToStr(t.y);
+        "X: " + FloatToStr(t.x) + "\nY: " + FloatToStr(t.y);
     LabelN->Caption = "N: " + FloatToStr(drive.n(t.x, t.y));
 }
 //---------------------------------------------------------------------------
@@ -515,21 +533,23 @@ void __fastcall TForm1::ComboBox1Change(TObject* Sender)
         default:
             selected_device = -1;
             break;
-    }
+	}
+	ComboBox1->Visible=false;
+	ComboBox1->Visible=true;
 }
 //---------------------------------------------------------------------------
 
 void __fastcall TForm1::N2Click(TObject* Sender)
 {
     rays_soursec.clear();
-	vec_N.clear();
-	points.clear();
+    vec_N.clear();
+    points.clear();
 
     user_rect = Bounds(VI_centre - Image1->Width / 2,
         VI_centre - Image1->Height / 2, Image1->Width, Image1->Height);
     screen_rect = Bounds(0, 0, Image1->Width, Image1->Height);
 
-	//    string s = "1";
+    //    string s = "1";
     //	drive.set_new_n_expression(s);
     vec_N.clear();
 
@@ -695,7 +715,4 @@ void __fastcall TForm1::FormResize(TObject* Sender)
     //	ShowMessage(IntToStr(Image1->Width));
 }
 //---------------------------------------------------------------------------
-
-
-
 

@@ -2,8 +2,8 @@ object Form1: TForm1
   Left = 0
   Top = 0
   Caption = #1052#1086#1076#1077#1083#1080#1088#1086#1074#1072#1085#1087#1077' '#1086#1087#1090#1080#1095#1077#1089#1082#1080#1093' '#1083#1091#1095#1077#1081
-  ClientHeight = 1030
-  ClientWidth = 1907
+  ClientHeight = 1042
+  ClientWidth = 1906
   Color = clBtnFace
   DoubleBuffered = True
   Font.Charset = DEFAULT_CHARSET
@@ -19,14 +19,14 @@ object Form1: TForm1
   OnKeyDown = FormKeyDown
   OnResize = FormResize
   DesignSize = (
-    1907
-    1030)
+    1906
+    1042)
   TextHeight = 30
   object Image1: TImage
     Left = 0
     Top = 0
-    Width = 1651
-    Height = 945
+    Width = 1647
+    Height = 957
     Align = alClient
     AutoSize = True
     OnClick = Image1Click
@@ -47,18 +47,20 @@ object Form1: TForm1
     Caption = 'Label1'
   end
   object Memo1: TMemo
-    Left = 1152
-    Top = 824
-    Width = 265
+    Left = 1119
+    Top = 836
+    Width = 281
     Height = 121
+    Anchors = [akRight, akBottom]
     TabOrder = 0
     Visible = False
+    ExplicitTop = 824
   end
   object GridPanel1: TGridPanel
-    Left = 1651
+    Left = 1647
     Top = 0
-    Width = 256
-    Height = 945
+    Width = 259
+    Height = 957
     Margins.Left = 4
     Margins.Top = 4
     Margins.Right = 4
@@ -174,10 +176,12 @@ object Form1: TForm1
       end>
     ShowCaption = False
     TabOrder = 1
+    ExplicitLeft = 1648
+    ExplicitHeight = 945
     object Button1: TButton
       Left = 1
       Top = 1
-      Width = 254
+      Width = 257
       Height = 61
       Margins.Left = 4
       Margins.Top = 4
@@ -187,11 +191,12 @@ object Form1: TForm1
       Caption = #1056#1072#1089#1089#1095#1080#1090#1072#1090#1100' '#1089#1094#1077#1085#1091
       TabOrder = 0
       OnClick = Button1Click
+      ExplicitWidth = 254
     end
     object ComboBox1: TComboBox
       Left = 1
       Top = 62
-      Width = 254
+      Width = 257
       Height = 38
       Margins.Left = 4
       Margins.Top = 4
@@ -206,11 +211,12 @@ object Form1: TForm1
         #1051#1091#1095
         'N-'#1091#1075#1086#1083#1100#1085#1080#1082
         #1057#1074#1077#1076#1077#1085#1080#1103)
+      ExplicitWidth = 254
     end
     object LabeledEdit1: TLabeledEdit
       Left = 1
       Top = 133
-      Width = 151
+      Width = 256
       Height = 38
       Margins.Left = 4
       Margins.Top = 4
@@ -230,7 +236,7 @@ object Form1: TForm1
     object LabeledEdit2: TLabeledEdit
       Left = 1
       Top = 204
-      Width = 151
+      Width = 256
       Height = 38
       Margins.Left = 4
       Margins.Top = 4
@@ -250,7 +256,7 @@ object Form1: TForm1
     object LabeledEdit3: TLabeledEdit
       Left = 1
       Top = 275
-      Width = 151
+      Width = 256
       Height = 38
       Margins.Left = 4
       Margins.Top = 4
@@ -270,7 +276,7 @@ object Form1: TForm1
     object LabeledEdit4: TLabeledEdit
       Left = 1
       Top = 346
-      Width = 151
+      Width = 256
       Height = 38
       Margins.Left = 4
       Margins.Top = 4
@@ -290,7 +296,7 @@ object Form1: TForm1
     object LabeledEdit5: TLabeledEdit
       Left = 1
       Top = 417
-      Width = 146
+      Width = 256
       Height = 38
       Margins.Left = 5
       Margins.Top = 5
@@ -310,7 +316,7 @@ object Form1: TForm1
     object LabeledEditN: TLabeledEdit
       Left = 1
       Top = 488
-      Width = 151
+      Width = 256
       Height = 38
       Margins.Left = 4
       Margins.Top = 4
@@ -330,7 +336,7 @@ object Form1: TForm1
     object LabeledEditX: TLabeledEdit
       Left = 1
       Top = 559
-      Width = 151
+      Width = 256
       Height = 38
       Margins.Left = 4
       Margins.Top = 4
@@ -350,7 +356,7 @@ object Form1: TForm1
     object LabeledEditY: TLabeledEdit
       Left = 1
       Top = 630
-      Width = 151
+      Width = 256
       Height = 38
       Margins.Left = 4
       Margins.Top = 4
@@ -370,7 +376,7 @@ object Form1: TForm1
     object ButtonReject: TButton
       Left = 1
       Top = 713
-      Width = 254
+      Width = 257
       Height = 32
       Margins.Left = 4
       Margins.Top = 4
@@ -381,11 +387,12 @@ object Form1: TForm1
       TabOrder = 11
       Visible = False
       OnClick = ButtonRejectClick
+      ExplicitWidth = 254
     end
     object ButtonAccept: TButton
       Left = 1
       Top = 668
-      Width = 254
+      Width = 257
       Height = 45
       Margins.Left = 4
       Margins.Top = 4
@@ -396,12 +403,13 @@ object Form1: TForm1
       TabOrder = 10
       Visible = False
       OnClick = ButtonAcceptClick
+      ExplicitWidth = 254
     end
   end
   object Panel1: TPanel
     Left = 0
-    Top = 945
-    Width = 1907
+    Top = 957
+    Width = 1906
     Height = 85
     Margins.Left = 4
     Margins.Top = 4
@@ -411,6 +419,8 @@ object Form1: TForm1
     Caption = 'Panel1'
     ShowCaption = False
     TabOrder = 2
+    ExplicitTop = 945
+    ExplicitWidth = 1907
     object LabelDrawScene: TLabel
       Left = 14
       Top = 8
@@ -457,8 +467,8 @@ object Form1: TForm1
     end
   end
   object Panel2: TPanel
-    Left = 1408
-    Top = 824
+    Left = 1407
+    Top = 836
     Width = 243
     Height = 121
     Margins.Left = 4
@@ -468,6 +478,8 @@ object Form1: TForm1
     Anchors = [akRight, akBottom]
     ShowCaption = False
     TabOrder = 3
+    ExplicitLeft = 1408
+    ExplicitTop = 824
     DesignSize = (
       243
       121)
