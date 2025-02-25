@@ -771,8 +771,12 @@ void __fastcall TForm1::N14Click(TObject* Sender)
         LabeledEdit1->Enabled = false;
         LabeledEdit2->Enabled = false;
 
-        start_v = StrToInt(LabeledEdit1->Text) - 1;
-        end_v = StrToInt(LabeledEdit2->Text);
+        start_v = StrToInt(LabeledEdit1->Text);
+		end_v = StrToInt(LabeledEdit2->Text);
+
+        reCalculate();
+		reDraw();
+
         Timer1->Enabled = true;
     }
 }
@@ -786,6 +790,7 @@ void __fastcall TForm1::Timer1Timer(TObject* Sender)
 	if (start_v > end_v) {
 		offfsteam.close();
 		Timer1->Enabled = false;
+        ShowMessage("Conplite");
         return;
     }
     Timer1->Enabled = false;
