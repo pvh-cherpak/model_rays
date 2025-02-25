@@ -140,7 +140,7 @@ bool Optical_devices::check_razn2(point t1, point t2, pryam lin1, pryam lin2)
   return true;
 }
 
-void Optical_devices::zerkalo(ray &r, pryam lin1, point p1, pryam lin2)
+void Optical_devices::zerkalo(ray &r, pryam lin1, point p1, pryam lin2, double shag)
 {
 	/**pryam checker;
 	double sinus;
@@ -191,48 +191,48 @@ void Optical_devices::zerkalo(ray &r, pryam lin1, point p1, pryam lin2)
 
 
 	point checker_point;
-	checker_point.x = p1.x + 0.1;
+	checker_point.x = p1.x + shag;
 	checker_point.y = (-plus_sin.a * checker_point.x - plus_sin.c) / plus_sin.b;
 	if(check_razn2(checker_point, r.s.p1, lin1, lin2))
 	{
 		r.s.p1 = checker_point;
-		checker_point.x = p1.x + 0.2;
+		checker_point.x = p1.x + 2 * shag;
 		checker_point.y = (-plus_sin.a * checker_point.x - plus_sin.c) / plus_sin.b;
 		r.s.p2 = checker_point;
 		r.pr = plus_sin;
 	}
 	else
 	{
-	  checker_point.x = p1.x - 0.1;
+	  checker_point.x = p1.x - shag;
 	  checker_point.y = (-plus_sin.a * checker_point.x - plus_sin.c) / plus_sin.b;
 	  if(check_razn2(checker_point, r.s.p1, lin1, lin2))
 	  {
 		r.s.p1 = checker_point;
-		checker_point.x = p1.x - 0.2;
+		checker_point.x = p1.x - 2 * shag;
 		checker_point.y = (-plus_sin.a * checker_point.x - plus_sin.c) / plus_sin.b;
 		r.s.p2 = checker_point;
 		r.pr = plus_sin;
 	  }
 	  else
 	  {
-		  checker_point.x = p1.x + 0.1;
+		  checker_point.x = p1.x + shag;
 		  checker_point.y = (-min_sin.a * checker_point.x - min_sin.c) / min_sin.b;
 		  if(check_razn2(checker_point, r.s.p1, lin1, lin2))
 		  {
 			r.s.p1 = checker_point;
-			checker_point.x = p1.x + 0.2;
+			checker_point.x = p1.x + 2 * shag;
 			checker_point.y = (-min_sin.a * checker_point.x - min_sin.c) / min_sin.b;
 			r.s.p2 = checker_point;
 			r.pr = min_sin;
 		  }
 		  else
 		  {
-			  checker_point.x = p1.x - 0.1;
+			  checker_point.x = p1.x - shag;
 			  checker_point.y = (-min_sin.a * checker_point.x - min_sin.c) / min_sin.b;
 			  if(check_razn2(checker_point, r.s.p1, lin1, lin2))
 			  {
 				r.s.p1 = checker_point;
-				checker_point.x = p1.x - 0.2;
+				checker_point.x = p1.x - 2 * shag;
 				checker_point.y = (-min_sin.a * checker_point.x - min_sin.c) / min_sin.b;
 				r.s.p2 = checker_point;
 				r.pr = min_sin;
@@ -325,6 +325,35 @@ bool Nugol::check(point p)
     return otv;
 }
 
+bool Nugol::check_better(point p)
+{
+	ray ex_ray;
+	int otv = 0;
+	ex_ray.s.p1 = p;
+	ex_ray.s.p2.x = p.x + shag;
+	ex_ray.s.p2.y = p.y;
+	ex_ray.pr = to_pryam(ex_ray.s);
+
+    for(int i = 0; i < k; i++)
+	{
+		if(is_cross_seg(ex_ray.pr, seg[i]))
+		{
+			point ppp;
+			ppp = tchk_segment_ray(seg[i], ex_ray);
+			if(fabs(ppp.x - seg[i].p1.x) <= 0.1 && fabs(ppp.y - seg[i].p1.y) <= 0.1)
+				continue;
+			if(fabs(ppp.x - seg[i].p2.x) <= 0.1 && fabs(ppp.y - seg[i].p2.y) <= 0.1)
+				continue;
+			if(is_tchk_ray(ex_ray.s, ppp))
+			{
+			   otv++;
+			}
+		}
+	}
+
+	return otv % 2;
+}
+
 void Nugol::set_op_dl_pt(double a)
 {
    op_dl_pt = a;
@@ -356,14 +385,14 @@ void Nugol::get_segments(ray &r, bool &is_pvo, vector < segment > &otr)
     segment otv;
     double mini = -1;
     //nahozhdenie tochki vhoda
-    for(int i = 0; i < k; i++)
-    {
-        if(is_cross_seg(r.pr, seg[i]))
-        {
-            point p;
-            p = tchk_segment_ray(seg[i], r);
-            if(is_tchk_ray(r.s, p))
-            {
+	for(int i = 0; i < k; i++)
+	{
+		if(is_cross_seg(r.pr, seg[i]))
+		{
+			point p;
+			p = tchk_segment_ray(seg[i], r);
+			if(is_tchk_ray(r.s, p))
+			{
                 double l;
                 l = sqrt((r.s.p2.x - p.x) * (r.s.p2.x - p.x) + (r.s.p2.y - p.y) * (r.s.p2.y - p.y));
                 if(mini == -1)
@@ -407,48 +436,48 @@ void Nugol::get_segments(ray &r, bool &is_pvo, vector < segment > &otr)
 
 
 	point checker_point;
-	checker_point.x = p1.x + 0.1;
+	checker_point.x = p1.x + shag;
 	checker_point.y = (-plus_sin.a * checker_point.x - plus_sin.c) / plus_sin.b;
 	if(check_razn(checker_point, r.s.p1, lin1, lin2))
 	{
 		r.s.p1 = checker_point;
-		checker_point.x = p1.x + 0.2;
+		checker_point.x = p1.x + 2 * shag;
 		checker_point.y = (-plus_sin.a * checker_point.x - plus_sin.c) / plus_sin.b;
 		r.s.p2 = checker_point;
 		r.pr = plus_sin;
 	}
 	else
 	{
-	  checker_point.x = p1.x - 0.1;
+	  checker_point.x = p1.x - shag;
 	  checker_point.y = (-plus_sin.a * checker_point.x - plus_sin.c) / plus_sin.b;
 	  if(check_razn(checker_point, r.s.p1, lin1, lin2))
 	  {
 		r.s.p1 = checker_point;
-		checker_point.x = p1.x - 0.2;
+		checker_point.x = p1.x - 2 * shag;
 		checker_point.y = (-plus_sin.a * checker_point.x - plus_sin.c) / plus_sin.b;
 		r.s.p2 = checker_point;
 		r.pr = plus_sin;
 	  }
 	  else
 	  {
-		  checker_point.x = p1.x + 0.1;
+		  checker_point.x = p1.x + shag;
 		  checker_point.y = (-min_sin.a * checker_point.x - min_sin.c) / min_sin.b;
 		  if(check_razn(checker_point, r.s.p1, lin1, lin2))
 		  {
 			r.s.p1 = checker_point;
-			checker_point.x = p1.x + 0.2;
+			checker_point.x = p1.x + 2 * shag;
 			checker_point.y = (-min_sin.a * checker_point.x - min_sin.c) / min_sin.b;
 			r.s.p2 = checker_point;
 			r.pr = min_sin;
 		  }
 		  else
 		  {
-			  checker_point.x = p1.x - 0.1;
+			  checker_point.x = p1.x - shag;
 			  checker_point.y = (-min_sin.a * checker_point.x - min_sin.c) / min_sin.b;
 			  if(check_razn(checker_point, r.s.p1, lin1, lin2))
 			  {
 				r.s.p1 = checker_point;
-				checker_point.x = p1.x - 0.2;
+				checker_point.x = p1.x - 2 * shag;
 				checker_point.y = (-min_sin.a * checker_point.x - min_sin.c) / min_sin.b;
 				r.s.p2 = checker_point;
 				r.pr = min_sin;
@@ -457,59 +486,17 @@ void Nugol::get_segments(ray &r, bool &is_pvo, vector < segment > &otr)
       }
     }
 
-	/**
-	point n_checker_point;
-    n_checker_point.x = p1.x + 1;
-    n_checker_point.y = (-lin2.a * n_checker_point.x - lin2.c) / lin2.b;
-    if(!check(n_checker_point))
-    {
-         n_checker_point.x = p1.x - 1;
-		 n_checker_point.y = (-lin2.a * n_checker_point.x - lin2.c) / lin2.b;
-	}
 
-
-    if(n_checker_point.x - p1.x >= 0)
-    {
-		if(lin2.a * r.s.p2.x + lin2.b * r.s.p2.y + lin2.c < 0)
-		{
-			r.pr.a = tan(-asin(sinus2) + atan(-lin2.a / lin2.b));
-		}
-		else
-		   r.pr.a = tan(-asin(sinus2) + atan(-lin2.a / lin2.b));
-	}
-	else
-	{
-		if(lin2.a * r.s.p2.x + lin2.b * r.s.p2.y + lin2.c < 0)
-			r.pr.a = tan(asin(sinus2) + atan(-lin2.a / lin2.b) + acos(-1));
-		else
-		   r.pr.a = tan(-asin(sinus2) + atan(-lin2.a / lin2.b) + acos(-1));
-	}
-	r.pr.b = -1.;
-	r.pr.c = p1.y - r.pr.a * p1.x;
-
-	point checker_point;
-	checker_point.x = p1.x + 1;
-	checker_point.y = (-r.pr.a * checker_point.x - r.pr.c) / r.pr.b;
-	if(check(checker_point))
-	{
-		r.s.p1 = checker_point;
-		checker_point.x = p1.x + 2;
-		checker_point.y = (-r.pr.a * checker_point.x - r.pr.c) / r.pr.b;
-		r.s.p2 = checker_point;
-	}
-    else
-    {
-        checker_point.x = p1.x - 1;
-        checker_point.y = (-r.pr.a * checker_point.x - r.pr.c) / r.pr.b;
-        r.s.p1 = checker_point;
-        checker_point.x = p1.x - 2;
-        checker_point.y = (-r.pr.a * checker_point.x - r.pr.c) / r.pr.b;
-        r.s.p2 = checker_point;
-	}
-	**/
 
     is_pvo = true;
-    int otrazh = 0;
+	int otrazh = 0;
+   /**if(!check(r.s.p1))
+	{
+		is_pvo = false;
+		otv.p2 = r.s.p1;
+        otr.push_back(otv);
+	} **/
+
     while(is_pvo && otrazh < 10)
     {
         otrazh++;
@@ -551,11 +538,11 @@ void Nugol::get_segments(ray &r, bool &is_pvo, vector < segment > &otr)
 		sinus1 = sin_pr(r.pr, lin2);
 
 		point n_checker_point;
-		n_checker_point.x = p1.x + 0.1;
+		n_checker_point.x = p1.x + shag;
 		n_checker_point.y = (-lin2.a * n_checker_point.x - lin2.c) / lin2.b;
-		if(check(n_checker_point))
+		if(check_better(n_checker_point))
 		{
-			 n_checker_point.x = p1.x - 0.1;
+			 n_checker_point.x = p1.x - shag;
 			 n_checker_point.y = (-lin2.a * n_checker_point.x - lin2.c) / lin2.b;
 		}
 
@@ -564,56 +551,10 @@ void Nugol::get_segments(ray &r, bool &is_pvo, vector < segment > &otr)
 
         if(sinus2 > 1 || sinus2 < -1)
         {
-			zerkalo(r, lin1, p1, lin2);
+			zerkalo(r, lin1, p1, lin2, shag);
         }
         else
         {
-            //????????????????????????????????
-			/**n_checker_point.x = p1.x + 1;
-			n_checker_point.y = (-lin2.a * n_checker_point.x - lin2.c) / lin2.b;
-			if(check(n_checker_point))
-			{
-				 n_checker_point.x = p1.x - 1;
-				 n_checker_point.y = (-lin2.a * n_checker_point.x - lin2.c) / lin2.b;
-			}
-
-
-            if(n_checker_point.x - p1.x >= 0)
-            {
-                if(lin2.a * r.s.p2.x + lin2.b * r.s.p2.y + lin2.c < 0)
-					r.pr.a = tan(-asin(sinus2) + atan(-lin2.a / lin2.b));
-				else
-				   r.pr.a = tan(asin(sinus2) + atan(-lin2.a / lin2.b));
-			}
-			else
-			{
-				if(lin2.a * r.s.p2.x + lin2.b * r.s.p2.y + lin2.c < 0)
-					r.pr.a = tan(asin(sinus2) + atan(-lin2.a / lin2.b) + acos(-1));
-				else
-				   r.pr.a = tan(-asin(sinus2) + atan(-lin2.a / lin2.b) + acos(-1));
-			}
-            r.pr.b = -1.;
-            r.pr.c = p1.y - r.pr.a * p1.x;
-
-
-            checker_point.x = p1.x + 1;
-            checker_point.y = (-r.pr.a * checker_point.x - r.pr.c) / r.pr.b;
-            if(!check(checker_point))
-            {
-                r.s.p1 = checker_point;
-				checker_point.x = p1.x + 2;
-                checker_point.y = (-r.pr.a * checker_point.x - r.pr.c) / r.pr.b;
-                r.s.p2 = checker_point;
-            }
-            else
-            {
-                checker_point.x = p1.x - 1;
-                checker_point.y = (-r.pr.a * checker_point.x - r.pr.c) / r.pr.b;
-                r.s.p1 = checker_point;
-				checker_point.x = p1.x - 2;
-				checker_point.y = (-r.pr.a * checker_point.x - r.pr.c) / r.pr.b;
-				r.s.p2 = checker_point;
-			} **/
 			min_sin.a = tan(-asin(sinus2) + atan(-lin2.a / lin2.b));
 			plus_sin.a = tan(asin(sinus2) + atan(-lin2.a / lin2.b));
 			min_sin.b = -1.;
@@ -622,48 +563,48 @@ void Nugol::get_segments(ray &r, bool &is_pvo, vector < segment > &otr)
 			plus_sin.c = p1.y - plus_sin.a * p1.x;
 
 
-			checker_point.x = p1.x + 0.1;
+			checker_point.x = p1.x + shag;
 			checker_point.y = (-plus_sin.a * checker_point.x - plus_sin.c) / plus_sin.b;
 			if(check_razn(checker_point, r.s.p1, lin1, lin2))
 			{
 				r.s.p1 = checker_point;
-				checker_point.x = p1.x + 0.2;
+				checker_point.x = p1.x + 2 * shag;
 				checker_point.y = (-plus_sin.a * checker_point.x - plus_sin.c) / plus_sin.b;
 				r.s.p2 = checker_point;
 				r.pr = plus_sin;
 			}
 			else
 			{
-			  checker_point.x = p1.x - 0.1;
+			  checker_point.x = p1.x - shag;
 			  checker_point.y = (-plus_sin.a * checker_point.x - plus_sin.c) / plus_sin.b;
 			  if(check_razn(checker_point, r.s.p1, lin1, lin2))
 			  {
 				r.s.p1 = checker_point;
-				checker_point.x = p1.x - 0.2;
+				checker_point.x = p1.x - 2 * shag;
 				checker_point.y = (-plus_sin.a * checker_point.x - plus_sin.c) / plus_sin.b;
 				r.s.p2 = checker_point;
 				r.pr = plus_sin;
 			  }
 			  else
 			  {
-				  checker_point.x = p1.x + 0.1;
+				  checker_point.x = p1.x + shag;
 				  checker_point.y = (-min_sin.a * checker_point.x - min_sin.c) / min_sin.b;
 				  if(check_razn(checker_point, r.s.p1, lin1, lin2))
 				  {
 					r.s.p1 = checker_point;
-					checker_point.x = p1.x + 0.2;
+					checker_point.x = p1.x + 2 * shag;
 					checker_point.y = (-min_sin.a * checker_point.x - min_sin.c) / min_sin.b;
 					r.s.p2 = checker_point;
 					r.pr = min_sin;
 				  }
 				  else
 				  {
-					  checker_point.x = p1.x - 0.1;
+					  checker_point.x = p1.x - shag;
 					  checker_point.y = (-min_sin.a * checker_point.x - min_sin.c) / min_sin.b;
 					  if(check_razn(checker_point, r.s.p1, lin1, lin2))
 					  {
 						r.s.p1 = checker_point;
-						checker_point.x = p1.x - 0.2;
+						checker_point.x = p1.x - 2 * shag;
 						checker_point.y = (-min_sin.a * checker_point.x - min_sin.c) / min_sin.b;
 						r.s.p2 = checker_point;
 						r.pr = min_sin;

@@ -20,6 +20,7 @@ ray r;
 point p3;
 pryam pr;
 int now_dev = -1;
+int kol_full_dev = 0;
 double prel;
 
 //------------------------------------------------------------------------------------
@@ -88,8 +89,8 @@ void __fastcall TForm1::Image1MouseDown(
             Memo1->Lines->Clear();
 
             for (int i = 0; i < vec_N.size(); i++) {
-                if (vec_N[i].check(prov)) {
-                    Memo1->Lines->Insert(
+                if (vec_N[i].check_better(prov)) {
+					Memo1->Lines->Insert(
                         0, "Показатель преломления: " +
                                FloatToStrF(vec_N[i].get_prel(), ffFixed, 8, 3));
                     /**Memo1->Lines->Insert(
@@ -150,7 +151,8 @@ void __fastcall TForm1::ButtonAcceptClick(TObject* Sender)
             seg.p2 = s.front().p1;
             s.push_back(seg);
             vec_N[now_dev].set_Nugol(s.size(), s, tempn);
-            v.resize(0);
+			v.resize(0);
+			kol_full_dev++;
             //            reDraw();
         } break;
         case menu_type::field:
@@ -470,9 +472,20 @@ void __fastcall TForm1::Image1MouseMove(
     TObject* Sender, TShiftState Shift, int X, int Y)
 {
     point_t t = scrin_to_global_metrs(X, Y);
-    LabelPosition->Caption =
-        "X: " + FloatToStr(t.x) + "\nY: " + FloatToStr(t.y);
-    LabelN->Caption = "N: " + FloatToStr(drive.n(t.x, t.y));
+	LabelPosition->Caption =
+		"X: " + FloatToStrF(t.x, ffFixed, 10, 3) + "\nY: " + FloatToStrF(t.y, ffFixed, 10, 3);
+	point poin;
+	poin.x = t.x;
+	poin.y = t.y;
+	for(int i = 0; i < kol_full_dev; i++)
+	{
+		if(vec_N[i].check_better(poin))
+			{
+			  LabelN->Caption = "N: " + FloatToStrF(vec_N[i].get_prel(), ffFixed, 10, 3);
+			  return;
+            }
+	}
+	LabelN->Caption = "N: " + FloatToStrF(drive.n(t.x, t.y), ffFixed, 10, 3);
 }
 //---------------------------------------------------------------------------
 
@@ -598,7 +611,7 @@ void __fastcall TForm1::N3Click(TObject* Sender)
 
 void __fastcall TForm1::N5Click(TObject* Sender)
 {
-    if (OpenTextFileDialog1->Execute()) {
+	if (OpenTextFileDialog1->Execute()) {
         String S = OpenTextFileDialog1->FileName;
         string s = AnsiString(S.c_str()).c_str();
         ifstream fin(s);
@@ -620,8 +633,9 @@ void __fastcall TForm1::N5Click(TObject* Sender)
         fin.ignore(50, ' ');
         int vec_N_size = 0;
         fin >> vec_N_size;
-        vec_N.resize(vec_N_size);
-        now_dev = vec_N_size - 1;
+		vec_N.resize(vec_N_size);
+        kol_full_dev = vec_N_size;
+		now_dev = vec_N_size - 1;
         for (auto &i : vec_N) {
             fin.ignore(50, ' ');
             double act_n;
