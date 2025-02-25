@@ -1,7 +1,7 @@
 object Form1: TForm1
   Left = 0
   Top = 0
-  Caption = #1052#1086#1076#1077#1083#1080#1088#1086#1074#1072#1085#1087#1077' '#1086#1087#1090#1080#1095#1077#1089#1082#1080#1093' '#1083#1091#1095#1077#1081
+  Caption = #1052#1086#1076#1077#1083#1080#1088#1086#1074#1072#1085#1080#1077' '#1086#1087#1090#1080#1095#1077#1089#1082#1080#1093' '#1083#1091#1095#1077#1081
   ClientHeight = 1030
   ClientWidth = 1906
   Color = clBtnFace
@@ -337,7 +337,7 @@ object Form1: TForm1
     object LabeledEditX: TLabeledEdit
       Left = 1
       Top = 559
-      Width = 151
+      Width = 256
       Height = 38
       Margins.Left = 4
       Margins.Top = 4
@@ -357,7 +357,7 @@ object Form1: TForm1
     object LabeledEditY: TLabeledEdit
       Left = 1
       Top = 630
-      Width = 151
+      Width = 256
       Height = 38
       Margins.Left = 4
       Margins.Top = 4
