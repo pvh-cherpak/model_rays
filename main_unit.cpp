@@ -84,24 +84,24 @@ void __fastcall TForm1::Image1MouseDown(
             prov.x =
                 (X + user_rect.Left - VI_centre) / (double)pixels_per_meter;
             prov.y =
-				(VI_centre - (Y + user_rect.Top)) / (double)pixels_per_meter;
+                (VI_centre - (Y + user_rect.Top)) / (double)pixels_per_meter;
             Memo1->Lines->Clear();
 
             for (int i = 0; i < vec_N.size(); i++) {
                 if (vec_N[i].check(prov)) {
-					Memo1->Lines->Insert(
+                    Memo1->Lines->Insert(
                         0, "Показатель преломления: " +
                                FloatToStrF(vec_N[i].get_prel(), ffFixed, 8, 3));
-					/**Memo1->Lines->Insert(
+                    /**Memo1->Lines->Insert(
                         1, "Оптическая длина пути: " +
                                FloatToStrF(
                                    vec_N[i].get_op_dl_pt() * pixels_per_meter,
                                    ffFixed, 8, 3) +
 							   " м");  **/
                     Memo1->Lines->Insert(
-						1, "Угол входа (к нормали): " +
-							   IntToStr(vec_N[i].get_ugl_vhoda()) + "°");
-					Memo1->Lines->Insert(
+                        1, "Угол входа (к нормали): " +
+                               IntToStr(vec_N[i].get_ugl_vhoda()) + "°");
+                    Memo1->Lines->Insert(
                         2, "Угол выхода (к нормали): " +
                                IntToStr(vec_N[i].get_ugl_vyhoda()) + "°");
                 }
@@ -129,7 +129,8 @@ int new_draw_precision;
 int new_number_of_ray_points;
 void __fastcall TForm1::ButtonAcceptClick(TObject* Sender)
 {
-    ButtonAccept->Visible = false;
+	ButtonAccept->Visible = false;
+    ButtonAccept->Visible = true;
     string formula;
     switch (selected_type) {
         case menu_type::ray_source:
@@ -177,12 +178,18 @@ void __fastcall TForm1::ButtonAcceptClick(TObject* Sender)
             if (new_step != step) {
                 step = new_step;
                 need_to_redraw = true;
-            }
+			}
+
+			float new_heat_normalized_coeff = StrToFloat(LabeledEditN->Text)-1;
+			if(new_heat_normalized_coeff != heat_normalized_coeff){
+				need_to_redraw = true;
+                heat_normalized_coeff = new_heat_normalized_coeff;
+			}
 
             formula = AnsiString(LabeledEdit1->Text).c_str();
             if (formula != drive.get_n_expression_str() &&
                 drive.set_new_n_expression(formula))
-                need_to_redraw = true;
+				need_to_redraw = true;
 
             if (need_to_redraw) {
                 calculate_heat_map();
@@ -191,8 +198,7 @@ void __fastcall TForm1::ButtonAcceptClick(TObject* Sender)
                 //                reDraw();
             }
             break;
-    }
-    ButtonAccept->Visible = true;
+	}
     reDraw();
 }
 //---------------------------------------------------------------------------
@@ -235,24 +241,25 @@ void TForm1::reDraw()
         if (fabs(s[0].p1.x - s.back().p2.x) <= 0.000001 &&
             fabs(s[0].p1.y - s.back().p2.y) <= 0.000001)
         {
-			double n = vec_N[i].get_prel();
-			TColor kol = get_heat_color(n);
-			TColor kol2 = (TColor)RGB(GetRValue(kol), GetGValue(kol), GetBValue(kol));
+            double n = vec_N[i].get_prel();
+            TColor kol = get_heat_color(n);
+            TColor kol2 =
+                (TColor)RGB(GetRValue(kol), GetGValue(kol), GetBValue(kol));
 
-			Virtual_Image->Canvas->Brush->Color = kol2;
+            Virtual_Image->Canvas->Brush->Color = kol2;
 
-			double x_ris, y_ris, x_ris2, y_ris2;
+            double x_ris, y_ris, x_ris2, y_ris2;
             x_ris = (s[0].p1.x + s[0].p2.x) / 2.;
             x_ris2 = (s[1].p1.x + s[1].p2.x) / 2.;
             y_ris = (s[0].p1.y + s[0].p2.y) / 2.;
-			y_ris2 = (s[1].p1.y + s[1].p2.y) / 2.;
+            y_ris2 = (s[1].p1.y + s[1].p2.y) / 2.;
             x_ris = (x_ris + x_ris2) / 2.;
             y_ris = (y_ris + y_ris2) / 2.;
             x_ris = x_ris * pixels_per_meter + VI_centre;
             y_ris = -y_ris * pixels_per_meter + VI_centre;
-			Virtual_Image->Canvas->FloodFill(x_ris, y_ris, clBlack, fsBorder);
-			//Virtual_Image->Canvas->Brush->Color = clBlack;
-		}
+            Virtual_Image->Canvas->FloodFill(x_ris, y_ris, clBlack, fsBorder);
+            //Virtual_Image->Canvas->Brush->Color = clBlack;
+        }
     }
 
     Virtual_Image->Canvas->Pen->Color = clYellow;
@@ -480,19 +487,18 @@ void TForm1::calculate_heat_map()
         unsigned char* row = static_cast<unsigned char*>(Heat_map->ScanLine[y]);
 #endif
         for (int x = 0; x < VI_size; x++) {
-			double n =
-				drive.n((x - VI_centre) / ppm, (VI_centre - y) / ppm);
-			TColor color = get_heat_color(n);
+            double n = drive.n((x - VI_centre) / ppm, (VI_centre - y) / ppm);
+            TColor color = get_heat_color(n);
 
 #ifdef HEAT_MAP_POINTER_DRAW
-			row[x * 3] = GetBValue(color); // Синий канал
-			row[x * 3 + 1] = GetGValue(color); // Зеленый канал
-			row[x * 3 + 2] = GetRValue(color); // Красный каналE
+            row[x * 3] = GetBValue(color); // Синий канал
+            row[x * 3 + 1] = GetGValue(color); // Зеленый канал
+            row[x * 3 + 2] = GetRValue(color); // Красный каналE
 #else
-			Heat_map->Canvas->Pixels[x][y] = color;
+            Heat_map->Canvas->Pixels[x][y] = color;
 #endif
         }
-	}
+    }
 
     auto end = std::chrono::high_resolution_clock::now();
 
@@ -504,8 +510,8 @@ void TForm1::calculate_heat_map()
 
 void __fastcall TForm1::ComboBox1Change(TObject* Sender)
 {
-	hide_menu();
-    ButtonReject->Visible=true;
+    hide_menu();
+    ButtonReject->Visible = true;
     switch (ComboBox1->ItemIndex) {
         case 0:
             selected_type = menu_type::field;
@@ -525,28 +531,31 @@ void __fastcall TForm1::ComboBox1Change(TObject* Sender)
             LabeledEdit5->EditLabel->Caption = "Шаг интегрирования (м): ";
             LabeledEdit5->Text = FloatToStr(step);
 
+            LabeledEditN->Text = FloatToStr(heat_normalized_coeff + 1);
+
             LabeledEdit1->Visible = true;
             LabeledEdit2->Visible = true;
             LabeledEdit3->Visible = true;
             LabeledEdit4->Visible = true;
             LabeledEdit5->Visible = true;
+            LabeledEditN->Visible = true;
             ButtonAccept->Visible = true;
             break;
 
         default:
             selected_device = -1;
             break;
-	}
-	ComboBox1->Visible=false;
-	ComboBox1->Visible=true;
+    }
+    ComboBox1->Visible = false;
+    ComboBox1->Visible = true;
 }
 //---------------------------------------------------------------------------
 
 void __fastcall TForm1::N2Click(TObject* Sender)
 {
     rays_soursec.clear();
-	vec_N.clear();
-	points.clear();
+    vec_N.clear();
+    points.clear();
     now_dev = -1;
 
     user_rect = Bounds(VI_centre - Image1->Width / 2,
@@ -595,7 +604,7 @@ void __fastcall TForm1::N5Click(TObject* Sender)
         ifstream fin(s);
 
         string expr;
-		getline(fin, expr);
+        getline(fin, expr);
         fin.ignore();
         drive.set_new_n_expression(expr);
 
@@ -611,7 +620,7 @@ void __fastcall TForm1::N5Click(TObject* Sender)
         fin.ignore(50, ' ');
         int vec_N_size = 0;
         fin >> vec_N_size;
-		vec_N.resize(vec_N_size);
+        vec_N.resize(vec_N_size);
         now_dev = vec_N_size - 1;
         for (auto &i : vec_N) {
             fin.ignore(50, ' ');
@@ -625,16 +634,14 @@ void __fastcall TForm1::N5Click(TObject* Sender)
                 fin >> j.p1.x >> j.p1.y >> j.p2.x >> j.p2.y;
             i.set_Nugol(lot_gran, vec, act_n);
         }
-		fin.close();
-
-
+        fin.close();
 
         calculate_heat_map();
-		DrawCoordinates(Heat_map->Canvas, pixels_per_meter);
-		reCalculate();
-		reDraw();
+        DrawCoordinates(Heat_map->Canvas, pixels_per_meter);
+        reCalculate();
+        reDraw();
         ComboBox1Change(this);
-	}
+    }
 }
 //---------------------------------------------------------------------------
 
