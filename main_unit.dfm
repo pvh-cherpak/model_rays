@@ -19,14 +19,14 @@ object Form1: TForm1
   OnKeyDown = FormKeyDown
   OnResize = FormResize
   DesignSize = (
-    1909
-    1026)
+    1906
+    1030)
   TextHeight = 30
   object Image1: TImage
     Left = 0
     Top = 0
-    Width = 1650
-    Height = 941
+    Width = 1647
+    Height = 945
     Align = alClient
     AutoSize = True
     OnClick = Image1Click
@@ -47,8 +47,8 @@ object Form1: TForm1
     Caption = 'Label1'
   end
   object Memo1: TMemo
-    Left = 1169
-    Top = 832
+    Left = 1163
+    Top = 824
     Width = 265
     Height = 121
     Anchors = [akRight, akBottom]
@@ -60,14 +60,12 @@ object Form1: TForm1
     ParentFont = False
     TabOrder = 0
     Visible = False
-    ExplicitLeft = 1164
-    ExplicitTop = 828
   end
   object GridPanel1: TGridPanel
-    Left = 1650
+    Left = 1647
     Top = 0
     Width = 259
-    Height = 941
+    Height = 945
     Margins.Left = 4
     Margins.Top = 4
     Margins.Right = 4
@@ -183,9 +181,8 @@ object Form1: TForm1
       end>
     ShowCaption = False
     TabOrder = 1
-    ExplicitLeft = 1647
-    ExplicitTop = -8
-    ExplicitHeight = 945
+    ExplicitLeft = 1645
+    ExplicitHeight = 937
     object Button1: TButton
       Left = 1
       Top = 1
@@ -408,14 +405,12 @@ object Form1: TForm1
       TabOrder = 10
       Visible = False
       OnClick = ButtonAcceptClick
-      ExplicitLeft = 7
-      ExplicitTop = 660
     end
   end
   object Panel1: TPanel
     Left = 0
-    Top = 941
-    Width = 1909
+    Top = 945
+    Width = 1906
     Height = 85
     Margins.Left = 4
     Margins.Top = 4
@@ -473,10 +468,10 @@ object Form1: TForm1
     end
   end
   object Panel2: TPanel
-    Left = 1441
-    Top = 832
-    Width = 211
-    Height = 109
+    Left = 1428
+    Top = 844
+    Width = 219
+    Height = 101
     Margins.Left = 4
     Margins.Top = 4
     Margins.Right = 4
@@ -484,14 +479,12 @@ object Form1: TForm1
     Anchors = [akRight, akBottom]
     ShowCaption = False
     TabOrder = 3
-    ExplicitLeft = 1436
-    ExplicitTop = 828
     DesignSize = (
-      211
-      109)
+      219
+      101)
     object LabelN: TLabel
-      Left = 16
-      Top = 62
+      Left = 5
+      Top = 56
       Width = 65
       Height = 30
       Margins.Left = 4
@@ -500,11 +493,10 @@ object Form1: TForm1
       Margins.Bottom = 4
       Anchors = []
       Caption = 'LabelN'
-      ExplicitLeft = 13
     end
     object LabelPosition: TLabel
-      Left = 18
-      Top = 3
+      Left = 5
+      Top = 2
       Width = 122
       Height = 30
       Margins.Left = 4
@@ -513,11 +505,10 @@ object Form1: TForm1
       Margins.Bottom = 4
       Anchors = []
       Caption = 'LabelPosition'
-      ExplicitLeft = 13
     end
   end
   object MainMenu1: TMainMenu
-    Left = 16
+    Left = 40
     Top = 8
     object N1: TMenuItem
       Caption = #1060#1072#1081#1083
@@ -557,19 +548,40 @@ object Form1: TForm1
         OnClick = N10Click
       end
     end
+    object N11: TMenuItem
+      Caption = #1058#1077#1089#1090#1099
+      object N12: TMenuItem
+        Caption = #1042#1088#1077#1084#1103' '#1086#1090#1088#1080#1089#1086#1074#1082#1080' '#1083#1091#1095#1072
+        object N13: TMenuItem
+          Caption = #1053#1072#1089#1090#1088#1086#1081#1082#1072
+          OnClick = N13Click
+        end
+        object N14: TMenuItem
+          Caption = #1047#1072#1087#1091#1089#1082
+          OnClick = N14Click
+        end
+      end
+    end
   end
   object OpenTextFileDialog1: TOpenTextFileDialog
     DefaultExt = 'txt'
-    Left = 72
-    Top = 8
+    Left = 40
+    Top = 120
   end
   object SaveTextFileDialog1: TSaveTextFileDialog
     DefaultExt = 'txt'
-    Left = 136
-    Top = 16
+    Left = 40
+    Top = 64
   end
   object ColorDialog1: TColorDialog
-    Left = 192
-    Top = 48
+    Left = 40
+    Top = 176
+  end
+  object Timer1: TTimer
+    Enabled = False
+    Interval = 500
+    OnTimer = Timer1Timer
+    Left = 144
+    Top = 8
   end
 end

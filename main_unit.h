@@ -82,6 +82,11 @@ class TForm1 : public TForm
 	TPanel *Panel1;
 	TLabel *Label1;
 	TPanel *Panel2;
+	TMenuItem *N11;
+	TMenuItem *N12;
+	TMenuItem *N13;
+	TMenuItem *N14;
+	TTimer *Timer1;
     void __fastcall Image1Click(TObject* Sender);
     void __fastcall Image1MouseDown(
         TObject* Sender, TMouseButton Button, TShiftState Shift, int X, int Y);
@@ -103,6 +108,9 @@ class TForm1 : public TForm
 	void __fastcall N10Click(TObject *Sender);
 	void __fastcall N4Click(TObject *Sender);
 	void __fastcall FormResize(TObject *Sender);
+	void __fastcall N13Click(TObject *Sender);
+	void __fastcall N14Click(TObject *Sender);
+	void __fastcall Timer1Timer(TObject *Sender);
   private: // User declarations
     menu_type selected_type = menu_type::NONE;
     Graphics::TBitmap* Virtual_Image = new Graphics::TBitmap();

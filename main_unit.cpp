@@ -90,7 +90,7 @@ void __fastcall TForm1::Image1MouseDown(
 
             for (int i = 0; i < vec_N.size(); i++) {
                 if (vec_N[i].check_better(prov)) {
-					Memo1->Lines->Insert(
+                    Memo1->Lines->Insert(
                         0, "Показатель преломления: " +
                                FloatToStrF(vec_N[i].get_prel(), ffFixed, 8, 3));
                     /**Memo1->Lines->Insert(
@@ -130,7 +130,7 @@ int new_draw_precision;
 int new_number_of_ray_points;
 void __fastcall TForm1::ButtonAcceptClick(TObject* Sender)
 {
-	ButtonAccept->Visible = false;
+    ButtonAccept->Visible = false;
     ButtonAccept->Visible = true;
     string formula;
     switch (selected_type) {
@@ -151,8 +151,8 @@ void __fastcall TForm1::ButtonAcceptClick(TObject* Sender)
             seg.p2 = s.front().p1;
             s.push_back(seg);
             vec_N[now_dev].set_Nugol(s.size(), s, tempn);
-			v.resize(0);
-			kol_full_dev++;
+            v.resize(0);
+            kol_full_dev++;
             //            reDraw();
         } break;
         case menu_type::field:
@@ -180,18 +180,19 @@ void __fastcall TForm1::ButtonAcceptClick(TObject* Sender)
             if (new_step != step) {
                 step = new_step;
                 need_to_redraw = true;
-			}
+            }
 
-			float new_heat_normalized_coeff = StrToFloat(LabeledEditN->Text)-1;
-			if(new_heat_normalized_coeff != heat_normalized_coeff){
-				need_to_redraw = true;
+            float new_heat_normalized_coeff =
+                StrToFloat(LabeledEditN->Text) - 1;
+            if (new_heat_normalized_coeff != heat_normalized_coeff) {
+                need_to_redraw = true;
                 heat_normalized_coeff = new_heat_normalized_coeff;
-			}
+            }
 
             formula = AnsiString(LabeledEdit1->Text).c_str();
             if (formula != drive.get_n_expression_str() &&
                 drive.set_new_n_expression(formula))
-				need_to_redraw = true;
+                need_to_redraw = true;
 
             if (need_to_redraw) {
                 calculate_heat_map();
@@ -200,7 +201,7 @@ void __fastcall TForm1::ButtonAcceptClick(TObject* Sender)
                 //                reDraw();
             }
             break;
-	}
+    }
     reDraw();
 }
 //---------------------------------------------------------------------------
@@ -472,20 +473,19 @@ void __fastcall TForm1::Image1MouseMove(
     TObject* Sender, TShiftState Shift, int X, int Y)
 {
     point_t t = scrin_to_global_metrs(X, Y);
-	LabelPosition->Caption =
-		"X: " + FloatToStrF(t.x, ffFixed, 10, 3) + "\nY: " + FloatToStrF(t.y, ffFixed, 10, 3);
-	point poin;
-	poin.x = t.x;
-	poin.y = t.y;
-	for(int i = 0; i < kol_full_dev; i++)
-	{
-		if(vec_N[i].check_better(poin))
-			{
-			  LabelN->Caption = "N: " + FloatToStrF(vec_N[i].get_prel(), ffFixed, 10, 3);
-			  return;
-            }
-	}
-	LabelN->Caption = "N: " + FloatToStrF(drive.n(t.x, t.y), ffFixed, 10, 3);
+    LabelPosition->Caption = "X: " + FloatToStrF(t.x, ffFixed, 10, 3) +
+                             "\nY: " + FloatToStrF(t.y, ffFixed, 10, 3);
+    point poin;
+    poin.x = t.x;
+    poin.y = t.y;
+    for (int i = 0; i < kol_full_dev; i++) {
+        if (vec_N[i].check_better(poin)) {
+            LabelN->Caption =
+                "N: " + FloatToStrF(vec_N[i].get_prel(), ffFixed, 10, 3);
+            return;
+        }
+    }
+    LabelN->Caption = "N: " + FloatToStrF(drive.n(t.x, t.y), ffFixed, 10, 3);
 }
 //---------------------------------------------------------------------------
 
@@ -611,7 +611,7 @@ void __fastcall TForm1::N3Click(TObject* Sender)
 
 void __fastcall TForm1::N5Click(TObject* Sender)
 {
-	if (OpenTextFileDialog1->Execute()) {
+    if (OpenTextFileDialog1->Execute()) {
         String S = OpenTextFileDialog1->FileName;
         string s = AnsiString(S.c_str()).c_str();
         ifstream fin(s);
@@ -633,9 +633,9 @@ void __fastcall TForm1::N5Click(TObject* Sender)
         fin.ignore(50, ' ');
         int vec_N_size = 0;
         fin >> vec_N_size;
-		vec_N.resize(vec_N_size);
+        vec_N.resize(vec_N_size);
         kol_full_dev = vec_N_size;
-		now_dev = vec_N_size - 1;
+        now_dev = vec_N_size - 1;
         for (auto &i : vec_N) {
             fin.ignore(50, ' ');
             double act_n;
@@ -744,6 +744,85 @@ void __fastcall TForm1::FormResize(TObject* Sender)
     show();
 
     //	ShowMessage(IntToStr(Image1->Width));
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::N13Click(TObject* Sender)
+{
+    ComboBox1->Enabled = false;
+    LabeledEdit1->EditLabel->Caption = "Начальное значение";
+    LabeledEdit2->EditLabel->Caption = "Конечное значение";
+    LabeledEdit1->Visible = true;
+    LabeledEdit2->Visible = true;
+}
+//---------------------------------------------------------------------------
+
+ofstream offfsteam;
+int start_v;
+int end_v;
+
+void __fastcall TForm1::N14Click(TObject* Sender)
+{
+    if (SaveTextFileDialog1->Execute()) {
+        String S = SaveTextFileDialog1->FileName;
+        string s = AnsiString(S.c_str()).c_str();
+        offfsteam.open(s);
+
+        LabeledEdit1->Enabled = false;
+        LabeledEdit2->Enabled = false;
+
+        start_v = StrToInt(LabeledEdit1->Text) - 1;
+        end_v = StrToInt(LabeledEdit2->Text);
+        Timer1->Enabled = true;
+    }
+}
+//---------------------------------------------------------------------------
+
+int couuuuuuuunter = 0;
+double summmmmmmmmmmmmmmmmmmmmmmm = 0;
+vector<double> measurement(10);
+void __fastcall TForm1::Timer1Timer(TObject* Sender)
+{
+	if (start_v > end_v) {
+		offfsteam.close();
+		Timer1->Enabled = false;
+        return;
+    }
+    Timer1->Enabled = false;
+
+    int value = start_v;
+    if (couuuuuuuunter == 10) {
+        double avg = summmmmmmmmmmmmmmmmmmmmmmm / measurement.size();
+
+        double sum_pog = 0;
+        for (auto &i : measurement)
+            sum_pog += abs(avg - i);
+
+        double absolut_pog = sum_pog / measurement.size();
+
+        offfsteam << value << ' ' << avg << ' ' << absolut_pog << ' '
+                  << absolut_pog / avg << endl;
+
+		start_v++;
+        value++;
+		couuuuuuuunter = 0;
+        summmmmmmmmmmmmmmmmmmmmmmm = 0;
+	}
+
+    LabelN->Caption = "value: " + IntToStr(value);
+    draw_precision = value;
+
+
+
+	auto start = std::chrono::high_resolution_clock::now();
+	reDraw();
+	auto end = std::chrono::high_resolution_clock::now();
+	std::chrono::duration<double> elapsed = end - start;
+    measurement[couuuuuuuunter] = elapsed.count();
+	summmmmmmmmmmmmmmmmmmmmmmm += measurement[couuuuuuuunter];
+
+	couuuuuuuunter++;
+    Timer1->Enabled = true;
 }
 //---------------------------------------------------------------------------
 
