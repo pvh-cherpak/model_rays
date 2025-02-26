@@ -198,6 +198,7 @@ void __fastcall TForm1::ButtonAcceptClick(TObject* Sender)
                 calculate_heat_map();
                 DrawCoordinates(Heat_map->Canvas, pixels_per_meter);
                 reCalculate();
+                reCalcLegend();
                 //                reDraw();
             }
             break;
@@ -349,9 +350,9 @@ void TForm1::draw_ray_source(ray_t &ray_source)
 void __fastcall TForm1::Button1Click(TObject* Sender)
 {
     Button1->Visible = false;
+    Button1->Visible = true;
     reCalculate();
     reDraw();
-    Button1->Visible = true;
 }
 //---------------------------------------------------------------------------
 
@@ -404,6 +405,7 @@ void __fastcall TForm1::FormCreate(TObject* Sender)
     Heat_map->Width = VI_size;
     Heat_map->Height = VI_size;
     Heat_map->PixelFormat = pf24bit;
+    Legend_heat_map->PixelFormat = pf24bit;
 
     heat_normalized_coeff = 2;
 #ifdef HSL_LINER_GRAD
@@ -420,6 +422,7 @@ void __fastcall TForm1::FormCreate(TObject* Sender)
     update_grad_delt();
 #endif
 
+    reCalcLegend();
     calculate_heat_map();
 
     DrawCoordinates(Heat_map->Canvas, pixels_per_meter);
@@ -668,6 +671,7 @@ void __fastcall TForm1::N7Click(TObject* Sender)
     calculate_heat_map();
     DrawCoordinates(Heat_map->Canvas, pixels_per_meter);
     reDraw();
+    reCalcLegend();
 }
 //---------------------------------------------------------------------------
 
@@ -680,6 +684,7 @@ void __fastcall TForm1::N8Click(TObject* Sender)
     calculate_heat_map();
     DrawCoordinates(Heat_map->Canvas, pixels_per_meter);
     reDraw();
+    reCalcLegend();
 }
 //---------------------------------------------------------------------------
 
@@ -742,7 +747,7 @@ void __fastcall TForm1::FormResize(TObject* Sender)
     screen_rect = Bounds(0, 0, Image1->Width, Image1->Height);
 
     show();
-
+    reCalcLegend();
     //	ShowMessage(IntToStr(Image1->Width));
 }
 //---------------------------------------------------------------------------
@@ -772,10 +777,10 @@ void __fastcall TForm1::N14Click(TObject* Sender)
         LabeledEdit2->Enabled = false;
 
         start_v = StrToInt(LabeledEdit1->Text);
-		end_v = StrToInt(LabeledEdit2->Text);
+        end_v = StrToInt(LabeledEdit2->Text);
 
         reCalculate();
-		reDraw();
+        reDraw();
 
         Timer1->Enabled = true;
     }
@@ -787,9 +792,9 @@ double summmmmmmmmmmmmmmmmmmmmmmm = 0;
 vector<double> measurement(10);
 void __fastcall TForm1::Timer1Timer(TObject* Sender)
 {
-	if (start_v > end_v) {
-		offfsteam.close();
-		Timer1->Enabled = false;
+    if (start_v > end_v) {
+        offfsteam.close();
+        Timer1->Enabled = false;
         ShowMessage("Conplite");
         return;
     }
@@ -808,26 +813,95 @@ void __fastcall TForm1::Timer1Timer(TObject* Sender)
         offfsteam << value << ' ' << avg << ' ' << absolut_pog << ' '
                   << absolut_pog / avg << endl;
 
-		start_v++;
+        start_v++;
         value++;
-		couuuuuuuunter = 0;
+        couuuuuuuunter = 0;
         summmmmmmmmmmmmmmmmmmmmmmm = 0;
-	}
+    }
 
     LabelN->Caption = "value: " + IntToStr(value);
     draw_precision = value;
 
-
-
-	auto start = std::chrono::high_resolution_clock::now();
-	reDraw();
-	auto end = std::chrono::high_resolution_clock::now();
-	std::chrono::duration<double> elapsed = end - start;
+    auto start = std::chrono::high_resolution_clock::now();
+    reDraw();
+    auto end = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double> elapsed = end - start;
     measurement[couuuuuuuunter] = elapsed.count();
-	summmmmmmmmmmmmmmmmmmmmmmm += measurement[couuuuuuuunter];
+    summmmmmmmmmmmmmmmmmmmmmmm += measurement[couuuuuuuunter];
 
-	couuuuuuuunter++;
+    couuuuuuuunter++;
     Timer1->Enabled = true;
 }
 //---------------------------------------------------------------------------
+void TForm1::reCalcLegend()
+{
+    Legend_heat_map->Height = Image2->Height;
+    Legend_heat_map->Width = Image2->Width;
 
+    double nn = 1;
+    double n_step = heat_normalized_coeff / Image2->Height;
+
+    for (int y = Image2->Height - 1; y >= 0; y--) {
+        unsigned char* row =
+            static_cast<unsigned char*>(Legend_heat_map->ScanLine[y]);
+        TColor color = get_heat_color(nn);
+        for (int x = 0; x < Image2->Width; x++) {
+            row[x * 3] = GetBValue(color); // Синий канал
+            row[x * 3 + 1] = GetGValue(color); // Зеленый канал
+            row[x * 3 + 2] = GetRValue(color); // Красный каналE
+        }
+        nn += n_step;
+    }
+
+	DrawHeatmapLegend(Legend_heat_map, 1, heat_normalized_coeff + 1, { 1 + heat_normalized_coeff / 4,  1 + heat_normalized_coeff / 4 * 3, 1 + heat_normalized_coeff / 2});
+
+    Image2->Picture->Assign(Legend_heat_map);
+}
+
+void TForm1::DrawHeatmapLegend(TBitmap* bitmap, double minValue,
+    double maxValue, const std::vector<double> &values)
+{
+    // Настройки шрифта и цвета текста
+    bitmap->Canvas->Font->Name = "Arial";
+    bitmap->Canvas->Font->Size = 10;
+	bitmap->Canvas->Font->Color = clBlack;
+	bitmap->Canvas->Brush->Style = bsClear; // Прозрачный фон для текста
+
+    // Высота градиента
+    int gradientHeight = bitmap->Height;
+
+    // Ширина столбца для белого фона под текстом
+    int textBackgroundWidth = 50; // Ширина белого фона
+    int textPadding = 5; // Отступ текста от краев белого фона
+
+	bitmap->Canvas->Brush->Color = clWhite;
+    bitmap->Canvas->Brush->Style = bsSolid;
+    bitmap->Canvas->FillRect(TRect(0, 0, bitmap->Width / 2, bitmap->Height));
+
+    // Рисуем подпись для минимального значения
+	String minLabel = "<" + FloatToStrF(minValue, ffFixed, 10, 2);
+    int textHeight = bitmap->Canvas->TextHeight(minLabel);
+	bitmap->Canvas->TextOut(5, gradientHeight - textHeight - 4, minLabel);
+
+    // Рисуем подпись для максимального значения
+	String maxLabel = ">" + FloatToStrF(maxValue, ffFixed, 10, 2);
+	bitmap->Canvas->TextOut(5, 1, maxLabel);
+
+    // Рисуем подписи для произвольных значений
+    for (double value : values) {
+        // Вычисляем позицию для текущего значения на градиенте
+        double ratio = (value - minValue) / (maxValue - minValue);
+        int yPos = gradientHeight - static_cast<int>(ratio * gradientHeight);
+
+        // Рисуем подпись
+		String label = FloatToStrF(value, ffFixed, 10, 2);
+		bitmap->Canvas->TextOut(5, yPos - textHeight / 2, label);
+	}
+
+
+	// ОКАНТВОКА
+	bitmap->Canvas->Brush->Style = bsClear;
+	bitmap->Canvas->Pen->Color = clBlack;
+	bitmap->Canvas->Pen->Width = 5;
+	bitmap->Canvas->Rectangle(0, 0, bitmap->Width, bitmap->Height); bitmap->Canvas->Brush->Style = bsSolid;
+}

@@ -87,6 +87,7 @@ class TForm1 : public TForm
 	TMenuItem *N13;
 	TMenuItem *N14;
 	TTimer *Timer1;
+	TImage *Image2;
     void __fastcall Image1Click(TObject* Sender);
     void __fastcall Image1MouseDown(
         TObject* Sender, TMouseButton Button, TShiftState Shift, int X, int Y);
@@ -115,6 +116,7 @@ class TForm1 : public TForm
     menu_type selected_type = menu_type::NONE;
     Graphics::TBitmap* Virtual_Image = new Graphics::TBitmap();
 	Graphics::TBitmap* Heat_map = new Graphics::TBitmap();
+	Graphics::TBitmap* Legend_heat_map = new Graphics::TBitmap();
     TColor ColorRay, ColorRayError;
 
     TRect screen_rect;
@@ -137,6 +139,8 @@ class TForm1 : public TForm
 
 	basicDrive_t drive = basicDrive_t(points, rays_soursec,
 	errors, vec_N, necessary_index, number_of_ray_points, step);
+
+    private:
 	void hide_menu();
 	void create_optecal_dev_menu();
 
@@ -146,6 +150,8 @@ class TForm1 : public TForm
     void calculate_heat_map();
 	void reDraw();
 	void reCalculate();
+	void reCalcLegend();
+	void DrawHeatmapLegend(TBitmap* bitmap, double minValue, double maxValue, const std::vector<double>& values);
     //	std::vector<Ray_t>& Rays;
     //	UI_t(OpticalDevices, Rays);
   public: // User declarations
