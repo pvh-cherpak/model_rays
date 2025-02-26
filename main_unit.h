@@ -119,7 +119,8 @@ class TForm1 : public TForm
 	Graphics::TBitmap* Legend_heat_map = new Graphics::TBitmap();
     TColor ColorRay, ColorRayError;
 
-    TRect screen_rect;
+	TRect screen_rect;
+    TRect VI_rect;
 
     std::vector<TLabeledEdit*> menu_LE = { LabeledEdit1, LabeledEdit2,
         LabeledEdit3, LabeledEdit4 };
@@ -140,7 +141,7 @@ class TForm1 : public TForm
 	basicDrive_t drive = basicDrive_t(points, rays_soursec,
 	errors, vec_N, necessary_index, number_of_ray_points, step);
 
-    private:
+  private:
 	void hide_menu();
 	void create_optecal_dev_menu();
 

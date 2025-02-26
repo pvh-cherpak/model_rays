@@ -196,7 +196,8 @@ object Form1: TForm1
       end>
     ShowCaption = False
     TabOrder = 1
-    ExplicitLeft = 1654
+    ExplicitLeft = 1645
+    ExplicitHeight = 939
     object Button1: TButton
       Left = 1
       Top = 1
@@ -493,6 +494,8 @@ object Form1: TForm1
     Anchors = [akRight, akBottom]
     ShowCaption = False
     TabOrder = 3
+    ExplicitLeft = 1422
+    ExplicitTop = 818
     DesignSize = (
       223
       121)

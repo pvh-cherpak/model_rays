@@ -399,10 +399,11 @@ void __fastcall TForm1::FormCreate(TObject* Sender)
     Virtual_Image->Height = VI_size;
 
     user_rect = Bounds(VI_centre - Image1->Width / 2,
-        VI_centre - Image1->Height / 2, Image1->Width, Image1->Height);
-    screen_rect = Bounds(0, 0, Image1->Width, Image1->Height);
+		VI_centre - Image1->Height / 2, Image1->Width, Image1->Height);
+	screen_rect = Bounds(0, 0, Image1->Width, Image1->Height);
+	VI_rect = Bounds(0, 0, VI_size, VI_size);
 
-    Heat_map->Width = VI_size;
+	Heat_map->Width = VI_size;
     Heat_map->Height = VI_size;
     Heat_map->PixelFormat = pf24bit;
     Legend_heat_map->PixelFormat = pf24bit;
@@ -450,22 +451,34 @@ void __fastcall TForm1::Button2Click(TObject* Sender)
 void __fastcall TForm1::FormKeyDown(
     TObject* Sender, WORD &Key, TShiftState Shift)
 {
-    switch (Key) {
+	switch (Key) {
         case VK_LEFT:
-            OffsetRect(&user_rect, -10, 0);
-            show();
+			OffsetRect(&user_rect, -10, 0);
+			if(VI_rect.Contains(user_rect))
+			   show();
+			else
+               OffsetRect(&user_rect, 10, 0);
             break;
         case VK_RIGHT:
             OffsetRect(&user_rect, 10, 0);
-            show();
+			if(VI_rect.Contains(user_rect))
+			   show();
+			else
+			   OffsetRect(&user_rect, -10, 0);
             break;
         case VK_UP:
             OffsetRect(&user_rect, 0, -10);
-            show();
+			if(VI_rect.Contains(user_rect))
+			   show();
+			else
+			   OffsetRect(&user_rect, 0, 10);
             break;
         case VK_DOWN:
             OffsetRect(&user_rect, 0, 10);
-            show();
+			if(VI_rect.Contains(user_rect))
+			   show();
+			else
+               OffsetRect(&user_rect, 0, -10);
             break;
     }
 }
