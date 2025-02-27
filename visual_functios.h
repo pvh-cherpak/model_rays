@@ -30,8 +30,8 @@ static int delta_r, delta_g, delta_b;
 #ifdef HSL_LINER_GRAD
 static float min_h, max_h;
 #else
-static int r_b, g_b, b_b;
-static int delta_r, delta_g, delta_b;
+//static int r_b, g_b, b_b;
+//static int delta_r, delta_g, delta_b;
 #endif
 
 void update_grad_delt();

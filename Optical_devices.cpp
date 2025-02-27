@@ -614,5 +614,14 @@ void Nugol::get_segments(ray &r, bool &is_pvo, vector < segment > &otr)
 			}
             is_pvo = false;
         }
-    }
+	}
+
+	op_dl_pt = 0;
+	for(int i = 0; i < otr.size(); i++)
+	{
+	   double temp;
+	   temp = sqrt((otr[i].p1.x - otr[i].p2.x)*(otr[i].p1.x - otr[i].p2.x) + (otr[i].p1.y - otr[i].p2.y)*(otr[i].p1.y - otr[i].p2.y));
+	   op_dl_pt += temp;
+	}
+    op_dl_pt *= n;
 }

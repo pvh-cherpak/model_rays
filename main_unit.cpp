@@ -93,17 +93,13 @@ void __fastcall TForm1::Image1MouseDown(
                     Memo1->Lines->Insert(
                         0, "Показатель преломления: " +
                                FloatToStrF(vec_N[i].get_prel(), ffFixed, 8, 3));
-                    /**Memo1->Lines->Insert(
-                        1, "Оптическая длина пути: " +
-                               FloatToStrF(
-                                   vec_N[i].get_op_dl_pt() * pixels_per_meter,
-                                   ffFixed, 8, 3) +
-							   " м");  **/
+					Memo1->Lines->Insert(
+						1, "Оптическая длина пути: " + FloatToStrF(vec_N[i].get_op_dl_pt(),ffFixed, 8, 3) + " м");
                     Memo1->Lines->Insert(
-                        1, "Угол входа (к нормали): " +
-                               IntToStr(vec_N[i].get_ugl_vhoda()) + "°");
-                    Memo1->Lines->Insert(
-                        2, "Угол выхода (к нормали): " +
+						2, "Угол входа (к нормали): " +
+							   IntToStr(vec_N[i].get_ugl_vhoda()) + "°");
+					Memo1->Lines->Insert(
+                        3, "Угол выхода (к нормали): " +
                                IntToStr(vec_N[i].get_ugl_vyhoda()) + "°");
                 }
             }
@@ -196,7 +192,7 @@ void __fastcall TForm1::ButtonAcceptClick(TObject* Sender)
 
             if (need_to_redraw) {
                 calculate_heat_map();
-                DrawCoordinates(Heat_map->Canvas, pixels_per_meter);
+				DrawCoordinates(Heat_map->Canvas, pixels_per_meter);
                 reCalculate();
                 reCalcLegend();
                 //                reDraw();
