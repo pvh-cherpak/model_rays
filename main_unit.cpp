@@ -39,7 +39,13 @@ void __fastcall TForm1::Image1MouseDown(
         case 1:
             selected_device = rays_soursec.size();
             selected_type = menu_type::ray_source;
-            rays_soursec.push_back({ scrin_to_global_metrs(X, Y), 0 });
+
+            if (greed_magnit)
+                rays_soursec.push_back(
+                    { scrin_to_global_metrs(X, Y).getRounded(), 0 });
+            else
+                rays_soursec.push_back(
+                    { scrin_to_global_metrs(X, Y).getRounded(), 0 });
 
             ButtonAccept->Visible = true;
             ButtonReject->Visible = true;
@@ -63,6 +69,9 @@ void __fastcall TForm1::Image1MouseDown(
             LabeledEditN->Visible = true;
             p3.x = (X + user_rect.Left - VI_centre) / (double)pixels_per_meter;
             p3.y = (VI_centre - (Y + user_rect.Top)) / (double)pixels_per_meter;
+            if (greed_magnit)
+                p3.round();
+
             if (v.size() != 0) {
                 seg.p1 = v.back();
                 seg.p2 = p3;
@@ -93,12 +102,15 @@ void __fastcall TForm1::Image1MouseDown(
                     Memo1->Lines->Insert(
                         0, "Показатель преломления: " +
                                FloatToStrF(vec_N[i].get_prel(), ffFixed, 8, 3));
-					Memo1->Lines->Insert(
-						1, "Оптическая длина пути: " + FloatToStrF(vec_N[i].get_op_dl_pt(),ffFixed, 8, 3) + " м");
                     Memo1->Lines->Insert(
-						2, "Угол входа (к нормали): " +
-							   IntToStr(vec_N[i].get_ugl_vhoda()) + "°");
-					Memo1->Lines->Insert(
+                        1, "Оптическая длина пути: " +
+                               FloatToStrF(
+                                   vec_N[i].get_op_dl_pt(), ffFixed, 8, 3) +
+                               " м");
+                    Memo1->Lines->Insert(
+                        2, "Угол входа (к нормали): " +
+                               IntToStr(vec_N[i].get_ugl_vhoda()) + "°");
+                    Memo1->Lines->Insert(
                         3, "Угол выхода (к нормали): " +
                                IntToStr(vec_N[i].get_ugl_vyhoda()) + "°");
                 }
@@ -192,7 +204,7 @@ void __fastcall TForm1::ButtonAcceptClick(TObject* Sender)
 
             if (need_to_redraw) {
                 calculate_heat_map();
-				DrawCoordinates(Heat_map->Canvas, pixels_per_meter);
+                DrawCoordinates(Heat_map->Canvas, pixels_per_meter);
                 reCalculate();
                 reCalcLegend();
                 //                reDraw();
@@ -395,11 +407,11 @@ void __fastcall TForm1::FormCreate(TObject* Sender)
     Virtual_Image->Height = VI_size;
 
     user_rect = Bounds(VI_centre - Image1->Width / 2,
-		VI_centre - Image1->Height / 2, Image1->Width, Image1->Height);
-	screen_rect = Bounds(0, 0, Image1->Width, Image1->Height);
-	VI_rect = Bounds(0, 0, VI_size, VI_size);
+        VI_centre - Image1->Height / 2, Image1->Width, Image1->Height);
+    screen_rect = Bounds(0, 0, Image1->Width, Image1->Height);
+    VI_rect = Bounds(0, 0, VI_size, VI_size);
 
-	Heat_map->Width = VI_size;
+    Heat_map->Width = VI_size;
     Heat_map->Height = VI_size;
     Heat_map->PixelFormat = pf24bit;
     Legend_heat_map->PixelFormat = pf24bit;
@@ -447,35 +459,38 @@ void __fastcall TForm1::Button2Click(TObject* Sender)
 void __fastcall TForm1::FormKeyDown(
     TObject* Sender, WORD &Key, TShiftState Shift)
 {
-	switch (Key) {
+    switch (Key) {
         case VK_LEFT:
-			OffsetRect(&user_rect, -10, 0);
-			if(VI_rect.Contains(user_rect))
-			   show();
-			else
-               OffsetRect(&user_rect, 10, 0);
+            OffsetRect(&user_rect, -10, 0);
+            if (VI_rect.Contains(user_rect))
+                show();
+            else
+                OffsetRect(&user_rect, 10, 0);
             break;
         case VK_RIGHT:
             OffsetRect(&user_rect, 10, 0);
-			if(VI_rect.Contains(user_rect))
-			   show();
-			else
-			   OffsetRect(&user_rect, -10, 0);
+            if (VI_rect.Contains(user_rect))
+                show();
+            else
+                OffsetRect(&user_rect, -10, 0);
             break;
         case VK_UP:
             OffsetRect(&user_rect, 0, -10);
-			if(VI_rect.Contains(user_rect))
-			   show();
-			else
-			   OffsetRect(&user_rect, 0, 10);
+            if (VI_rect.Contains(user_rect))
+                show();
+            else
+                OffsetRect(&user_rect, 0, 10);
             break;
         case VK_DOWN:
             OffsetRect(&user_rect, 0, 10);
-			if(VI_rect.Contains(user_rect))
-			   show();
-			else
-               OffsetRect(&user_rect, 0, -10);
-            break;
+            if (VI_rect.Contains(user_rect))
+                show();
+            else
+                OffsetRect(&user_rect, 0, -10);
+			break;
+        case VK_F12:
+            greed_magnit = !greed_magnit;
+			break;
     }
 }
 
@@ -862,7 +877,9 @@ void TForm1::reCalcLegend()
         nn += n_step;
     }
 
-	DrawHeatmapLegend(Legend_heat_map, 1, heat_normalized_coeff + 1, { 1 + heat_normalized_coeff / 4,  1 + heat_normalized_coeff / 4 * 3, 1 + heat_normalized_coeff / 2});
+    DrawHeatmapLegend(Legend_heat_map, 1, heat_normalized_coeff + 1,
+        { 1 + heat_normalized_coeff / 4, 1 + heat_normalized_coeff / 4 * 3,
+            1 + heat_normalized_coeff / 2 });
 
     Image2->Picture->Assign(Legend_heat_map);
 }
@@ -873,8 +890,8 @@ void TForm1::DrawHeatmapLegend(TBitmap* bitmap, double minValue,
     // Настройки шрифта и цвета текста
     bitmap->Canvas->Font->Name = "Arial";
     bitmap->Canvas->Font->Size = 10;
-	bitmap->Canvas->Font->Color = clBlack;
-	bitmap->Canvas->Brush->Style = bsClear; // Прозрачный фон для текста
+    bitmap->Canvas->Font->Color = clBlack;
+    bitmap->Canvas->Brush->Style = bsClear; // Прозрачный фон для текста
 
     // Высота градиента
     int gradientHeight = bitmap->Height;
@@ -883,18 +900,18 @@ void TForm1::DrawHeatmapLegend(TBitmap* bitmap, double minValue,
     int textBackgroundWidth = 50; // Ширина белого фона
     int textPadding = 5; // Отступ текста от краев белого фона
 
-	bitmap->Canvas->Brush->Color = clWhite;
+    bitmap->Canvas->Brush->Color = clWhite;
     bitmap->Canvas->Brush->Style = bsSolid;
     bitmap->Canvas->FillRect(TRect(0, 0, bitmap->Width / 2, bitmap->Height));
 
     // Рисуем подпись для минимального значения
-	String minLabel = "<" + FloatToStrF(minValue, ffFixed, 10, 2);
+    String minLabel = "<" + FloatToStrF(minValue, ffFixed, 10, 2);
     int textHeight = bitmap->Canvas->TextHeight(minLabel);
-	bitmap->Canvas->TextOut(5, gradientHeight - textHeight - 4, minLabel);
+    bitmap->Canvas->TextOut(5, gradientHeight - textHeight - 4, minLabel);
 
     // Рисуем подпись для максимального значения
-	String maxLabel = ">" + FloatToStrF(maxValue, ffFixed, 10, 2);
-	bitmap->Canvas->TextOut(5, 1, maxLabel);
+    String maxLabel = ">" + FloatToStrF(maxValue, ffFixed, 10, 2);
+    bitmap->Canvas->TextOut(5, 1, maxLabel);
 
     // Рисуем подписи для произвольных значений
     for (double value : values) {
@@ -903,14 +920,15 @@ void TForm1::DrawHeatmapLegend(TBitmap* bitmap, double minValue,
         int yPos = gradientHeight - static_cast<int>(ratio * gradientHeight);
 
         // Рисуем подпись
-		String label = FloatToStrF(value, ffFixed, 10, 2);
-		bitmap->Canvas->TextOut(5, yPos - textHeight / 2, label);
-	}
+        String label = FloatToStrF(value, ffFixed, 10, 2);
+        bitmap->Canvas->TextOut(5, yPos - textHeight / 2, label);
+    }
 
-
-	// ОКАНТВОКА
-	bitmap->Canvas->Brush->Style = bsClear;
-	bitmap->Canvas->Pen->Color = clBlack;
-	bitmap->Canvas->Pen->Width = 5;
-	bitmap->Canvas->Rectangle(0, 0, bitmap->Width, bitmap->Height); bitmap->Canvas->Brush->Style = bsSolid;
+    // ОКАНТВОКА
+    bitmap->Canvas->Brush->Style = bsClear;
+    bitmap->Canvas->Pen->Color = clBlack;
+    bitmap->Canvas->Pen->Width = 5;
+    bitmap->Canvas->Rectangle(0, 0, bitmap->Width, bitmap->Height);
+    bitmap->Canvas->Brush->Style = bsSolid;
 }
+

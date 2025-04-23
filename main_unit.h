@@ -133,6 +133,7 @@ class TForm1 : public TForm
 	int draw_precision = 10;
 	int number_of_ray_points = 50000;
 	double step = 0.005;
+    bool greed_magnit = true;
 
 	vector<ray_t> rays_soursec;
 	vector<vector<point_t> > points;
