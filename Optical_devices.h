@@ -2,6 +2,7 @@
 #define OPTICAL_DEVICES_H
 #include <vector>
 #include "n.h"
+#include <cmath>
 
 extern n_t global_n_obj;
 
@@ -9,7 +10,11 @@ using namespace std;
 
 struct point
 {
-    double x, y;
+	double x, y;
+	void round(){
+		x=std::round(x);
+		y=std::round(y);
+	}
 };
 
 struct pryam

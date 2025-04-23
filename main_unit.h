@@ -61,6 +61,7 @@ class TForm1 : public TForm
     TLabel* LabelTimeHeatMap;
     TLabel* LabelTimeScene;
     TLabel* LabelVersion;
+<<<<<<< Updated upstream
 	TMainMenu *MainMenu1;
 	TOpenTextFileDialog *OpenTextFileDialog1;
 	TSaveTextFileDialog *SaveTextFileDialog1;
@@ -88,6 +89,30 @@ class TForm1 : public TForm
 	TMenuItem *N14;
 	TTimer *Timer1;
 	TImage *Image2;
+=======
+    TMainMenu* MainMenu1;
+    TOpenTextFileDialog* OpenTextFileDialog1;
+    TSaveTextFileDialog* SaveTextFileDialog1;
+    TMenuItem* N1;
+    TMenuItem* N2;
+    TMenuItem* N3;
+    TMenuItem* N4;
+    TMenuItem* N5;
+    TMenuItem* N6;
+    TMenuItem* N7;
+    TMenuItem* N8;
+    TMenuItem* N9;
+    TMenuItem* N10;
+    TColorDialog* ColorDialog1;
+    TMemo* Memo1;
+    TLabel* LabelDrawScene;
+    TLabeledEdit* LabeledEdit5;
+    TGridPanel* GridPanel1;
+    TPanel* Panel1;
+    TLabel* Label1;
+    TPanel* Panel2;
+    TButton* Button2;
+>>>>>>> Stashed changes
     void __fastcall Image1Click(TObject* Sender);
     void __fastcall Image1MouseDown(
         TObject* Sender, TMouseButton Button, TShiftState Shift, int X, int Y);
@@ -100,6 +125,7 @@ class TForm1 : public TForm
     void __fastcall Image1MouseMove(
         TObject* Sender, TShiftState Shift, int X, int Y);
     void __fastcall ComboBox1Change(TObject* Sender);
+<<<<<<< Updated upstream
 	void __fastcall N2Click(TObject *Sender);
 	void __fastcall N3Click(TObject *Sender);
 	void __fastcall N5Click(TObject *Sender);
@@ -117,6 +143,21 @@ class TForm1 : public TForm
     Graphics::TBitmap* Virtual_Image = new Graphics::TBitmap();
 	Graphics::TBitmap* Heat_map = new Graphics::TBitmap();
 	Graphics::TBitmap* Legend_heat_map = new Graphics::TBitmap();
+=======
+    void __fastcall N2Click(TObject* Sender);
+    void __fastcall N3Click(TObject* Sender);
+    void __fastcall N5Click(TObject* Sender);
+    void __fastcall N7Click(TObject* Sender);
+    void __fastcall N8Click(TObject* Sender);
+    void __fastcall N9Click(TObject* Sender);
+    void __fastcall N10Click(TObject* Sender);
+    void __fastcall N4Click(TObject* Sender);
+    void __fastcall FormResize(TObject* Sender);
+  private: // User declarations
+    menu_type selected_type = menu_type::NONE;
+    Graphics::TBitmap* Virtual_Image = new Graphics::TBitmap();
+    Graphics::TBitmap* Heat_map = new Graphics::TBitmap();
+>>>>>>> Stashed changes
     TColor ColorRay, ColorRayError;
 
 	TRect screen_rect;
@@ -127,32 +168,45 @@ class TForm1 : public TForm
 
     vector<std::unique_ptr<VirtualOpticalDevice_t> > OpticalDevices;
 
-	vector<bool> errors;
-	vector < vector <int>> necessary_index;
+    vector<bool> errors;
+    vector<vector<int> > necessary_index;
 
-	int draw_precision = 10;
-	int number_of_ray_points = 50000;
-	double step = 0.005;
+    int draw_precision = 10;
+    int number_of_ray_points = 50000;
+    double step = 0.005;
+    bool greed_magnit = true;
 
-	vector<ray_t> rays_soursec;
-	vector<vector<point_t> > points;
+    vector<ray_t> rays_soursec;
+    vector<vector<point_t> > points;
     vector<Nugol> vec_N;
 
+<<<<<<< Updated upstream
 	basicDrive_t drive = basicDrive_t(points, rays_soursec,
 	errors, vec_N, necessary_index, number_of_ray_points, step);
 
   private:
 	void hide_menu();
 	void create_optecal_dev_menu();
+=======
+    basicDrive_t drive = basicDrive_t(points, rays_soursec, errors, vec_N,
+        necessary_index, number_of_ray_points, step);
+    void hide_menu();
+    void create_optecal_dev_menu();
+>>>>>>> Stashed changes
 
     void draw_ray_source(ray_t &ray_source);
     void show();
 
     void calculate_heat_map();
+<<<<<<< Updated upstream
 	void reDraw();
 	void reCalculate();
 	void reCalcLegend();
 	void DrawHeatmapLegend(TBitmap* bitmap, double minValue, double maxValue, const std::vector<double>& values);
+=======
+    void reDraw();
+    void reCalculate();
+>>>>>>> Stashed changes
     //	std::vector<Ray_t>& Rays;
     //	UI_t(OpticalDevices, Rays);
   public: // User declarations

@@ -39,7 +39,13 @@ void __fastcall TForm1::Image1MouseDown(
         case 1:
             selected_device = rays_soursec.size();
             selected_type = menu_type::ray_source;
-            rays_soursec.push_back({ scrin_to_global_metrs(X, Y), 0 });
+
+            if (greed_magnit)
+                rays_soursec.push_back(
+                    { scrin_to_global_metrs(X, Y).getRounded(), 0 });
+            else
+                rays_soursec.push_back(
+                    { scrin_to_global_metrs(X, Y).getRounded(), 0 });
 
             ButtonAccept->Visible = true;
             ButtonReject->Visible = true;
@@ -63,6 +69,10 @@ void __fastcall TForm1::Image1MouseDown(
             LabeledEditN->Visible = true;
             p3.x = (X + user_rect.Left - VI_centre) / (double)pixels_per_meter;
             p3.y = (VI_centre - (Y + user_rect.Top)) / (double)pixels_per_meter;
+
+            if (greed_magnit)
+                p3.round();
+
             if (v.size() != 0) {
                 seg.p1 = v.back();
                 seg.p2 = p3;
@@ -445,7 +455,7 @@ void __fastcall TForm1::Button2Click(TObject* Sender)
 //---------------------------------------------------------------------------
 
 void __fastcall TForm1::FormKeyDown(
-    TObject* Sender, WORD &Key, TShiftState Shift)
+	TObject* Sender, WORD &Key, TShiftState Shift)
 {
 	switch (Key) {
         case VK_LEFT:
@@ -470,11 +480,19 @@ void __fastcall TForm1::FormKeyDown(
 			   OffsetRect(&user_rect, 0, 10);
             break;
         case VK_DOWN:
+<<<<<<< Updated upstream
             OffsetRect(&user_rect, 0, 10);
 			if(VI_rect.Contains(user_rect))
 			   show();
 			else
                OffsetRect(&user_rect, 0, -10);
+=======
+			OffsetRect(&user_rect, 0, 10);
+            show();
+>>>>>>> Stashed changes
+            break;
+		case VK_F12:
+            greed_magnit = !greed_magnit;
             break;
     }
 }
