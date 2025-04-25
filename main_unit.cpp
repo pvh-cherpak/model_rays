@@ -204,7 +204,6 @@ void __fastcall TForm1::ButtonAcceptClick(TObject* Sender)
 
             if (need_to_redraw) {
                 calculate_heat_map();
-                DrawCoordinates(Heat_map->Canvas, pixels_per_meter);
                 reCalculate();
                 reCalcLegend();
                 //                reDraw();
@@ -220,8 +219,8 @@ void TForm1::reDraw()
     auto start = std::chrono::high_resolution_clock::now();
 
     Virtual_Image->Canvas->Pen->Color = clBlack;
-    Virtual_Image->Canvas->Brush->Color = clBlack;
-    TRect rect = Rect(0, 0, Virtual_Image->Width, Virtual_Image->Height);
+	Virtual_Image->Canvas->Brush->Color = clBlack;
+	TRect rect = Rect(0, 0, Virtual_Image->Width, Virtual_Image->Height);
     Virtual_Image->Canvas->FillRect(rect);
     //    for (int i = 0; i < OpticalDevices.size(); i++)
     //		OpticalDevices[i]->display(Virtual_Image->Canvas, pixels_per_meter);
@@ -258,47 +257,49 @@ void TForm1::reDraw()
             TColor kol2 =
                 (TColor)RGB(GetRValue(kol), GetGValue(kol), GetBValue(kol));
 
-            Virtual_Image->Canvas->Brush->Color = kol2;
+			Virtual_Image->Canvas->Brush->Color = kol2;
 
-            double x_ris, y_ris, x_ris2, y_ris2;
-            x_ris = (s[0].p1.x + s[0].p2.x) / 2.;
-            x_ris2 = (s[1].p1.x + s[1].p2.x) / 2.;
-            y_ris = (s[0].p1.y + s[0].p2.y) / 2.;
-            y_ris2 = (s[1].p1.y + s[1].p2.y) / 2.;
-            x_ris = (x_ris + x_ris2) / 2.;
-            y_ris = (y_ris + y_ris2) / 2.;
-            x_ris = x_ris * pixels_per_meter + VI_centre;
-            y_ris = -y_ris * pixels_per_meter + VI_centre;
-            Virtual_Image->Canvas->FloodFill(x_ris, y_ris, clBlack, fsBorder);
-            //Virtual_Image->Canvas->Brush->Color = clBlack;
-        }
-    }
+			double x_ris, y_ris, x_ris2, y_ris2;
+			x_ris = (s[0].p1.x + s[0].p2.x) / 2.;
+			x_ris2 = (s[1].p1.x + s[1].p2.x) / 2.;
+			y_ris = (s[0].p1.y + s[0].p2.y) / 2.;
+			y_ris2 = (s[1].p1.y + s[1].p2.y) / 2.;
+			x_ris = (x_ris + x_ris2) / 2.;
+			y_ris = (y_ris + y_ris2) / 2.;
+			x_ris = x_ris * pixels_per_meter + VI_centre;
+			y_ris = -y_ris * pixels_per_meter + VI_centre;
+			Virtual_Image->Canvas->FloodFill(x_ris, y_ris, clBlack, fsBorder);
+			//Virtual_Image->Canvas->Brush->Color = clBlack;
+		}
+	}
 
-    Virtual_Image->Canvas->Pen->Color = clYellow;
-    Virtual_Image->Canvas->Pen->Width = 5;
-    for (int i = 0; i < points.size(); i++) {
-        if (points[i].empty())
-            continue;
-        pair<int, int> t = to_picsels(points[i][0].x, points[i][0].y);
-        Virtual_Image->Canvas->MoveTo(t.first, t.second);
-        if (errors[i])
-            Virtual_Image->Canvas->Pen->Color = ColorRayError;
-        else
-            Virtual_Image->Canvas->Pen->Color = ColorRay;
+    DrawCoordinates(Virtual_Image->Canvas, pixels_per_meter);
 
-        int j = 0;
-        for (int k = 0; k < necessary_index[i].size(); k += 2) {
-            for (; j < necessary_index[i][k]; j += draw_precision) {
-                t = to_picsels(points[i][j].x, points[i][j].y);
-                Virtual_Image->Canvas->LineTo(t.first, t.second);
-            }
-            for (j = necessary_index[i][k]; j < necessary_index[i][k + 1]; j++)
-            {
-                t = to_picsels(points[i][j].x, points[i][j].y);
-                Virtual_Image->Canvas->LineTo(t.first, t.second);
-            }
-        }
-    }
+	Virtual_Image->Canvas->Pen->Color = clYellow;
+	Virtual_Image->Canvas->Pen->Width = 5;
+	for (int i = 0; i < points.size(); i++) {
+		if (points[i].empty())
+			continue;
+		pair<int, int> t = to_picsels(points[i][0].x, points[i][0].y);
+		Virtual_Image->Canvas->MoveTo(t.first, t.second);
+		if (errors[i])
+			Virtual_Image->Canvas->Pen->Color = ColorRayError;
+		else
+			Virtual_Image->Canvas->Pen->Color = ColorRay;
+
+		int j = 0;
+		for (int k = 0; k < necessary_index[i].size(); k += 2) {
+			for (; j < necessary_index[i][k]; j += draw_precision) {
+				t = to_picsels(points[i][j].x, points[i][j].y);
+				Virtual_Image->Canvas->LineTo(t.first, t.second);
+			}
+			for (j = necessary_index[i][k]; j < necessary_index[i][k + 1]; j++)
+			{
+				t = to_picsels(points[i][j].x, points[i][j].y);
+				Virtual_Image->Canvas->LineTo(t.first, t.second);
+			}
+		}
+	}
     show();
 
     auto end = std::chrono::high_resolution_clock::now();
@@ -434,8 +435,7 @@ void __fastcall TForm1::FormCreate(TObject* Sender)
     reCalcLegend();
     calculate_heat_map();
 
-    DrawCoordinates(Heat_map->Canvas, pixels_per_meter);
-    reDraw();
+	reDraw();
 
     OpenTextFileDialog1->InitialDir = ExtractFilePath(ParamStr(0));
     SaveTextFileDialog1->InitialDir = OpenTextFileDialog1->InitialDir;
@@ -678,7 +678,6 @@ void __fastcall TForm1::N5Click(TObject* Sender)
         fin.close();
 
         calculate_heat_map();
-        DrawCoordinates(Heat_map->Canvas, pixels_per_meter);
         reCalculate();
         reDraw();
         ComboBox1Change(this);
@@ -693,7 +692,6 @@ void __fastcall TForm1::N7Click(TObject* Sender)
     update_grad_delt();
 
     calculate_heat_map();
-    DrawCoordinates(Heat_map->Canvas, pixels_per_meter);
     reDraw();
     reCalcLegend();
 }
@@ -705,8 +703,7 @@ void __fastcall TForm1::N8Click(TObject* Sender)
         ColorMax = ColorDialog1->Color;
     update_grad_delt();
 
-    calculate_heat_map();
-    DrawCoordinates(Heat_map->Canvas, pixels_per_meter);
+	calculate_heat_map();
     reDraw();
     reCalcLegend();
 }
