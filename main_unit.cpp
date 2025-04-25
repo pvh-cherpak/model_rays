@@ -127,8 +127,10 @@ void __fastcall TForm1::Image1MouseDown(
 //---------------------------------------------------------------------------
 void __fastcall TForm1::ButtonRejectClick(TObject* Sender)
 {
-    hide_menu();
-    selected_device = -1;
+	hide_menu();
+	selected_device = -1;
+    this->SetFocus();
+	this->DefocusControl(this, 0);
 }
 //---------------------------------------------------------------------------
 bool need_to_redraw;
@@ -138,8 +140,8 @@ int new_draw_precision;
 int new_number_of_ray_points;
 void __fastcall TForm1::ButtonAcceptClick(TObject* Sender)
 {
-    ButtonAccept->Visible = false;
-    ButtonAccept->Visible = true;
+	this->SetFocus();
+	this->DefocusControl(this, 0);
     string formula;
     switch (selected_type) {
         case menu_type::ray_source:
@@ -219,8 +221,8 @@ void TForm1::reDraw()
     auto start = std::chrono::high_resolution_clock::now();
 
     Virtual_Image->Canvas->Pen->Color = clBlack;
-	Virtual_Image->Canvas->Brush->Color = clBlack;
-	TRect rect = Rect(0, 0, Virtual_Image->Width, Virtual_Image->Height);
+    Virtual_Image->Canvas->Brush->Color = clBlack;
+    TRect rect = Rect(0, 0, Virtual_Image->Width, Virtual_Image->Height);
     Virtual_Image->Canvas->FillRect(rect);
     //    for (int i = 0; i < OpticalDevices.size(); i++)
     //		OpticalDevices[i]->display(Virtual_Image->Canvas, pixels_per_meter);
@@ -257,49 +259,49 @@ void TForm1::reDraw()
             TColor kol2 =
                 (TColor)RGB(GetRValue(kol), GetGValue(kol), GetBValue(kol));
 
-			Virtual_Image->Canvas->Brush->Color = kol2;
+            Virtual_Image->Canvas->Brush->Color = kol2;
 
-			double x_ris, y_ris, x_ris2, y_ris2;
-			x_ris = (s[0].p1.x + s[0].p2.x) / 2.;
-			x_ris2 = (s[1].p1.x + s[1].p2.x) / 2.;
-			y_ris = (s[0].p1.y + s[0].p2.y) / 2.;
-			y_ris2 = (s[1].p1.y + s[1].p2.y) / 2.;
-			x_ris = (x_ris + x_ris2) / 2.;
-			y_ris = (y_ris + y_ris2) / 2.;
-			x_ris = x_ris * pixels_per_meter + VI_centre;
-			y_ris = -y_ris * pixels_per_meter + VI_centre;
-			Virtual_Image->Canvas->FloodFill(x_ris, y_ris, clBlack, fsBorder);
-			//Virtual_Image->Canvas->Brush->Color = clBlack;
-		}
-	}
+            double x_ris, y_ris, x_ris2, y_ris2;
+            x_ris = (s[0].p1.x + s[0].p2.x) / 2.;
+            x_ris2 = (s[1].p1.x + s[1].p2.x) / 2.;
+            y_ris = (s[0].p1.y + s[0].p2.y) / 2.;
+            y_ris2 = (s[1].p1.y + s[1].p2.y) / 2.;
+            x_ris = (x_ris + x_ris2) / 2.;
+            y_ris = (y_ris + y_ris2) / 2.;
+            x_ris = x_ris * pixels_per_meter + VI_centre;
+            y_ris = -y_ris * pixels_per_meter + VI_centre;
+            Virtual_Image->Canvas->FloodFill(x_ris, y_ris, clBlack, fsBorder);
+            //Virtual_Image->Canvas->Brush->Color = clBlack;
+        }
+    }
 
     DrawCoordinates(Virtual_Image->Canvas, pixels_per_meter);
 
-	Virtual_Image->Canvas->Pen->Color = clYellow;
-	Virtual_Image->Canvas->Pen->Width = 5;
-	for (int i = 0; i < points.size(); i++) {
-		if (points[i].empty())
-			continue;
-		pair<int, int> t = to_picsels(points[i][0].x, points[i][0].y);
-		Virtual_Image->Canvas->MoveTo(t.first, t.second);
-		if (errors[i])
-			Virtual_Image->Canvas->Pen->Color = ColorRayError;
-		else
-			Virtual_Image->Canvas->Pen->Color = ColorRay;
+    Virtual_Image->Canvas->Pen->Color = clYellow;
+    Virtual_Image->Canvas->Pen->Width = 5;
+    for (int i = 0; i < points.size(); i++) {
+        if (points[i].empty())
+            continue;
+        pair<int, int> t = to_picsels(points[i][0].x, points[i][0].y);
+        Virtual_Image->Canvas->MoveTo(t.first, t.second);
+        if (errors[i])
+            Virtual_Image->Canvas->Pen->Color = ColorRayError;
+        else
+            Virtual_Image->Canvas->Pen->Color = ColorRay;
 
-		int j = 0;
-		for (int k = 0; k < necessary_index[i].size(); k += 2) {
-			for (; j < necessary_index[i][k]; j += draw_precision) {
-				t = to_picsels(points[i][j].x, points[i][j].y);
-				Virtual_Image->Canvas->LineTo(t.first, t.second);
-			}
-			for (j = necessary_index[i][k]; j < necessary_index[i][k + 1]; j++)
-			{
-				t = to_picsels(points[i][j].x, points[i][j].y);
-				Virtual_Image->Canvas->LineTo(t.first, t.second);
-			}
-		}
-	}
+        int j = 0;
+        for (int k = 0; k < necessary_index[i].size(); k += 2) {
+            for (; j < necessary_index[i][k]; j += draw_precision) {
+                t = to_picsels(points[i][j].x, points[i][j].y);
+                Virtual_Image->Canvas->LineTo(t.first, t.second);
+            }
+            for (j = necessary_index[i][k]; j < necessary_index[i][k + 1]; j++)
+            {
+                t = to_picsels(points[i][j].x, points[i][j].y);
+                Virtual_Image->Canvas->LineTo(t.first, t.second);
+            }
+        }
+    }
     show();
 
     auto end = std::chrono::high_resolution_clock::now();
@@ -358,8 +360,8 @@ void TForm1::draw_ray_source(ray_t &ray_source)
 
 void __fastcall TForm1::Button1Click(TObject* Sender)
 {
-    Button1->Visible = false;
-    Button1->Visible = true;
+    this->SetFocus();
+	this->DefocusControl(this, 0);
     reCalculate();
     reDraw();
 }
@@ -435,7 +437,7 @@ void __fastcall TForm1::FormCreate(TObject* Sender)
     reCalcLegend();
     calculate_heat_map();
 
-	reDraw();
+    reDraw();
 
     OpenTextFileDialog1->InitialDir = ExtractFilePath(ParamStr(0));
     SaveTextFileDialog1->InitialDir = OpenTextFileDialog1->InitialDir;
@@ -487,10 +489,10 @@ void __fastcall TForm1::FormKeyDown(
                 show();
             else
                 OffsetRect(&user_rect, 0, -10);
-			break;
+            break;
         case VK_F12:
             greed_magnit = !greed_magnit;
-			break;
+            break;
     }
 }
 
@@ -550,9 +552,9 @@ void TForm1::calculate_heat_map()
 
 void __fastcall TForm1::ComboBox1Change(TObject* Sender)
 {
-    hide_menu();
+	hide_menu();
     ButtonReject->Visible = true;
-    switch (ComboBox1->ItemIndex) {
+	switch (ComboBox1->ItemIndex) {
         case 0:
             selected_type = menu_type::field;
             LabeledEdit1->EditLabel->Caption = "функция n(x,y)";
@@ -586,8 +588,10 @@ void __fastcall TForm1::ComboBox1Change(TObject* Sender)
             selected_device = -1;
             break;
     }
-    ComboBox1->Visible = false;
-    ComboBox1->Visible = true;
+//    ComboBox1->Visible = false;
+//    ComboBox1->Visible = true;
+	this->SetFocus();
+	this->DefocusControl(this, 0);
 }
 //---------------------------------------------------------------------------
 
@@ -703,7 +707,7 @@ void __fastcall TForm1::N8Click(TObject* Sender)
         ColorMax = ColorDialog1->Color;
     update_grad_delt();
 
-	calculate_heat_map();
+    calculate_heat_map();
     reDraw();
     reCalcLegend();
 }
@@ -928,4 +932,67 @@ void TForm1::DrawHeatmapLegend(TBitmap* bitmap, double minValue,
     bitmap->Canvas->Rectangle(0, 0, bitmap->Width, bitmap->Height);
     bitmap->Canvas->Brush->Style = bsSolid;
 }
+
+void __fastcall TForm1::FormKeyPress(TObject* Sender, System::WideChar &Key)
+{
+    if (Key == VK_F2)
+        greed_magnit = !greed_magnit;
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::LabeledEdit1Change(TObject *Sender)
+{
+this->SetFocus();
+	this->DefocusControl(this, 0);
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::LabeledEdit2Change(TObject *Sender)
+{
+this->SetFocus();
+	this->DefocusControl(this, 0);
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::LabeledEdit3Change(TObject *Sender)
+{
+this->SetFocus();
+	this->DefocusControl(this, 0);
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::LabeledEdit4Change(TObject *Sender)
+{
+this->SetFocus();
+	this->DefocusControl(this, 0);
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::LabeledEdit5Change(TObject *Sender)
+{
+this->SetFocus();
+	this->DefocusControl(this, 0);
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::LabeledEditNChange(TObject *Sender)
+{
+this->SetFocus();
+	this->DefocusControl(this, 0);
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::LabeledEditXChange(TObject *Sender)
+{
+this->SetFocus();
+	this->DefocusControl(this, 0);
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::LabeledEditYChange(TObject *Sender)
+{
+this->SetFocus();
+	this->DefocusControl(this, 0);
+}
+//---------------------------------------------------------------------------
 
