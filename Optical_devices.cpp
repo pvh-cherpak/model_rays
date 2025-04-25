@@ -387,7 +387,7 @@ int Nugol::get_ugl_vyhoda()
 	return otv;
 }
 
-void Nugol::get_segments(ray &r, bool &is_pvo, vector < segment > &otr)
+void Nugol::get_segments(ray &r, bool &is_pvo, vector < segment > &otr, bool &problem)
 {
     segment s1;
     point p1;
@@ -632,7 +632,10 @@ void Nugol::get_segments(ray &r, bool &is_pvo, vector < segment > &otr)
 	}
 
 	if(ugol)
+	{
 		ShowMessage("Луч вошёл в угол призмы. Непредвиденное поведение!");
+        problem = ugol;
+	}
 
 
 

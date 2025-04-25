@@ -52,7 +52,7 @@ class Optical_devices
         virtual ~Optical_devices();
         virtual double s_to_dev(ray r) = 0;
 		virtual bool is_crossing(ray r) = 0;
-        virtual void get_segments(ray &r, bool &is_pvo, vector < segment > &otr) = 0;
+        virtual void get_segments(ray &r, bool &is_pvo, vector < segment > &otr, bool &problem) = 0;
 
 
 };
@@ -73,7 +73,7 @@ class Nugol: public Optical_devices
 		void set_Nugol(int a, vector < segment > &b, double c);
 		double s_to_dev(ray r);
         bool is_crossing(ray r);
-		void get_segments(ray &r, bool &is_pvo, vector < segment > &otr);
+		void get_segments(ray &r, bool &is_pvo, vector < segment > &otr, bool &problem);
 		double get_prel();
 		bool check(point p);
 		bool check_better(point p);

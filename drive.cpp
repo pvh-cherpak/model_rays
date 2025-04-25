@@ -63,6 +63,7 @@ void basicDrive_t::calculate()
 				int pos = -1;
 				double mini = -1;
 				bool ok = false;
+				bool problem = false;
 				for(int i = 0; i < vec_N.size(); i++)
 				{
 					if(vec_N[i].is_crossing(r_dev))
@@ -81,7 +82,8 @@ void basicDrive_t::calculate()
 					//ShowMessage("Зашёл3");
 					necessary_index[ray_i].push_back(points_.size());
 					vector < segment > otr;
-					vec_N[pos].get_segments(r_dev, ok, otr);
+					vec_N[pos].get_segments(r_dev, ok, otr, problem);
+					errors[ray_i] = problem;
 					points_.push_back({ otr[0].p1.x, otr[0].p1.y });
 					for(int i = 0; i < otr.size(); i++)
 					{

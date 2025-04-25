@@ -232,7 +232,7 @@ void TForm1::reDraw()
         draw_ray_source(rays_soursec[i]);
 
     for (int i = 0; i < vec_N.size(); i++) {
-        Virtual_Image->Canvas->Pen->Color = clBlack;
+		Virtual_Image->Canvas->Pen->Color = clBlack;
         Virtual_Image->Canvas->Brush->Color = clBlack;
         Virtual_Image->Canvas->Pen->Width = 2;
         vector<segment> s;
