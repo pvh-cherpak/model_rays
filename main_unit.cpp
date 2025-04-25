@@ -34,6 +34,8 @@ void __fastcall TForm1::Image1Click(TObject* Sender)
 void __fastcall TForm1::Image1MouseDown(
     TObject* Sender, TMouseButton Button, TShiftState Shift, int X, int Y)
 {
+    this->SetFocus();
+    this->DefocusControl(this, 0);
     bool is_new_device = false;
     switch (ComboBox1->ItemIndex) {
         case 1:
@@ -127,10 +129,10 @@ void __fastcall TForm1::Image1MouseDown(
 //---------------------------------------------------------------------------
 void __fastcall TForm1::ButtonRejectClick(TObject* Sender)
 {
-	hide_menu();
-	selected_device = -1;
+    hide_menu();
+    selected_device = -1;
     this->SetFocus();
-	this->DefocusControl(this, 0);
+    this->DefocusControl(this, 0);
 }
 //---------------------------------------------------------------------------
 bool need_to_redraw;
@@ -140,8 +142,8 @@ int new_draw_precision;
 int new_number_of_ray_points;
 void __fastcall TForm1::ButtonAcceptClick(TObject* Sender)
 {
-	this->SetFocus();
-	this->DefocusControl(this, 0);
+    this->SetFocus();
+    this->DefocusControl(this, 0);
     string formula;
     switch (selected_type) {
         case menu_type::ray_source:
@@ -361,7 +363,7 @@ void TForm1::draw_ray_source(ray_t &ray_source)
 void __fastcall TForm1::Button1Click(TObject* Sender)
 {
     this->SetFocus();
-	this->DefocusControl(this, 0);
+    this->DefocusControl(this, 0);
     reCalculate();
     reDraw();
 }
@@ -552,9 +554,9 @@ void TForm1::calculate_heat_map()
 
 void __fastcall TForm1::ComboBox1Change(TObject* Sender)
 {
-	hide_menu();
+    hide_menu();
     ButtonReject->Visible = true;
-	switch (ComboBox1->ItemIndex) {
+    switch (ComboBox1->ItemIndex) {
         case 0:
             selected_type = menu_type::field;
             LabeledEdit1->EditLabel->Caption = "функция n(x,y)";
@@ -588,10 +590,10 @@ void __fastcall TForm1::ComboBox1Change(TObject* Sender)
             selected_device = -1;
             break;
     }
-//    ComboBox1->Visible = false;
-//    ComboBox1->Visible = true;
-	this->SetFocus();
-	this->DefocusControl(this, 0);
+    //    ComboBox1->Visible = false;
+    //    ComboBox1->Visible = true;
+    this->SetFocus();
+    this->DefocusControl(this, 0);
 }
 //---------------------------------------------------------------------------
 
@@ -940,59 +942,59 @@ void __fastcall TForm1::FormKeyPress(TObject* Sender, System::WideChar &Key)
 }
 //---------------------------------------------------------------------------
 
-void __fastcall TForm1::LabeledEdit1Change(TObject *Sender)
+void __fastcall TForm1::LabeledEdit1Change(TObject* Sender)
 {
-this->SetFocus();
-	this->DefocusControl(this, 0);
+    this->SetFocus();
+    this->DefocusControl(this, 0);
 }
 //---------------------------------------------------------------------------
 
-void __fastcall TForm1::LabeledEdit2Change(TObject *Sender)
+void __fastcall TForm1::LabeledEdit2Change(TObject* Sender)
 {
-this->SetFocus();
-	this->DefocusControl(this, 0);
+    this->SetFocus();
+    this->DefocusControl(this, 0);
 }
 //---------------------------------------------------------------------------
 
-void __fastcall TForm1::LabeledEdit3Change(TObject *Sender)
+void __fastcall TForm1::LabeledEdit3Change(TObject* Sender)
 {
-this->SetFocus();
-	this->DefocusControl(this, 0);
+    this->SetFocus();
+    this->DefocusControl(this, 0);
 }
 //---------------------------------------------------------------------------
 
-void __fastcall TForm1::LabeledEdit4Change(TObject *Sender)
+void __fastcall TForm1::LabeledEdit4Change(TObject* Sender)
 {
-this->SetFocus();
-	this->DefocusControl(this, 0);
+    this->SetFocus();
+    this->DefocusControl(this, 0);
 }
 //---------------------------------------------------------------------------
 
-void __fastcall TForm1::LabeledEdit5Change(TObject *Sender)
+void __fastcall TForm1::LabeledEdit5Change(TObject* Sender)
 {
-this->SetFocus();
-	this->DefocusControl(this, 0);
+    this->SetFocus();
+    this->DefocusControl(this, 0);
 }
 //---------------------------------------------------------------------------
 
-void __fastcall TForm1::LabeledEditNChange(TObject *Sender)
+void __fastcall TForm1::LabeledEditNChange(TObject* Sender)
 {
-this->SetFocus();
-	this->DefocusControl(this, 0);
+    this->SetFocus();
+    this->DefocusControl(this, 0);
 }
 //---------------------------------------------------------------------------
 
-void __fastcall TForm1::LabeledEditXChange(TObject *Sender)
+void __fastcall TForm1::LabeledEditXChange(TObject* Sender)
 {
-this->SetFocus();
-	this->DefocusControl(this, 0);
+    this->SetFocus();
+    this->DefocusControl(this, 0);
 }
 //---------------------------------------------------------------------------
 
-void __fastcall TForm1::LabeledEditYChange(TObject *Sender)
+void __fastcall TForm1::LabeledEditYChange(TObject* Sender)
 {
-this->SetFocus();
-	this->DefocusControl(this, 0);
+    this->SetFocus();
+    this->DefocusControl(this, 0);
 }
 //---------------------------------------------------------------------------
 
