@@ -287,6 +287,15 @@ bool Nugol::check_razn(point t1, point t2, pryam lin1, pryam lin2)
   return true;
 }
 
+bool Nugol::check_vhozhd_ugol(segment s1, point p1)
+{
+	if(fabs(s1.p1.x - p1.x) <= 0.00001 && fabs(s1.p1.y - p1.y) <= 0.00001)
+		return true;
+	if(fabs(s1.p2.x - p1.x) <= 0.00001 && fabs(s1.p2.y - p1.y) <= 0.00001)
+		return true;
+    return false;
+}
+
 bool Nugol::is_crossing(ray r)
 {
     bool otv = false;
@@ -294,7 +303,7 @@ bool Nugol::is_crossing(ray r)
     {
         if(is_cross_seg(r.pr, seg[i]))
         {
-            point p;
+			point p;
             p = tchk_segment_ray(seg[i], r);
             if(is_tchk_ray(r.s, p))
                 return true;
@@ -383,7 +392,8 @@ void Nugol::get_segments(ray &r, bool &is_pvo, vector < segment > &otr)
     segment s1;
     point p1;
     segment otv;
-    double mini = -1;
+	double mini = -1;
+	bool ugol = false;
     //nahozhdenie tochki vhoda
 	for(int i = 0; i < k; i++)
 	{
@@ -399,7 +409,7 @@ void Nugol::get_segments(ray &r, bool &is_pvo, vector < segment > &otr)
                 {
                     mini = l;
                     p1 = p;
-                    s1 = seg[i];
+					s1 = seg[i];
                 }
                 else
                     if(mini > l)
@@ -411,7 +421,10 @@ void Nugol::get_segments(ray &r, bool &is_pvo, vector < segment > &otr)
             }
         }
     }
-    otv.p1 = p1;
+	otv.p1 = p1;
+
+	if(!ugol)
+		ugol = check_vhozhd_ugol(s1, p1);
 
     //proniknovenie
 
@@ -530,7 +543,9 @@ void Nugol::get_segments(ray &r, bool &is_pvo, vector < segment > &otr)
         }
         otv.p2 = p1;
         otr.push_back(otv);
-        otv.p1 = p1;
+		otv.p1 = p1;
+		if(!ugol)
+		ugol = check_vhozhd_ugol(s1, p1);
 
         lin1 = to_pryam(s1);
         lin2 = normal(p1, lin1);
@@ -615,6 +630,11 @@ void Nugol::get_segments(ray &r, bool &is_pvo, vector < segment > &otr)
             is_pvo = false;
         }
 	}
+
+	if(ugol)
+		ShowMessage("Луч вошёл в угол призмы. Непредвиденное поведение!");
+
+
 
 	op_dl_pt = 0;
 	for(int i = 0; i < otr.size(); i++)

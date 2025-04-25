@@ -83,6 +83,7 @@ class Nugol: public Optical_devices
 		int get_ugl_vhoda();
 		int get_ugl_vyhoda();
 		void get_vector(vector < segment > &s);
+        bool check_vhozhd_ugol(segment, point);
 };
 
 #endif // OPTICAL_DEVICES_H
