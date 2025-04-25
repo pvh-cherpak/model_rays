@@ -17,6 +17,7 @@ object Form1: TForm1
   Scaled = False
   OnCreate = FormCreate
   OnKeyDown = FormKeyDown
+  OnKeyPress = FormKeyPress
   OnResize = FormResize
   DesignSize = (
     1906
@@ -246,6 +247,7 @@ object Form1: TForm1
       TabOrder = 2
       Text = ''
       Visible = False
+      OnChange = LabeledEdit1Change
     end
     object LabeledEdit2: TLabeledEdit
       Left = 1
@@ -266,6 +268,7 @@ object Form1: TForm1
       TabOrder = 3
       Text = ''
       Visible = False
+      OnChange = LabeledEdit2Change
     end
     object LabeledEdit3: TLabeledEdit
       Left = 1
@@ -286,6 +289,7 @@ object Form1: TForm1
       TabOrder = 4
       Text = ''
       Visible = False
+      OnChange = LabeledEdit3Change
     end
     object LabeledEdit4: TLabeledEdit
       Left = 1
@@ -306,6 +310,7 @@ object Form1: TForm1
       TabOrder = 5
       Text = ''
       Visible = False
+      OnChange = LabeledEdit4Change
     end
     object LabeledEdit5: TLabeledEdit
       Left = 1
@@ -326,6 +331,7 @@ object Form1: TForm1
       TabOrder = 6
       Text = ''
       Visible = False
+      OnChange = LabeledEdit5Change
     end
     object LabeledEditN: TLabeledEdit
       Left = 1
@@ -346,6 +352,7 @@ object Form1: TForm1
       TabOrder = 7
       Text = ''
       Visible = False
+      OnChange = LabeledEditNChange
     end
     object LabeledEditX: TLabeledEdit
       Left = 1
@@ -366,6 +373,7 @@ object Form1: TForm1
       TabOrder = 8
       Text = ''
       Visible = False
+      OnChange = LabeledEditXChange
     end
     object LabeledEditY: TLabeledEdit
       Left = 1
@@ -386,6 +394,7 @@ object Form1: TForm1
       TabOrder = 9
       Text = ''
       Visible = False
+      OnChange = LabeledEditYChange
     end
     object ButtonReject: TButton
       Left = 1

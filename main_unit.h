@@ -112,6 +112,15 @@ class TForm1 : public TForm
 	void __fastcall N13Click(TObject *Sender);
 	void __fastcall N14Click(TObject *Sender);
 	void __fastcall Timer1Timer(TObject *Sender);
+	void __fastcall FormKeyPress(TObject *Sender, System::WideChar &Key);
+	void __fastcall LabeledEdit1Change(TObject *Sender);
+	void __fastcall LabeledEdit2Change(TObject *Sender);
+	void __fastcall LabeledEdit3Change(TObject *Sender);
+	void __fastcall LabeledEdit4Change(TObject *Sender);
+	void __fastcall LabeledEdit5Change(TObject *Sender);
+	void __fastcall LabeledEditNChange(TObject *Sender);
+	void __fastcall LabeledEditXChange(TObject *Sender);
+	void __fastcall LabeledEditYChange(TObject *Sender);
   private: // User declarations
     menu_type selected_type = menu_type::NONE;
     Graphics::TBitmap* Virtual_Image = new Graphics::TBitmap();

@@ -34,6 +34,8 @@ void __fastcall TForm1::Image1Click(TObject* Sender)
 void __fastcall TForm1::Image1MouseDown(
     TObject* Sender, TMouseButton Button, TShiftState Shift, int X, int Y)
 {
+    this->SetFocus();
+    this->DefocusControl(this, 0);
     bool is_new_device = false;
     switch (ComboBox1->ItemIndex) {
         case 1:
@@ -129,6 +131,8 @@ void __fastcall TForm1::ButtonRejectClick(TObject* Sender)
 {
     hide_menu();
     selected_device = -1;
+    this->SetFocus();
+    this->DefocusControl(this, 0);
 }
 //---------------------------------------------------------------------------
 bool need_to_redraw;
@@ -138,8 +142,8 @@ int new_draw_precision;
 int new_number_of_ray_points;
 void __fastcall TForm1::ButtonAcceptClick(TObject* Sender)
 {
-    ButtonAccept->Visible = false;
-    ButtonAccept->Visible = true;
+    this->SetFocus();
+    this->DefocusControl(this, 0);
     string formula;
     switch (selected_type) {
         case menu_type::ray_source:
@@ -204,7 +208,6 @@ void __fastcall TForm1::ButtonAcceptClick(TObject* Sender)
 
             if (need_to_redraw) {
                 calculate_heat_map();
-                DrawCoordinates(Heat_map->Canvas, pixels_per_meter);
                 reCalculate();
                 reCalcLegend();
                 //                reDraw();
@@ -273,6 +276,8 @@ void TForm1::reDraw()
             //Virtual_Image->Canvas->Brush->Color = clBlack;
         }
     }
+
+    DrawCoordinates(Virtual_Image->Canvas, pixels_per_meter);
 
     Virtual_Image->Canvas->Pen->Color = clYellow;
     Virtual_Image->Canvas->Pen->Width = 5;
@@ -357,8 +362,8 @@ void TForm1::draw_ray_source(ray_t &ray_source)
 
 void __fastcall TForm1::Button1Click(TObject* Sender)
 {
-    Button1->Visible = false;
-    Button1->Visible = true;
+    this->SetFocus();
+    this->DefocusControl(this, 0);
     reCalculate();
     reDraw();
 }
@@ -434,7 +439,6 @@ void __fastcall TForm1::FormCreate(TObject* Sender)
     reCalcLegend();
     calculate_heat_map();
 
-    DrawCoordinates(Heat_map->Canvas, pixels_per_meter);
     reDraw();
 
     OpenTextFileDialog1->InitialDir = ExtractFilePath(ParamStr(0));
@@ -487,10 +491,10 @@ void __fastcall TForm1::FormKeyDown(
                 show();
             else
                 OffsetRect(&user_rect, 0, -10);
-			break;
+            break;
         case VK_F12:
             greed_magnit = !greed_magnit;
-			break;
+            break;
     }
 }
 
@@ -586,8 +590,10 @@ void __fastcall TForm1::ComboBox1Change(TObject* Sender)
             selected_device = -1;
             break;
     }
-    ComboBox1->Visible = false;
-    ComboBox1->Visible = true;
+    //    ComboBox1->Visible = false;
+    //    ComboBox1->Visible = true;
+    this->SetFocus();
+    this->DefocusControl(this, 0);
 }
 //---------------------------------------------------------------------------
 
@@ -678,7 +684,6 @@ void __fastcall TForm1::N5Click(TObject* Sender)
         fin.close();
 
         calculate_heat_map();
-        DrawCoordinates(Heat_map->Canvas, pixels_per_meter);
         reCalculate();
         reDraw();
         ComboBox1Change(this);
@@ -693,7 +698,6 @@ void __fastcall TForm1::N7Click(TObject* Sender)
     update_grad_delt();
 
     calculate_heat_map();
-    DrawCoordinates(Heat_map->Canvas, pixels_per_meter);
     reDraw();
     reCalcLegend();
 }
@@ -706,7 +710,6 @@ void __fastcall TForm1::N8Click(TObject* Sender)
     update_grad_delt();
 
     calculate_heat_map();
-    DrawCoordinates(Heat_map->Canvas, pixels_per_meter);
     reDraw();
     reCalcLegend();
 }
@@ -931,4 +934,67 @@ void TForm1::DrawHeatmapLegend(TBitmap* bitmap, double minValue,
     bitmap->Canvas->Rectangle(0, 0, bitmap->Width, bitmap->Height);
     bitmap->Canvas->Brush->Style = bsSolid;
 }
+
+void __fastcall TForm1::FormKeyPress(TObject* Sender, System::WideChar &Key)
+{
+    if (Key == VK_F2)
+        greed_magnit = !greed_magnit;
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::LabeledEdit1Change(TObject* Sender)
+{
+    this->SetFocus();
+    this->DefocusControl(this, 0);
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::LabeledEdit2Change(TObject* Sender)
+{
+    this->SetFocus();
+    this->DefocusControl(this, 0);
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::LabeledEdit3Change(TObject* Sender)
+{
+    this->SetFocus();
+    this->DefocusControl(this, 0);
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::LabeledEdit4Change(TObject* Sender)
+{
+    this->SetFocus();
+    this->DefocusControl(this, 0);
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::LabeledEdit5Change(TObject* Sender)
+{
+    this->SetFocus();
+    this->DefocusControl(this, 0);
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::LabeledEditNChange(TObject* Sender)
+{
+    this->SetFocus();
+    this->DefocusControl(this, 0);
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::LabeledEditXChange(TObject* Sender)
+{
+    this->SetFocus();
+    this->DefocusControl(this, 0);
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::LabeledEditYChange(TObject* Sender)
+{
+    this->SetFocus();
+    this->DefocusControl(this, 0);
+}
+//---------------------------------------------------------------------------
 
